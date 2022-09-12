@@ -1,4 +1,4 @@
-# Guerin Front Application
+# guerin-client
 
 ## Project setup
 ```
