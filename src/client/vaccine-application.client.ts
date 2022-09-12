@@ -21,9 +21,9 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async findByVaccine(vaccineApplication: VaccineApplication): Promise<VaccineApplication> {
+    public async findByVaccine(id: number): Promise<VaccineApplication> {
         try {
-            return (await this.axiosClient.get<VaccineApplication>(`/vaccine/${vaccineApplication.vaccine.id}`)).data
+            return (await this.axiosClient.get<VaccineApplication>(`/vaccine/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
