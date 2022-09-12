@@ -1,9 +1,9 @@
 <template>
   <div class="bodyLogin is-flex">
-    <img class="img_back" src="../../../../../Downloads/guerin-client-main/src/assets/LoginBackGround.png" />
+    <img class="img_back" src="../assets/LoginBackGround.png" />
     <div class="bodyParameters is-flex">
-      <img class="img_logo" src="../../../../../Downloads/guerin-client-main/src/assets/Logo_Black.png" />
-      <q-input class="q-mt-md" v-model="text" label="Usuário" :dense="dense" />
+      <img class="img_logo" src="../assets/Logo_Black.png" />
+      <input class="input is-sucess"  placeholder="Usuario"/>
       <q-input class="q-mt-md" v-model="text" label="Senha" :dense="dense" />
     </div>
   </div>
