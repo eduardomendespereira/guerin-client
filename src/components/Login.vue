@@ -1,30 +1,42 @@
 <template>
-  <div class="columns">
-    <div class="bodyLogin column is-align-items-center">
-      <img class="img_back" src="../assets/LoginBackGround.png" />
-      <div class="flex">
-        <div class="column is-half bodyParameters is-flex ">
-          <img class="img_logo" src="../assets/Logo_Black.png" />
-            <div class="field">
-              <div class="control">
-                <input class="login input is-sucess mt-6"  placeholder="Usuario"/>
+  <section class="hero is-fullheight header-image">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="bodyLogin column is-align-items-center">
+            <div class="flex">
+              <div class="column is-one-third-desktop is-three-fifths bodyParameters is-flex">
+                <img class="img_logo" src="../assets/Logo_Black.png" />
+                <div class="field" style="max-width: 100%; min-width: 90%;">
+                  <div class="control">
+                    <input
+                        class="login input is-sucess mt-6"
+                        placeholder="Usuario"
+                    />
+                  </div>
+                </div>
+                <div class="field" style="max-width: 100%; min-width: 90%;">
+                  <div class="control">
+                    <input
+                        class="login input is-sucess mt-3"
+                        placeholder="Senha"
+                    />
+                  </div>
+                </div>
+                <div class="field" style="max-width: 100%; min-width: 90%;">
+                  <div class="control">
+                    <button class="btn-login button mt-5 has-text-weight-bold" style="width: 100%">
+                      Entrar
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="field">
-              <div class="control">
-                <input class="login input is-sucess mt-3"  placeholder="Senha"/>
-              </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                <button class="btn-login button mt-5 has-text-weight-bold">Entrar</button>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
- 
+  </section>
 </template>
 
 <script lang="ts">
@@ -40,17 +52,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
-.img_back {
-  position: fixed;
-  width: 100%;
-  height: 100%;
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+.header-image {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/LoginBackGround.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #999;
 }
-.login{
-  width: 350px;
+.login {
   border-radius: 12px;
 }
-.flex{
+.flex {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -59,10 +73,9 @@ export default {
   justify-content: center;
   width: 100%;
 }
-.btn-login{
-  width: 280px;
+.btn-login {
   border-radius: 40px;
-  background-color: #126B00;
+  background-color: #126b00;
   color: #f2f2f2;
   font-size: 18px;
 }
@@ -72,16 +85,11 @@ export default {
 }
 
 .bodyParameters {
-  margin-top: 8%;
   padding: 40px;
-  width: 50%;
   position: relative;
   background-color: #f2f2f2;
   border-radius: 50px;
-  align-content: center;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  align-self: center;
 }
 </style>
