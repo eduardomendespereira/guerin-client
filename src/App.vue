@@ -1,14 +1,6 @@
 <template>
-  <Login />
+  <Sidebar />
 </template>
-
-<script lang="ts">
-import Login from "@/components/Login.vue";
-
-export default {
-  components: { Login },
-};
-</script>
 
 <style lang="scss">
 @import "~bulma/bulma.sass";
@@ -19,3 +11,9 @@ export default {
   color: #2c3e50;
 }
 </style>
+<script lang="ts">
+import Sidebar from "@/components/SideBar.vue";
+export default {
+  components: {Sidebar}
+}
+</script>

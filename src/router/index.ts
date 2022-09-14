@@ -2,15 +2,20 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
-    component: () => import("../views/Login/LoginView.vue")
+    component: () => import("../components/Login.vue")
   },
   {
     path: '/home',
     name: 'home',
     component: () => import("../views/HomeView.vue")
-  }
+  },
+  {
+    path: '/vaccine',
+    name: 'vaccine',
+    component: () => import("../views/Vaccine/VaccineList.vue")
+  },
 ]
 
 const router = createRouter({

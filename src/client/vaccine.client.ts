@@ -29,7 +29,7 @@ export class VaccineClient {
         }
     }
 
-    public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<Vaccine>> {
+    public async findByAll(pageRequest : PageRequest): Promise<PageResponse<Vaccine>> {
         try {
             let requestPath = ''
 
@@ -48,7 +48,7 @@ export class VaccineClient {
         }
     }
 
-    public async cadastrar(vaccine: Vaccine): Promise<void> {
+    public async save(vaccine: Vaccine): Promise<void> {
         try {
             return (await this.axiosClient.post('/', vaccine))
         } catch (error:any) {
@@ -56,7 +56,7 @@ export class VaccineClient {
         }
     }
 
-    public async editar(vaccine: Vaccine): Promise<void> {
+    public async update(vaccine: Vaccine): Promise<void> {
         try {
             return (await this.axiosClient.put('/', vaccine)).data
         } catch (error:any) {
@@ -64,7 +64,7 @@ export class VaccineClient {
         }
     }
 
-    public async desativar(vaccine: Vaccine): Promise<void> {
+    public async disable(vaccine: Vaccine): Promise<void> {
         try {
             return (await this.axiosClient.put(`/disable/${vaccine.id}`, vaccine)).data
         } catch (error:any) {
