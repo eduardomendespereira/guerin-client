@@ -6,14 +6,20 @@
     </div>
   </div>
 
-  <div class="columns">
+  <div class="columns " >
     <div class="column is-3">
-      <nav>
+      <nav class="sidebar">
         <aside class="menu">
           <p class="menu-label"> Vacinas </p>
           <ul class="menu-list">
             <li><router-link to="/vaccine">Vaccine</router-link></li>
+            
           </ul>
+          <p class="menu-label"> Especies </p>
+          <ul class="menu-list">
+            <li><router-link to="/specie">Especie</router-link></li>
+          </ul>
+          
         </aside>
       </nav>
     </div>
@@ -40,6 +46,15 @@ nav {
       color: #42b983;
     }
   }
+}
+.sidebar{
+  height: 100vh;
+  background-image: url('../assets/SideBarBackGround.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #999;
 }
 .conteudo {
   margin-top: 30px;

@@ -44,7 +44,7 @@
   export default class VaccineList extends Vue {
     private pageRequest: PageRequest = new PageRequest()
     private pageResponse: PageResponse<Vaccine> = new PageResponse()
-    private vaccineList: Vaccine[] = []
+    public vaccineList: Vaccine[] = []
     private vaccineClient!: VaccineClient
 
     public mounted(): void {
@@ -52,7 +52,7 @@
       this.listAllVaccines()
     }
 
-    private listAllVaccines(): void {
+    public listAllVaccines(): void {
       this.vaccineClient.findByAll(this.pageRequest)
           .then(
               success => {

@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'vaccine',
     component: () => import("../views/Vaccine/VaccineList.vue")
   },
+  {
+    path: '/specie',
+    name: 'specie',
+    component: () => import("../views/Specie/SpecieView.vue")
+  }
 ]
 
 const router = createRouter({
