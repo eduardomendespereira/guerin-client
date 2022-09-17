@@ -1,24 +1,30 @@
 <template>
 
-  <div class="column">
-    <div class="columns is-12 menu-top">
-      Guerin
-    </div>
-  </div>
 
   <div class="columns " >
-    <div class="column is-3">
+    <div class="column is-3" style="border-width: 3px; border-color: #999">
       <nav class="sidebar">
         <aside class="menu">
+          <figure class="image is-306x231">
+            <img src="../assets/Logo_White.png">
+          </figure>
+          <p class="menu-label"> Gados </p>
+          <ul class="menu-list">
+            <li class="item-list">Controle de Gados</li>
+          </ul>
+          <p class="menu-label"> Pesagem </p>
+          <ul class="menu-list">
+            <li class="item-list">Controle de Pesagem</li>
+          </ul>
           <p class="menu-label"> Vacinas </p>
           <ul class="menu-list">
-            <li><router-link to="/vaccine">Vaccine</router-link></li>
-            
+            <li class="item-list"><router-link to="/vaccine">Controle de Vacinas</router-link></li>
           </ul>
           <p class="menu-label"> Especies </p>
           <ul class="menu-list">
-            <li><router-link to="/specie">Especie</router-link></li>
+            <li class="item-list"><router-link to="/specie">Controle de Especies</router-link></li>
           </ul>
+         
           
         </aside>
       </nav>
@@ -48,23 +54,34 @@ nav {
   }
 }
 .sidebar{
-  height: 100vh;
+ 
+  text-align: center;
+  vertical-align: middle;
+  height: 120%;
   background-image: url('../assets/SideBarBackGround.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: #999;
+  
 }
 .conteudo {
   margin-top: 30px;
 }
+
+
 .menu-top{
   background: hsl(0, 0%, 29%);
   padding: 15px;
   color: white;
 }
+.item-list{
+  color: white;
+}
 .menu-label{
+  
   font-size: 15px !important;
+  color: white;
 }
 </style>
