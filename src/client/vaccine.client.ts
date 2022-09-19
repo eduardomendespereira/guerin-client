@@ -8,8 +8,8 @@ export class VaccineClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/vaccines',
-            headers: {'Content-Type' : 'application'}
+            baseURL: 'http://localhost:8085/api/vaccines',
+            headers: {'Content-Type' : 'application/json'}
         });
     }
 

@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Vaccine/VaccineList.vue")
   },
   {
+    path: '/vaccine/insert',
+    name: 'vaccine-insert',
+    component: () => import("../views/Vaccine/VaccineInsertForm.vue")
+  },
+  {
     path: '/specie',
     name: 'specie',
     component: () => import("../views/Specie/SpecieView.vue")
