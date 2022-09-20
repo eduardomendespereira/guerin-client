@@ -92,7 +92,7 @@ export class ConvenioClient {
 
 	public async update(cattle: Cattle): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/${cattle.id}`, cattle)).data
+			return (await this.axiosClient.put(`/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -100,7 +100,7 @@ export class ConvenioClient {
 
 	public async disable(cattle: Cattle): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/disable/${cattle.id}`, cattle)).data
+			return (await this.axiosClient.put(`/disable/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
