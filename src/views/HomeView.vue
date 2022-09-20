@@ -1,11 +1,15 @@
 <template>
-  <div></div>
+  <SideBar/>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import SideBar from "@/components/SideBar.vue";
 
-export default class HomeView extends Vue {}
+export default {
+  components: {
+    SideBar
+  }
+}
 </script>
 
 <style scoped lang="scss"></style>

@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="columns " >
     <div class="column is-3" style="border-width: 3px; border-color: #999">
       <nav class="sidebar">

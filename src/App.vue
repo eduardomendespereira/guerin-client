@@ -1,5 +1,5 @@
 <template>
-  <Sidebar />
+  <HomeView />
 </template>
 
 <style lang="scss">
@@ -12,8 +12,8 @@
 }
 </style>
 <script lang="ts">
-import Sidebar from "@/components/SideBar.vue";
+import HomeView from "@/views/HomeView.vue";
 export default {
-  components: {Sidebar}
+  components: {HomeView}
 }
 </script>
