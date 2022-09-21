@@ -1,5 +1,5 @@
 <template>
-  <Login />
+  <HomeView></HomeView>
 </template>
 
 <style lang="scss">
@@ -13,7 +13,8 @@
 </style>
 <script lang="ts">
 import Login from "@/views/Login.vue";
+import HomeView from "./views/HomeView.vue";
 export default {
-  components: {Login}
+  components: { Login, HomeView }
 }
 </script>
