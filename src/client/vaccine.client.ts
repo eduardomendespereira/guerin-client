@@ -2,11 +2,16 @@ import { Vaccine } from "@/model/vaccine.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axios, { AxiosInstance } from "axios";
+import {getToken} from "@/plugins/get-token";
+import {User} from "@/model/user.model";
 
 export class VaccineClient {
     private axiosClient: AxiosInstance;
 
     constructor() {
+        const token = new getToken()
+        const user = new User()
+        token.getTk(user)
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8085/api/vaccines',
             headers: {'Content-Type' : 'application/json'}

@@ -11,7 +11,7 @@ export class getToken{
         });
     }
 
-    public async getToken(token: string, user: User): Promise<any>{
+    public async getTk(user: User): Promise<any>{
         try{
             return (await this.axiosClient.post('/api/login', {
                 "username": user.username,
