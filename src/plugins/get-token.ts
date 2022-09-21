@@ -7,16 +7,18 @@ export class getToken{
     constructor() {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8085',
-            headers: {'Content-Type' : 'application/json'}
+            headers: {'Content-Type' : 'application/json'},
         });
     }
 
     public async getToken(token: string, user: User): Promise<any>{
         try{
-            return (await this.axiosClient.post('/api/login', user))
+            return (await this.axiosClient.post('/api/login', {
+                "username": user.username,
+                "password": user.password
+            }))
         }catch (error:any){
             Promise.reject(error.response);
         }
     }
-
 }

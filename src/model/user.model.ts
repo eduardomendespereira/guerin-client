@@ -5,7 +5,7 @@ export class User extends AbstractEntity {
     firstName! : string
     lastName! : string
     email! : string
-    userName! : string
+    username! : string
     password! : string
     role! : Role
 
