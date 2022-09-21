@@ -2,7 +2,7 @@ import { Farm } from "@/model/farm.model";
 import axios, { AxiosInstance } from "axios";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
-export class ConvenioClient {
+export class FarmClient {
 
     private axiosClient: AxiosInstance;
 
