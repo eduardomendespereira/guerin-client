@@ -12,23 +12,34 @@
       <thead class="green">
       <tr style="background-color: mediumpurple">
         <th style="color: #fff;">Brinco</th>
-        <th style="color: #fff;">Ativo</th>
         <th style="color: #fff;">Peso</th>
         <th style="color: #fff;">Genero</th>
+        <th style="color: #fff;">Fazenda</th>
+        <th style="color: #fff;">B. Pai</th>
+        <th style="color: #fff;">B. Mãe</th>
         <th style="color: #fff;">Opções</th>
+        <th style="color: #fff;">Ativo</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="item in cattleList" :key="item.id">
         <th>{{ item.earring }}</th>
-  
+        <th>{{ item.weight }}</th>
+        <th>{{ item.gender }}</th>
+        <th>{{ item.farm.name}}</th>
+        <th>
+          <span v-if="!item.father"> --- </span>
+          <span v-if="item.father"> {{ item.father }} </span>
+        </th>
+        <th>
+          <span v-if="!item.mother"> --- </span>
+          <span v-if="item.mother"> {{ item.mother }} </span>
+        </th>
+        <th>-options-</th>
         <th>
           <span v-if="!item.inactive" class="tag is-success"> Ativo </span>
           <span v-if="item.inactive" class="tag is-danger"> Inativo </span>
         </th>
-  
-        <th>{{ item.weight }}</th>
-        <th>{{ item.gender }}</th>PageResponse
       </tr>
       </tbody>
     </table>
