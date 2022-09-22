@@ -12,7 +12,9 @@
             </figure>
             <p class="menu-label">Gados</p>
             <ul class="menu-list">
-              <li class="item-list">Controle de Gados</li>
+              <li class="item-list">
+                <router-link to="/cattle">Controle de Gados</router-link>
+              </li>
             </ul>
             <p class="menu-label">Pesagem</p>
             <ul class="menu-list">
