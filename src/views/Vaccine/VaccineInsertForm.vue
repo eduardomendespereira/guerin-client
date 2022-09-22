@@ -33,13 +33,6 @@
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Data</label>
-      <div class="control">
-        <input class="input is-primary" type="date" v-model="vaccine.date" placeholder="Data da vacina">
-      </div>
-    </div>
-
     <div class="columns">
       <div class="column is-8"></div>
       <div class="column is-2">
