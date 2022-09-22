@@ -1,7 +1,7 @@
 <template>
   <section class="hero is-fullheight header-image">
     <div class="hero-body">
-      <form @submit="login" class="loginForm">
+      <form @submit.prevent="login" class="loginForm">
         <div class="container">
           <div class="columns is-centered">
             <div class="bodyLogin column is-align-items-center">
@@ -60,6 +60,7 @@ import { Vue } from "vue-class-component";
 import { reactive } from "vue";
 import axios from "axios";
 import { UserClient } from "@/client/user.client";
+import { getCookie, setCookie } from 'typescript-cookie'
 
 export default class Login extends Vue {
   private userClient!: UserClient;
@@ -69,16 +70,15 @@ export default class Login extends Vue {
     this.userClient = new UserClient();
   }
 
-  private login = async () => {
-    if (!this.userClient) this.mounted();
+  public login(): void {
+    if (!this.userClient) this.userClient = new UserClient();
     this.userClient.login(this.request.username, this.request.password).then(
-      response => {
-        if (response.access_token && response.refresh_token) {
-          this.$cookie.setCookie('access_token', response.access_token, { expire: '2h' }) //pegar do token
-          this.$cookie.setCookie('refresh_token', response.refresh_token, { expire: '48h' }) //pegar do token
+      response => {    
+        if (response.data.access_token && response.data.refresh_token) {
+          setCookie("access_token", response.data.access_token, { expires: 1 })
+          setCookie("refresh_token", response.data.refresh_token, { expires: 4 })
         }
-        console.log(this.$cookie.getCookie('access_token'));
-        console.log(this.$cookie.getCookie('refresh_token'));
+        this.$router.push({path: '/Home'});
       })
       .catch(error => {
         //implementar alguma msgbox
@@ -86,7 +86,7 @@ export default class Login extends Vue {
       })
   };
 
-  private onClickClean(): void {
+  public onClickClean(): void {
     this.request.password = "";
   }
 }
