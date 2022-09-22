@@ -66,7 +66,7 @@ export class CattleEventClient {
         }
     }
 
-    public async cadastrar(cattleEvent: CattleEvent): Promise<void> {
+    public async save(cattleEvent: CattleEvent): Promise<void> {
         try {
             return (await axiosClient.post('/', cattleEvent))
         } catch (error:any) {
@@ -74,7 +74,7 @@ export class CattleEventClient {
         }
     }
 
-    public async editar(cattleEvent: CattleEvent): Promise<void> {
+    public async update(cattleEvent: CattleEvent): Promise<void> {
         try {
             return (await axiosClient.put(`/${cattleEvent.id}`, cattleEvent)).data
         } catch (error:any) {
@@ -82,7 +82,7 @@ export class CattleEventClient {
         }
     }
 
-    public async desativar(cattleEvent: CattleEvent): Promise<void> {
+    public async disable(cattleEvent: CattleEvent): Promise<void> {
         try {
             return (await axiosClient.put(`/disable/${cattleEvent.id}`)).data
         } catch (error:any) {

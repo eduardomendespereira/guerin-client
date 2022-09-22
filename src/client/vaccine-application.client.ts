@@ -40,7 +40,7 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async cadastrar(vaccineApplication: VaccineApplication): Promise<void> {
+    public async save(vaccineApplication: VaccineApplication): Promise<void> {
         try {
             return (await axiosClient.post('/', vaccineApplication))
         } catch (error:any) {
@@ -48,7 +48,7 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async editar(vaccineApplication: VaccineApplication): Promise<void> {
+    public async update(vaccineApplication: VaccineApplication): Promise<void> {
         try {
             return (await axiosClient.put(`/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
@@ -56,7 +56,7 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async desativar(vaccineApplication: VaccineApplication): Promise<void> {
+    public async disable(vaccineApplication: VaccineApplication): Promise<void> {
         try {
             return (await axiosClient.put(`/disable/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
