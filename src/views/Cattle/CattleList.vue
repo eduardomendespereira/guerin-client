@@ -15,10 +15,11 @@
         <th style="color: #fff;">Peso</th>
         <th style="color: #fff;">Genero</th>
         <th style="color: #fff;">Fazenda</th>
+        <th style="color: #fff;">Especie</th>
         <th style="color: #fff;">B. Pai</th>
         <th style="color: #fff;">B. Mãe</th>
-        <th style="color: #fff;">Opções</th>
         <th style="color: #fff;">Ativo</th>
+        <th style="color: #fff;">Opções</th>
       </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@
         <th>{{ item.weight }}</th>
         <th>{{ item.gender }}</th>
         <th>{{ item.farm.name}}</th>
+        <th>{{ item.specie?.name}}</th>
         <th>
           <span v-if="!item.father"> --- </span>
           <span v-if="item.father"> {{ item.father }} </span>
@@ -35,11 +37,11 @@
           <span v-if="!item.mother"> --- </span>
           <span v-if="item.mother"> {{ item.mother }} </span>
         </th>
-        <th>-options-</th>
         <th>
           <span v-if="!item.inactive" class="tag is-success"> Ativo </span>
           <span v-if="item.inactive" class="tag is-danger"> Inativo </span>
         </th>
+        <th> <button @click="onClickPageCattleDetail(item.earring)" class="button is-small is-warning"> Detalhar </button> </th>
       </tr>
       </tbody>
     </table>
@@ -72,6 +74,10 @@
                 },
                 error => console.log(error)
             )
+      }
+
+      public onClickPageCattleDetail(earring: number) {
+        this.$router.push({ name: 'cattle-detail', params: { earring: earring } })
       }
     }
   </script>

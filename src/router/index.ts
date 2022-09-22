@@ -20,6 +20,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Cattle/CattleList.vue")
   },
   {
+    path: '/cattle/:earring',
+    name: 'cattle-detail',
+    props: (router) => ({ earring: router.params.earring}),
+    component: () => import("../views/Cattle/CattleDetail.vue")
+  },
+  {
     path: '/vaccine',
     name: 'vaccine',
     component: () => import("../views/Vaccine/VaccineList.vue"),
