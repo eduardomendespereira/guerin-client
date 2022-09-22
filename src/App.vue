@@ -1,5 +1,5 @@
 <template>
-  <Login />
+  <router-view />
 </template>
 
 <style lang="scss">
@@ -12,8 +12,7 @@
 }
 </style>
 <script lang="ts">
-import Login from "@/views/Login.vue";
 export default {
-  components: {Login}
+  
 }
 </script>
