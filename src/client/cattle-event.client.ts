@@ -1,22 +1,14 @@
 import { CattleEvent } from "@/model/cattle-event.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
-import axios, { AxiosInstance } from "axios";
+import axiosClient from "../plugins/axios";
 
 export class CattleEventClient {
 
-    private axiosClient: AxiosInstance;
-
-    constructor() {
-        this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/cattleEvent',
-            headers: {'Content-type' : 'application/json'}
-        });
-    }
 
     public async findById(id: number): Promise<CattleEvent> {
         try {
-            return (await this.axiosClient.get<CattleEvent>(`/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -24,7 +16,7 @@ export class CattleEventClient {
 
     public async findByEventType(id: number): Promise<CattleEvent> {
         try {
-            return (await this.axiosClient.get<CattleEvent>(`/eventType/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/eventType/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -32,7 +24,7 @@ export class CattleEventClient {
 
     public async findByWeighing(id: number): Promise<CattleEvent> {
         try {
-            return (await this.axiosClient.get<CattleEvent>(`/weighing/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/weighing/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -40,7 +32,7 @@ export class CattleEventClient {
 
     public async findByVaccineApplication(id: number): Promise<CattleEvent> {
         try {
-            return (await this.axiosClient.get<CattleEvent>(`/vacineApp/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/vacineApp/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -48,7 +40,7 @@ export class CattleEventClient {
 
     public async findByCattle(id: number): Promise<CattleEvent> {
         try {
-            return (await this.axiosClient.get<CattleEvent>(`/cattle/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/cattle/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -64,7 +56,7 @@ export class CattleEventClient {
             requestPath += `&sort=${pageRequest.sortField === undefined
                 ? '' : pageRequest.sortField},${pageRequest.direction}`
 
-            return (await this.axiosClient.get<PageResponse<CattleEvent>>(requestPath,
+            return (await axiosClient.get<PageResponse<CattleEvent>>(requestPath,
                 {
                     params: { filtros: pageRequest.filter }
                 }
@@ -76,7 +68,7 @@ export class CattleEventClient {
 
     public async cadastrar(cattleEvent: CattleEvent): Promise<void> {
         try {
-            return (await this.axiosClient.post('/', cattleEvent))
+            return (await axiosClient.post('/', cattleEvent))
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -84,7 +76,7 @@ export class CattleEventClient {
 
     public async editar(cattleEvent: CattleEvent): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/${cattleEvent.id}`, cattleEvent)).data
+            return (await axiosClient.put(`/${cattleEvent.id}`, cattleEvent)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -92,7 +84,7 @@ export class CattleEventClient {
 
     public async desativar(cattleEvent: CattleEvent): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/disable/${cattleEvent.id}`)).data
+            return (await axiosClient.put(`/disable/${cattleEvent.id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

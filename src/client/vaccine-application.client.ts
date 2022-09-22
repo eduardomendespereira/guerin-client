@@ -1,21 +1,13 @@
 import { VaccineApplication } from "@/model/vaccine-application.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
-import axios, { AxiosInstance } from "axios";
-
+import axiosClient from "../plugins/axios";
 export class VaccineApplicationClient {
-    private axiosClient: AxiosInstance;
 
-    constructor() {
-        this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/vaccineApplications',
-            headers: {'Content-type' : 'application/json'}
-        });
-    }
 
     public async findById(id: number): Promise<VaccineApplication> {
         try {
-            return (await this.axiosClient.get<VaccineApplication>(`/${id}`)).data
+            return (await axiosClient.get<VaccineApplication>(`/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -23,7 +15,7 @@ export class VaccineApplicationClient {
 
     public async findByVaccine(id: number): Promise<VaccineApplication> {
         try {
-            return (await this.axiosClient.get<VaccineApplication>(`/vaccine/${id}`)).data
+            return (await axiosClient.get<VaccineApplication>(`/vaccine/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -38,7 +30,7 @@ export class VaccineApplicationClient {
             requestPath += `&sort=${pageRequest.sortField === undefined
                 ? '' : pageRequest.sortField},${pageRequest.direction}`
 
-            return (await this.axiosClient.get<PageResponse<VaccineApplication>>(requestPath,
+            return (await axiosClient.get<PageResponse<VaccineApplication>>(requestPath,
                 {
                     params: { filtros: pageRequest.filter }
                 }
@@ -50,7 +42,7 @@ export class VaccineApplicationClient {
 
     public async cadastrar(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await this.axiosClient.post('/', vaccineApplication))
+            return (await axiosClient.post('/', vaccineApplication))
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -58,7 +50,7 @@ export class VaccineApplicationClient {
 
     public async editar(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/${vaccineApplication.id}`, vaccineApplication)).data
+            return (await axiosClient.put(`/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -66,7 +58,7 @@ export class VaccineApplicationClient {
 
     public async desativar(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/disable/${vaccineApplication.id}`, vaccineApplication)).data
+            return (await axiosClient.put(`/disable/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
