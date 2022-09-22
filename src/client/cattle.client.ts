@@ -1,21 +1,13 @@
 import { Cattle } from "@/model/cattle.model";
-import axios, { AxiosInstance } from "axios";
+import axiosClient from "../plugins/axios";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 export class CattleClient {
 
-    private axiosClient: AxiosInstance;
-
-    constructor() {
-        this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8085/api/cattle',
-            headers: {'Content-type' : 'application/json'}
-        });
-    }
 
     public async findById(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/${cattle.id}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/${cattle.id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -24,7 +16,7 @@ export class CattleClient {
     
     public async findByEarring(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/earring/${cattle.earring}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/earring/${cattle.earring}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -32,7 +24,7 @@ export class CattleClient {
     
     public async findByFarm(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/farm/${cattle.farm.id}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/farm/${cattle.farm.id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -40,7 +32,7 @@ export class CattleClient {
     
     public async findBySpecie(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/specie/${cattle.specie.id}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/specie/${cattle.specie.id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -48,7 +40,7 @@ export class CattleClient {
     
     public async findChildren(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/children/${cattle.earring}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/children/${cattle.earring}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -56,7 +48,7 @@ export class CattleClient {
 
     public async findByParents(cattle: Cattle): Promise<Cattle> {
         try {
-            return (await this.axiosClient.get<Cattle>(`/parents/${cattle.earring}`)).data
+            return (await axiosClient.get<Cattle>(`/cattle/parents/${cattle.earring}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -65,14 +57,14 @@ export class CattleClient {
   	public async findAll(pageRequest : PageRequest): Promise<PageResponse<Cattle>> {
 		try {
 			
-			let requestPath = ''
+			let requestPath = '/cattle'
 			
 			requestPath += `?page=${pageRequest.currentPage}`
 			requestPath += `&size=${pageRequest.pageSize}`
 			requestPath += `&sort=${pageRequest.sortField === undefined 
 				? '' : pageRequest.sortField},${pageRequest.direction}`
 			
-			return (await this.axiosClient.get<PageResponse<Cattle>>(requestPath, 
+			return (await axiosClient.get<PageResponse<Cattle>>(requestPath, 
 				{ 
 					params: { filtros: pageRequest.filter } 
 				}
@@ -84,7 +76,7 @@ export class CattleClient {
 
 	public async save(cattle: Cattle): Promise<void> {
 		try {
-			return (await this.axiosClient.post('/', cattle))
+			return (await axiosClient.post('/cattle', cattle))
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -92,7 +84,7 @@ export class CattleClient {
 
 	public async update(cattle: Cattle): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/${cattle.earring}`, cattle)).data
+			return (await axiosClient.put(`/cattle/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -100,7 +92,7 @@ export class CattleClient {
 
 	public async disable(cattle: Cattle): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/disable/${cattle.earring}`, cattle)).data
+			return (await axiosClient.put(`/cattle/disable/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
