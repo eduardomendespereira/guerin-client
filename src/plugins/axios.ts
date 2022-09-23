@@ -4,7 +4,7 @@ import { UserClient } from "@/client/user.client";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
 var axiosClient = axios.create({
-  baseURL: "http://192.168.105.118:8085/api",
+  baseURL: "http://localhost:8085/api",
   headers: { "Content-Type": "application/json" },
 });
 
