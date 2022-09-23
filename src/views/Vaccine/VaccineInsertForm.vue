@@ -21,7 +21,7 @@
       <div class="column is-12 is-size-3">
         <label class="label">
           <input v-model="vaccine.inactive" checked type="checkbox">
-          Ativar Vacina
+          Vacina Obrigatória
         </label>
       </div>
     </div>

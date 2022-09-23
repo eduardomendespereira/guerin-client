@@ -16,14 +16,23 @@
                 <router-link to="/cattle">Controle de Gados</router-link>
               </li>
             </ul>
+            <ul class="menu-list">
+              <li class="item-list">
+                <router-link to="/cattle-event">Eventos do gado</router-link>
+              </li>
+            </ul>
             <p class="menu-label">Pesagem</p>
             <ul class="menu-list">
               <li class="item-list">Controle de Pesagem</li>
             </ul>
-            <p class="menu-label">Vacinas</p>
             <ul class="menu-list">
               <li class="item-list">
                 <router-link to="/vaccine">Controle de Vacinas</router-link>
+              </li>
+            </ul>
+            <ul class="menu-list">
+              <li class="item-list">
+                <router-link to="/vaccine-application">Aplicação de vacinas</router-link>
               </li>
             </ul>
             <p class="menu-label">Especies</p>
