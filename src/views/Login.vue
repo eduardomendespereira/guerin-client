@@ -78,7 +78,7 @@ export default class Login extends Vue {
           setCookie("access_token", response.data.access_token, { expires: 1 })
           setCookie("refresh_token", response.data.refresh_token, { expires: 4 })
         }
-        this.$router.push({path: '/Home'});
+        this.$router.push({path: '/'});
       })
       .catch(error => {
         //implementar alguma msgbox

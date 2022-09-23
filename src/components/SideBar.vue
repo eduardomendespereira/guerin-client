@@ -1,43 +1,31 @@
 <template>
-  <section class="hero is-fullheight">
-    <div class="columns">
-      <div
-        class="column is-3 hero is-fullheight"
-        style="border-width: 3px; border-color: #999; padding: 0px"
-      >
-        <nav class="sidebar hero is-fullheight">
-          <aside class="menu">
-            <figure class="image is-306x231">
-              <img src="../assets/Logo_White.png" class="bg-image" />
-            </figure>
-            <p class="menu-label">Gados</p>
-            <ul class="menu-list">
-              <li class="item-list">Controle de Gados</li>
-            </ul>
-            <p class="menu-label">Pesagem</p>
-            <ul class="menu-list">
-              <li class="item-list">Controle de Pesagem</li>
-            </ul>
-            <p class="menu-label">Vacinas</p>
-            <ul class="menu-list">
-              <li class="item-list">
-                <router-link to="/vaccine">Controle de Vacinas</router-link>
-              </li>
-            </ul>
-            <p class="menu-label">Especies</p>
-            <ul class="menu-list">
-              <li class="item-list">
-                <router-link to="/specie">Controle de Especies</router-link>
-              </li>
-            </ul>
-          </aside>
-        </nav>
-      </div>
-      <div class="column is-9 conteudo" style="padding: 0px">
-        <router-view></router-view>
-      </div>
-    </div>
-  </section>
+  <nav class="sidebar hero is-fullheight">
+    <aside class="menu">
+      <figure class="image is-306x231">
+        <img src="../assets/Logo_White.png" class="bg-image" />
+      </figure>
+      <p class="menu-label">Gados</p>
+      <ul class="menu-list">
+        <li class="item-list">Controle de Gados</li>
+      </ul>
+      <p class="menu-label">Pesagem</p>
+      <ul class="menu-list">
+        <li class="item-list">Controle de Pesagem</li>
+      </ul>
+      <p class="menu-label">Vacinas</p>
+      <ul class="menu-list">
+        <li class="item-list">
+          <router-link to="/vaccine">Controle de Vacinas</router-link>
+        </li>
+      </ul>
+      <p class="menu-label">Especies</p>
+      <ul class="menu-list">
+        <li class="item-list">
+          <router-link to="/specie">Controle de Especies</router-link>
+        </li>
+      </ul>
+    </aside>
+  </nav>
 </template>
 
 <style lang="scss">
