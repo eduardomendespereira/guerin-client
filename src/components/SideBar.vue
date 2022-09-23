@@ -32,22 +32,6 @@
             <span class="text white-label">{{m.menu?.name}}</span>
           </router-link>
         </li>
-        <li>
-          <router-link class="menu-item" to="/vaccine">
-            <span class="icon">
-              <i class="fa fa-user fa-2x"></i>
-            </span>
-            <span class="text white-label">Controle de Vacinas</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link class="menu-item" to="/login">
-            <span class="icon">
-              <i class="fa fa-sign-out fa-2x"></i>
-            </span>
-            <span class="text white-label">Logout</span>
-          </router-link>
-        </li>
       </ul>
     </div>
 
@@ -58,7 +42,6 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { ref } from "vue";
-import { Menu } from "@/model/Menu.model";
 import { RoleMenuClient } from "@/client/role-menu.client";
 
 export default class SideBar extends Vue {
