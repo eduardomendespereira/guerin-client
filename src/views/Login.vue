@@ -96,7 +96,7 @@ export default class Login extends Vue {
         this.$router.push({path: '/'});
       })
       .catch(error => {
-        this.notification = this.notification.new(true, 'notification is-danger', 'Credenciais incorretas')
+        this.notification = this.notification.new(true, 'notification is-danger', 'Login ou senha incorreto')
         this.onClickClean();
       })
   };
