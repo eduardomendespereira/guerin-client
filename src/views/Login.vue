@@ -6,6 +6,7 @@
           <div class="columns is-centered">
             <div class="bodyLogin column is-align-items-center">
               <div class="flex">
+
                 <div
                   class="
                     column
@@ -15,6 +16,7 @@
                   "
                 >
                   <img class="img_logo" src="../assets/Logo_Black.png" />
+
                   <div class="field" style="max-width: 100%; min-width: 90%">
                     <div class="control">
                       <input
@@ -24,6 +26,7 @@
                       />
                     </div>
                   </div>
+
                   <div class="field" style="max-width: 100%; min-width: 90%">
                     <div class="control">
                       <input
@@ -34,6 +37,16 @@
                       />
                     </div>
                   </div>
+
+                  <div class="columns" v-if="notification.ativo">
+                    <div class="column is-12">
+                      <div :class="notification.classe">
+                        <button @click="onClickCloseNotification()" class="delete" ></button>
+                        {{ notification.mensagem }}
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="field" style="max-width: 100%; min-width: 90%">
                     <div class="control">
                       <button
@@ -61,10 +74,12 @@ import { reactive } from "vue";
 import axios from "axios";
 import { UserClient } from "@/client/user.client";
 import { getCookie, setCookie } from 'typescript-cookie'
+import {Notification} from "@/model/notification";
 
 export default class Login extends Vue {
   private userClient!: UserClient;
   private request = { username: "", password: "" };
+  private notification : Notification = new Notification()
 
   public mounted(): void {
     this.userClient = new UserClient();
@@ -81,10 +96,14 @@ export default class Login extends Vue {
         this.$router.push({path: '/'});
       })
       .catch(error => {
-        //implementar alguma msgbox
+        this.notification = this.notification.new(true, 'notification is-danger', 'Credenciais incorretas')
         this.onClickClean();
       })
   };
+
+  private onClickCloseNotification(): void {
+    this.notification = new Notification()
+  }
 
   public onClickClean(): void {
     this.request.password = "";
