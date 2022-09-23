@@ -6,7 +6,6 @@
           <div class="columns is-centered">
             <div class="bodyLogin column is-align-items-center">
               <div class="flex">
-
                 <div
                   class="
                     column
@@ -15,33 +14,42 @@
                     is-flex
                   "
                 >
-                  <img class="img_logo" src="../assets/Logo_Black.png" />
-
-                  <div class="field" style="max-width: 100%; min-width: 90%">
-                    <div class="control">
+                  <img class="img_logo" src="../assets/Logo_Black.png" />          
+                  <div class="field" style="max-width: 100%; min-width: 90%; margin-top: 10%">
+                    <p class="control has-icons-left">
                       <input
-                        class="login input is-sucess mt-6"
+                        class="input login input is-sucess"
+                        type="text"
                         placeholder="Usuario"
                         v-model="request.username"
                       />
-                    </div>
+                      <span class="icon is-small is-left">
+                        <i style="color: black" class="fa fa-user"></i>
+                      </span>
+                    </p>
                   </div>
 
                   <div class="field" style="max-width: 100%; min-width: 90%">
-                    <div class="control">
+                    <p class="control has-icons-left">
                       <input
-                        class="login input is-sucess mt-3"
+                        class="input login input is-sucess"
                         type="password"
                         placeholder="Senha"
                         v-model="request.password"
                       />
-                    </div>
+                      <span class="icon is-small is-left">
+                        <i style="color: black" class="fa fa-lock"></i>
+                      </span>
+                    </p>
                   </div>
 
                   <div class="columns" v-if="notification.ativo">
                     <div class="column is-12">
                       <div :class="notification.classe">
-                        <button @click="onClickCloseNotification()" class="delete" ></button>
+                        <button
+                          @click="onClickCloseNotification()"
+                          class="delete"
+                        ></button>
                         {{ notification.mensagem }}
                       </div>
                     </div>
@@ -73,36 +81,45 @@ import { Vue } from "vue-class-component";
 import { reactive } from "vue";
 import axios from "axios";
 import { UserClient } from "@/client/user.client";
-import { getCookie, setCookie } from 'typescript-cookie'
-import {Notification} from "@/model/notification";
+import { getCookie, setCookie, removeCookie } from "typescript-cookie";
+import { Notification } from "@/model/notification";
 
 export default class Login extends Vue {
   private userClient!: UserClient;
   private request = { username: "", password: "" };
-  private notification : Notification = new Notification()
+  private notification: Notification = new Notification();
 
   public mounted(): void {
     this.userClient = new UserClient();
+    removeCookie("access_token");
+    removeCookie("refresh_token");
   }
 
   public login(): void {
     if (!this.userClient) this.userClient = new UserClient();
-    this.userClient.login(this.request.username, this.request.password).then(
-      response => {    
+    this.userClient
+      .login(this.request.username, this.request.password)
+      .then((response) => {
         if (response.data.access_token && response.data.refresh_token) {
-          setCookie("access_token", response.data.access_token, { expires: 1 })
-          setCookie("refresh_token", response.data.refresh_token, { expires: 4 })
+          setCookie("access_token", response.data.access_token, { expires: 1 });
+          setCookie("refresh_token", response.data.refresh_token, {
+            expires: 4,
+          });
         }
-        this.$router.push({path: '/'});
+        this.$router.push({ path: "/" });
       })
-      .catch(error => {
-        this.notification = this.notification.new(true, 'notification is-danger', 'Login ou senha incorreto')
+      .catch((error) => {
+        this.notification = this.notification.new(
+          true,
+          "notification is-danger",
+          "Login ou senha incorreto"
+        );
         this.onClickClean();
-      })
-  };
+      });
+  }
 
   private onClickCloseNotification(): void {
-    this.notification = new Notification()
+    this.notification = new Notification();
   }
 
   public onClickClean(): void {

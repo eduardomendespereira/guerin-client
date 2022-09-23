@@ -1,20 +1,8 @@
 <template>
-  <section
-    class="hero is-fullheight"
-    style="justify-content: center !important"
-  >
-    <div class="columns">
-      <div
-        class="column is-3 hero is-fullheight"
-        style="border-width: 3px; border-color: #999; padding: 0px"
-      >
-        <SideBar />
-      </div>
-      <div class="column is-9" style="padding: 0px">
-         <router-view></router-view>
-     </div>
-    </div>
-  </section>
+  <div class="main">
+      <SideBar />
+      <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,4 +15,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.main {
+	display: flex;
+	main {
+		flex: 1 1 0;
+		padding: 2rem;
+		@media (max-width: 1024px) {
+			padding-left: 6rem;
+		}
+	}
+}</style>
