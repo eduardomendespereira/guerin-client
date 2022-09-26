@@ -1,5 +1,16 @@
 <template>
-    <ListTemplate  :listagem="specieList" :columns="columns" :edit="edit"></ListTemplate>
+  <aside class="is-fullheight " style="width: 100%;">
+    <div class="columns">
+      <div class="column is-12 is-size-3">Lista de Especies</div>
+    </div>
+    <hr />
+    <hr />
+    <div class="columns">
+    </div>
+  </aside>
+    
+  
+    
 </template>
 
 <script lang="ts">
@@ -19,10 +30,6 @@ import ListTemplate from '../../components/ListTemplate.vue';
 })
 export default class SpecieView extends Vue {
  
-  columns = [
-  { "name": "ID", "title": "ID" },
-  { "name": "NOME", "title": "NOME" },
-  ];  
   public edit = `edit-specie`;
   private specieClient!: SpecieClient
   public specieList: Specie[] = []
@@ -31,19 +38,18 @@ export default class SpecieView extends Vue {
     private pageResponse: PageResponse<Specie> = new PageResponse()
     public mounted(): void {
       this.specieClient = new SpecieClient()
-      this.listAllVaccines()
-      console.log(this.columns)
+      this.listAllSpecie()
+      console.log(this.listAllSpecie);
     }
-    public listAllVaccines(): void {
-      this.specieClient.findByFiltrosPaginado(this.pageRequest)
-          .then(
-              (success:any) => {
-                this.pageResponse = success
-                this.specieList = this.pageResponse.content
-              },
-              (error:any) => console.log(error)
-          )
-    }
+    public listAllSpecie(): void {
+    this.specieClient.findByAll(this.pageRequest).then(
+      (success) => {
+        this.pageResponse = success;
+        this.specieList = this.pageResponse.content;
+      },
+      (error) => console.log(error)
+    );
+  }
     
 }
 
