@@ -36,6 +36,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
+        path: '/cattle/:earring',
+        name: 'cattle-detail',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleDetail.vue")
+      },
+      {
+        path: '/cattle/insert',
+        name: 'cattle-insert',
+        component: () => import("../views/Cattle/CattleInsertForm.vue")
+      },
+      {
         path: "/vaccine/insert",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
@@ -75,6 +86,17 @@ const routes: Array<RouteRecordRaw> = [
         path: "/cattle",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
+      },
+      {
+        path: '/cattle/:earring',
+        name: 'cattle-detail',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleDetail.vue")
+      },
+      {
+        path: '/cattle/insert',
+        name: 'cattle-insert',
+        component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
         path: "/vaccine/insert",

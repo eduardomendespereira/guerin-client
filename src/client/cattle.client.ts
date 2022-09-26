@@ -5,34 +5,34 @@ import { PageResponse } from "@/model/page/page-response";
 export class CattleClient {
 
 
-    public async findById(cattle: Cattle): Promise<Cattle> {
+    public async findById(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<Cattle>(`/cattle/${cattle.id}`)).data
+            return (await axiosClient.get<any>(`/cattle/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
     }
 
     
-    public async findByEarring(cattle: Cattle): Promise<Cattle> {
+    public async findByEarring(earring: number): Promise<any> {
         try {
-            return (await axiosClient.get<Cattle>(`/cattle/earring/${cattle.earring}`)).data
+            return (await axiosClient.get<any>(`/cattle/earring/${earring}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
     }
     
-    public async findByFarm(cattle: Cattle): Promise<Cattle> {
+    public async findByFarm(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<Cattle>(`/cattle/farm/${cattle.farm.id}`)).data
+            return (await axiosClient.get<any>(`/cattle/farm/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
     }
     
-    public async findBySpecie(cattle: Cattle): Promise<Cattle> {
+    public async findBySpecie(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<Cattle>(`/cattle/specie/${cattle.specie.id}`)).data
+            return (await axiosClient.get<any>(`/cattle/specie/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
