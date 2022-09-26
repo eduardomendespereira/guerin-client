@@ -26,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
+        path: "/vaccine-application",
+        name: "VaccineApplication",
+        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
+      },
+      {
         path: "/cattle",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
@@ -54,6 +59,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/vaccine",
         name: "Vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
+      },
+      {
+        path: "/vaccine-application",
+        name: "VaccineApplication",
+        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {
         path: "/vaccine/:model/:id",
