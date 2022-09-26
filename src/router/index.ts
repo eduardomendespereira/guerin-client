@@ -20,6 +20,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
+        path: "/vaccine/:model/:id",
+        name: "vaccineDetail",
+        props: (router) => ({ id: router.params.id, model: router.params.model }),
+        component: () => import("../views/Vaccine/VaccineDetail.vue"),
+      },
+      {
         path: "/cattle",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
@@ -35,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
         beforeEnter: Guard.auth,
-      }
+      },
     ],
   },
   {
@@ -50,6 +56,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
+        path: "/vaccine/:model/:id",
+        name: "vaccineDetail",
+        props: (router) => ({ id: router.params.id, model: router.params.model }),
+        component: () => import("../views/Vaccine/VaccineDetail.vue"),
+      },
+      {
         path: "/cattle",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
@@ -65,7 +77,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
         beforeEnter: Guard.auth,
-      }
+      },
     ],
   },
 ];

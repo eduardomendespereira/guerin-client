@@ -28,6 +28,9 @@
 
           <th>{{ item.name }}</th>
           <th>{{ item.required }}</th>
+          <th>
+            <button @click="onClickDetailPage(item.id)" style="background-color: dodgerblue; color: white" class="button btn-detail">Detalhar</button>
+          </th>
         </tr>
       </tbody>
     </table>
@@ -60,6 +63,10 @@ export default class VaccineList extends Vue {
       },
       (error) => console.log(error)
     );
+  }
+
+  private onClickDetailPage(idVaccine: number){
+    this.$router.push({ name: 'vaccineDetail', params: { id: idVaccine, model: 'detail' } })
   }
 }
 </script>
