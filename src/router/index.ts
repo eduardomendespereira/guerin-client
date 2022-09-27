@@ -36,17 +36,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
-        path: '/cattle/:earring',
-        name: 'cattle-detail',
-        props: (router) => ({ earring: router.params.earring}),
-        component: () => import("../views/Cattle/CattleDetail.vue")
-      },
-      {
-        path: '/cattle/insert',
-        name: 'cattle-insert',
-        component: () => import("../views/Cattle/CattleInsertForm.vue")
-      },
-      {
         path: "/vaccine/insert",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
@@ -88,17 +77,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
-        path: '/cattle/:earring',
-        name: 'cattle-detail',
-        props: (router) => ({ earring: router.params.earring}),
-        component: () => import("../views/Cattle/CattleDetail.vue")
-      },
-      {
-        path: '/cattle/insert',
-        name: 'cattle-insert',
-        component: () => import("../views/Cattle/CattleInsertForm.vue")
-      },
-      {
         path: "/vaccine/insert",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
@@ -108,6 +86,18 @@ const routes: Array<RouteRecordRaw> = [
         path: "/specie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/eventos",
+        name: "eventos",
+        component: () => import("../views/Events/EventView.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/eventos/pesagem",
+        name: "pesagem",
+        component: () => import("../views/Weighing/WeighingList.vue"),
         beforeEnter: Guard.auth,
       },
     ],
