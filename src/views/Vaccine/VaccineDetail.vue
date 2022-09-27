@@ -13,7 +13,7 @@
     </div>
 
     <div class="botoes-form">
-      <router-link class="link-voltar" to="/vaccine">
+      <router-link class="link-voltar" to="/vacina">
         <button class="button btn-voltar">Voltar</button>
       </router-link>
 <!--      <button class="button btn-editar" @click="onClickUpdate(vaccine.id)">Editar</button>-->

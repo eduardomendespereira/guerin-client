@@ -66,7 +66,7 @@ export default class VaccineList extends Vue {
   }
 
   private onClickDetailPage(idVaccine: number){
-    this.$router.push({ name: 'vaccineDetail', params: { id: idVaccine, model: 'detail' } })
+    this.$router.push({ name: 'vaccineDetail', params: { id: idVaccine, model: 'consultar' } })
   }
 }
 </script>
