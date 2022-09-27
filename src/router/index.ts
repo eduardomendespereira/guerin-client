@@ -72,12 +72,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
-        path: "/cattle",
+        path: "/gados",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
-        path: "/farm",
+        path: "/fazendas",
         name: "farm",
         component: () => import("../views/Farm/FarmList.vue"),
       },
