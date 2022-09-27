@@ -77,6 +77,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
+        path: "/farm",
+        name: "farm",
+        component: () => import("../views/Farm/FarmList.vue"),
+      },
+      {
         path: "/vaccine/insert",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
