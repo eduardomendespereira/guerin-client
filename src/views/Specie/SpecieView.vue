@@ -1,5 +1,5 @@
 <template>
-    <ListTemplate  :listagem="specieList" :columns="columns" :edit="edit"></ListTemplate>
+    <DataTable  :listagem="specieList" :columns="columns" :edit="edit"></DataTable>
 </template>
 
 <script lang="ts">
@@ -9,12 +9,12 @@ import { PageRequest } from '@/model/page/page-request';
 import { PageResponse } from '@/model/page/page-response';
 import { Specie } from '@/model/specie.model';
 import { Options, Vue } from 'vue-class-component';
-import ListTemplate from '../../components/ListTemplate.vue';
+import DataTable from '../../components/DataTable.vue';
 
 
 @Options({
   components: {
-    ListTemplate
+    DataTable
   },
 })
 export default class SpecieView extends Vue {
