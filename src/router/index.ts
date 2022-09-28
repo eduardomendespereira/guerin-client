@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     beforeEnter: Guard.auth,
     children: [
-           {
+        {
         path: "/eventos/vacina",
         name: "Vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),

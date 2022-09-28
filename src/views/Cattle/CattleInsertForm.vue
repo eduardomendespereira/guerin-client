@@ -63,10 +63,10 @@
         </div>
         <hr class="linha" size="100" width="1000" />
         <div class="btns">
-          <router-link to="/gado">
+          <router-link to="/gados">
             <button class="button btn-voltar">Voltar ao Menu</button>
           </router-link>
-          <button @click="onClickSave()" class="button btn-insert">
+          <button @click="onClickSave()" class="button btn-cad">
             Cadastrar Animal
           </button>
         </div>
@@ -182,13 +182,13 @@ export default class cattleInsertForm extends Vue {
   }
 }
 
-.btn-insert {
+.btn-cad {
   background-color: #005bd4;
   color: #ffffff;
   padding: 12px;
 }
 
-.btn-insert:hover {
+.btn-cad:hover {
   background-color: #0067ee;
   color: white;
   transition: 0.7s;
