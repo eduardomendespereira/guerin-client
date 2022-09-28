@@ -21,9 +21,9 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<VaccineApplication>> {
+    public async findByAll(pageRequest : PageRequest): Promise<PageResponse<VaccineApplication>> {
         try {
-            let requestPath = ''
+            let requestPath = '/vaccineApplications'
 
             requestPath += `?page=${pageRequest.currentPage}`
             requestPath += `&size=${pageRequest.pageSize}`

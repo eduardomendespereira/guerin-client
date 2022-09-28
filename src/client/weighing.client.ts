@@ -1,37 +1,29 @@
-import { Vaccine } from "@/model/vaccine.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
 import {User} from "@/model/user.model";
+import { Weighing } from "@/model/weighing.model";
 
-export class VaccineClient {
+export class WeighingClient {
 
-    public async findById(id: number): Promise<any> {
+    public async findById(id: number): Promise<Weighing> {
         try{
-            return (await axiosClient.get<Vaccine>(`/vaccines/${id}`)).data
+            return (await axiosClient.get<Weighing>(`/weighing/${id}`)).data
         }catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByName(name: string): Promise<Vaccine> {
-        try{
-            return (await axiosClient.get<Vaccine>(`/vaccines/get-by-name/${name}`)).data
-        }catch (error:any) {
-            return Promise.reject(error.response)
-        }
-    }
-
-    public async findByAll(pageRequest : PageRequest): Promise<PageResponse<Vaccine>> {
+    public async findByAll(pageRequest : PageRequest): Promise<PageResponse<Weighing>> {
         try {
-            let requestPath = '/vaccines'
+            let requestPath = '/weighing'
 
             requestPath += `?page=${pageRequest.currentPage}`
             requestPath += `&size=${pageRequest.pageSize}`
             requestPath += `&sort=${pageRequest.sortField === undefined
                 ? '' : pageRequest.sortField},${pageRequest.direction}`
 
-            return (await axiosClient.get<PageResponse<Vaccine>>(requestPath,
+            return (await axiosClient.get<PageResponse<Weighing>>(requestPath,
                 {
                     params: { filtros: pageRequest.filter }
                 }
@@ -41,25 +33,25 @@ export class VaccineClient {
         }
     }
 
-    public async save(vaccine: Vaccine): Promise<void> {
+    public async save(weighing: Weighing): Promise<void> {
         try {
-            return (await axiosClient.post('/vaccines', vaccine))
+            return (await axiosClient.post('/weighing', weighing))
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async update(vaccine: Vaccine): Promise<void> {
+    public async update(weighing: Weighing): Promise<void> {
         try {
-            return (await axiosClient.put('/vaccines', vaccine)).data
+            return (await axiosClient.put(`/${weighing.id}`, weighing)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async disable(vaccine: Vaccine): Promise<void> {
+    public async disable(weighing: Weighing): Promise<void> {
         try {
-            return (await axiosClient.put(`/vaccines/disable/${vaccine.id}`, vaccine)).data
+            return (await axiosClient.put(`/weighing/disable/${weighing.id}`, weighing)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

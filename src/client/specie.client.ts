@@ -1,21 +1,13 @@
 import { Specie } from "@/model/specie.model";
-import axios, { AxiosInstance } from "axios";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
+import axiosClient from "../plugins/axios";
 export class SpecieClient {
 
-    private axiosClient: AxiosInstance;
-
-    constructor() {
-        this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8085/api/species',
-            headers: {'Content-type' : 'application/json'}
-        });
-    }
 
     public async findById(id: number): Promise<Specie> {
         try {
-            return (await this.axiosClient.get<Specie>(`/${id}`)).data
+            return (await axiosClient.get<Specie>(`/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -31,7 +23,7 @@ export class SpecieClient {
 			requestPath += `&sort=${pageRequest.sortField === undefined 
 				? '' : pageRequest.sortField},${pageRequest.direction}`
 			
-			return (await this.axiosClient.get<PageResponse<Specie>>(requestPath, 
+			return (await axiosClient.get<PageResponse<Specie>>(requestPath,
 				{ 
 					params: { filtros: pageRequest.filter } 
 				}
@@ -43,7 +35,7 @@ export class SpecieClient {
 
 	public async cadastrar(specie: Specie): Promise<void> {
 		try {
-			return (await this.axiosClient.post('/', specie))
+			return (await axiosClient.post('/', specie))
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -51,7 +43,7 @@ export class SpecieClient {
 
 	public async editar(specie: Specie): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/${specie.id}`, specie)).data
+			return (await axiosClient.put(`/${specie.id}`, specie)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -59,7 +51,7 @@ export class SpecieClient {
 
 	public async desativar(specie: Specie): Promise<void> {
 		try {
-			return (await this.axiosClient.put(`/disable/${specie.id}`, specie)).data
+			return (await axiosClient.put(`/disable/${specie.id}`, specie)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
