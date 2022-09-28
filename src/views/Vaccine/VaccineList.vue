@@ -29,7 +29,6 @@
           <th>{{ item.name }}</th>
           <th>{{ item.required }}</th>
           <th>
-            <b-button variant="danger" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css">Button</b-button>
             <button @click="onClickDetailPage(item.id)" style="background-color: dodgerblue; color: white" class="button btn-detail">Detalhar</button>
           </th>
         </tr>

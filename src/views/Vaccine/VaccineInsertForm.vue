@@ -2,48 +2,49 @@
   <div class="form-vaccine">
     <div class="columns">
       <div class="column is-12 is-size-3">
-        Cadastrar Vacinas
+        Cadastro > Vacina
       </div>
     </div>
 
-    <hr />
+    <div class="content-form">
+      <div class="align-icon-container">
+        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
+      </div>
 
-    <div class="columns" v-if="notification.ativo">
-      <div class="column is-12">
-        <div :class="notification.classe">
-          <button @click="onClickCloseNotification()" class="delete" ></button>
-          {{ notification.mensagem }}
+      <br/>
+
+      <div class="columns" v-if="notification.ativo">
+        <div class="column is-12">
+          <div :class="notification.classe">
+            <button @click="onClickCloseNotification()" class="delete" ></button>
+            {{ notification.mensagem }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="columns">
-      <div class="column is-12 is-size-3">
-        <label class="label">
-          <input v-model="vaccine.required" checked type="checkbox">
-          Vacina Obrigatória
-        </label>
-      </div>
-    </div>
+      <div class="container-inputs">
+        <div class="control">
+          <input class="input" style="width: 300px" type="text" v-model="vaccine.name" placeholder="Nome da vacina">
+        </div>
 
-    <div class="field">
-      <label class="label">Nome</label>
-      <div class="control">
-        <input class="input is-primary" type="text" v-model="vaccine.name" placeholder="Nome da vacina">
+        <div class="field-required">
+          <label class="label">
+            <input v-model="vaccine.required" checked type="checkbox">
+            Obrigatória
+          </label>
+        </div>
       </div>
-    </div>
-
-    <div class="columns">
-      <div class="column is-8"></div>
-      <div class="column is-2">
-        <router-link class="link-cad" to="/vacina">
-          <button class="button is-danger btn-voltar">Voltar</button>
-        </router-link>
+      <div class="container-buttons">
+        <div class="container-boptions">
+          <router-link class="link-cad" to="/eventos/vacinas">
+            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+          </router-link>
+        </div>
+        <div class="container-boptions">
+          <button class="button is-fullwidth is-link" @click="onClickSave()">Salvar</button>
+        </div>
       </div>
-      <div class="column is-2">
-        <button class="button is-fullwidth is-success" @click="onClickSave()">Salvar</button>
-      </div>
-    </div>
+   </div>
   </div>
 </template>
 
@@ -86,13 +87,34 @@
 </script>
 
 <style lang="scss">
-  .btn-voltar{
-    width: 100%;
-  }
-
   .form-vaccine{
     width: 100%;
-    padding: 30px;
+    padding: 0px 30px 0px 30px;
+    background-color: lightgray;
+  }
+  .content-form{
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .align-icon-container{
+    display: flex;
+    justify-content: center;
+  }
+  .container-inputs{
+    display: flex;
+    flex-direction: row;
+    margin-top: 200px;
+    justify-content: space-evenly;
+  }
+  .container-buttons{
+    display: flex;
+    margin-top: 200px;
+    justify-content: space-evenly;
+  }
+  .container-boptions{
+    width: 300px;
   }
 
 </style>
