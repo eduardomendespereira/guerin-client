@@ -80,13 +80,13 @@ const routes: Array<RouteRecordRaw> = [
         path: "/eventos/pesagem/:id",
         name: "weight-detail",
         props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/Weight/WeightDetailView.vue"),
+        component: () => import("../views/Weighing/WeighingDetailView.vue"),
       },
       {
         path: "/eventos/pesagem/desativar/:id",
         name: "weight-inactivated",
         props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/Weight/WeightInactivatedView.vue"),
+        component: () => import("../views/Weighing/WeighingInactivatedView.vue"),
       },
       {
         path: "/fazendas",
