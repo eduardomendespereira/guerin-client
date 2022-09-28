@@ -1,5 +1,5 @@
 <template>
-  <aside class="is-fullheight" style="width: 100%">
+  <aside class="is-fullheight is-fullwidth">
     <div class="columns">
       <div class="column is-12 is-size-3">Lista de Aplicações de Vacinas</div>
     </div>

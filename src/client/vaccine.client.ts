@@ -2,6 +2,7 @@ import { Vaccine } from "@/model/vaccine.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
+import {User} from "@/model/user.model";
 
 export class VaccineClient {
 

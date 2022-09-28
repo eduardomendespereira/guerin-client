@@ -1,16 +1,5 @@
 <template>
-  <aside class="is-fullheight " style="width: 100%;">
-    <div class="columns">
-      <div class="column is-12 is-size-3">Lista de Especies</div>
-    </div>
-    <hr />
-    <hr />
-    <div class="columns">
-    </div>
-  </aside>
-    
-  
-    
+    <DataTable  :listagem="specieList" :columns="columns" :edit="edit"></DataTable>
 </template>
 
 <script lang="ts">
@@ -20,16 +9,20 @@ import { PageRequest } from '@/model/page/page-request';
 import { PageResponse } from '@/model/page/page-response';
 import { Specie } from '@/model/specie.model';
 import { Options, Vue } from 'vue-class-component';
-import ListTemplate from '../../components/ListTemplate.vue';
+import DataTable from '../../components/DataTable.vue';
 
 
 @Options({
   components: {
-    ListTemplate
+    DataTable
   },
 })
 export default class SpecieView extends Vue {
  
+  columns = [
+  { "name": "ID", "title": "ID" },
+  { "name": "NOME", "title": "NOME" },
+  ];  
   public edit = `edit-specie`;
   private specieClient!: SpecieClient
   public specieList: Specie[] = []
@@ -38,18 +31,19 @@ export default class SpecieView extends Vue {
     private pageResponse: PageResponse<Specie> = new PageResponse()
     public mounted(): void {
       this.specieClient = new SpecieClient()
-      this.listAllSpecie()
-      console.log(this.listAllSpecie);
+      this.listAllVaccines()
+      console.log(this.columns)
     }
-    public listAllSpecie(): void {
-    this.specieClient.findByAll(this.pageRequest).then(
-      (success) => {
-        this.pageResponse = success;
-        this.specieList = this.pageResponse.content;
-      },
-      (error) => console.log(error)
-    );
-  }
+    public listAllVaccines(): void {
+      this.specieClient.findByFiltrosPaginado(this.pageRequest)
+          .then(
+              (success:any) => {
+                this.pageResponse = success
+                this.specieList = this.pageResponse.content
+              },
+              (error:any) => console.log(error)
+          )
+    }
     
 }
 

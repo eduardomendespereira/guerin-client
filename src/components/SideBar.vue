@@ -62,7 +62,6 @@ export default class SideBar extends Vue {
       .getMenusByRole()
       .then((response) => {
         this.menus = response.data;
-        console.log(this.menus);
       })
       .catch((error) => {
         console.log(error);

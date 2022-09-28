@@ -15,20 +15,20 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: Guard.auth,
     children: [
       {
-        path: "/vacina",
-        name: "vaccine",
+        path: "/vaccine",
+        name: "Vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/vacina/:id",
-        name: "vaccine-detail",
-        props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/Vaccine/VaccineDetail.vue"),
+        path: "/vaccine-application",
+        name: "VaccineApplication",
+        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {
-        path: "/aplicacao-vacina",
-        name: "vaccine-application",
-        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
+        path: "/vaccine/:model/:id",
+        name: "vaccineDetail",
+        props: (router) => ({ id: router.params.id, model: router.params.model }),
+        component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
         path: "/cattle",
@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
-        path: "/vacina/cadastrar",
+        path: "/vaccine/insert",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
         beforeEnter: Guard.auth,
@@ -58,6 +58,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Specie/SpecieView.vue"),
         beforeEnter: Guard.auth,
       },
+      {
+        path: "/usuarios",
+        name: "usuarios",
+        component: () => import("../views/User/UserList.vue"),
+        beforeEnter: Guard.auth,
+      }
     ],
   },
 ];

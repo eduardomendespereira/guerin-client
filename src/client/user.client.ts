@@ -2,6 +2,7 @@ import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import { ResultRefreshToken } from "@/model/payload/result-refresh-token.model";
 import axiosClient from "../plugins/axios";
+import { User } from "@/model/user.model";
 
 export class UserClient {
 
@@ -26,6 +27,24 @@ export class UserClient {
                     'Authorization': 'Bearer ' + refresh_token,
                 }
             }))
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+    public async findAll(pageRequest : PageRequest): Promise<PageResponse<User>> {
+        try {
+            let requestPath = '/users'
+
+            requestPath += `?page=${pageRequest.currentPage}`
+            requestPath += `&size=${pageRequest.pageSize}`
+            requestPath += `&sort=${pageRequest.sortField === undefined
+                ? '' : pageRequest.sortField},${pageRequest.direction}`
+
+            return (await axiosClient.get<PageResponse<User>>(requestPath,
+                {
+                    params: { filtros: pageRequest.filter }
+                }
+            )).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

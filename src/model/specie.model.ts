@@ -1,7 +1,7 @@
 import {AbstractEntity} from "./abstract-entity.model";
 
 export class Specie extends AbstractEntity {
-    name! : string
+    nome! : string
 
     constructor() {
         super()

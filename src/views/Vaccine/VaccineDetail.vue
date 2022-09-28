@@ -12,7 +12,7 @@
     </div>
 
     <div class="botoes-form">
-      <router-link class="link-voltar" to="/vacina">
+      <router-link class="link-voltar" to="/vaccine">
         <button class="button btn-voltar">Voltar</button>
       </router-link>
     </div>
