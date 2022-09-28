@@ -68,7 +68,7 @@
       <div class="columns">
         <div class="column is-8"></div>
         <div class="column is-2">
-          <router-link class="link-cad" to="/cattle">
+          <router-link class="link-cad" to="/gados">
             <button class="button is-danger btn-voltar">Voltar</button>
           </router-link>
         </div>

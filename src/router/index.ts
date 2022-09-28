@@ -15,34 +15,34 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: Guard.auth,
     children: [
       {
-        path: "/vaccine",
+        path: "/vacina",
         name: "Vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/vaccine-application",
+        path: "/aplicacao-vacina",
         name: "VaccineApplication",
         component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {
-        path: "/vaccine/:model/:id",
-        name: "vaccineDetail",
-        props: (router) => ({ id: router.params.id, model: router.params.model }),
+        path: "/vacina//:id",
+        name: "vaccine-detail",
+        props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
-        path: "/cattle",
+        path: "/gados",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
       },
       {
-        path: '/cattle/:earring',
+        path: '/gados/:earring',
         name: 'cattle-detail',
         props: (router) => ({ earring: router.params.earring}),
         component: () => import("../views/Cattle/CattleDetail.vue")
       },
       {
-        path: '/cattle/insert',
+        path: '/gados/cadastrar',
         name: 'cattle-insert',
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
@@ -63,7 +63,24 @@ const routes: Array<RouteRecordRaw> = [
         name: "usuarios",
         component: () => import("../views/User/UserList.vue"),
         beforeEnter: Guard.auth,
-      }
+      },
+      {
+        path: "/eventos",
+        name: "eventos",
+        component: () => import("../views/Events/EventView.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/eventos/pesagem",
+        name: "pesagem",
+        component: () => import("../views/Weighing/WeighingList.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/fazendas",
+        name: "farm",
+        component: () => import("../views/Farm/FarmList.vue"),
+      },
     ],
   },
 ];
