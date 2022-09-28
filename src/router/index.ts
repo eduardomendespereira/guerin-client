@@ -66,15 +66,27 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "/eventos",
-        name: "eventos",
+        name: "events",
         component: () => import("../views/Events/EventView.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/pesagem",
-        name: "pesagem",
-        component: () => import("../views/Weighing/WeighingList.vue"),
+        name: "weight",
+        component: () => import("../views/Weighing/WeighingListView.vue"),
         beforeEnter: Guard.auth,
+      },
+      {
+        path: "/eventos/pesagem/:id",
+        name: "weight-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Weight/WeightDetailView.vue"),
+      },
+      {
+        path: "/eventos/pesagem/desativar/:id",
+        name: "weight-inactivated",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Weight/WeightInactivatedView.vue"),
       },
       {
         path: "/fazendas",
