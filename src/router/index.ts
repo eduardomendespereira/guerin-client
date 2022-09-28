@@ -14,18 +14,18 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     beforeEnter: Guard.auth,
     children: [
-      {
-        path: "/vacina",
+           {
+        path: "/eventos/vacina",
         name: "Vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/aplicacao-vacina",
+        path: "/eventos/aplicacao-vacina",
         name: "VaccineApplication",
         component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {
-        path: "/vacina//:id",
+        path: "/eventos/vacina/:id",
         name: "vaccine-detail",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
@@ -47,13 +47,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
-        path: "/vaccine/insert",
+        path: "/eventos/vacina/cadastrar",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
         beforeEnter: Guard.auth,
       },
       {
-        path: "/specie",
+        path: "/especie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
         beforeEnter: Guard.auth,

@@ -1,131 +1,210 @@
 <template>
-    <div class="form-cattle">
-      <div class="columns">
-        <div class="column is-12 is-size-3">
-          Cadastrar Gados
+  <aside class="cattle is-fullheight">
+    <div class="text-up columns">
+      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Gado</b></p>
+    </div>
+    <section class="is-flex is-justify-content-center">
+      <div class="insert-back">
+        <div class="icon-cattle">
+          <img
+            style="width: 80px"
+            src="../../assets/cowIcon.png"
+            alt="Guerin"
+          />
         </div>
-      </div>
-  
-      <hr />
-  
-      <div class="columns" v-if="notification.ativo">
-        <div class="column is-12">
-          <div :class="notification.classe">
-            <button @click="onClickCloseNotification()" class="delete" ></button>
-            {{ notification.mensagem }}
+        <div :class="notification.classe">
+          <button @click="onClickCloseNotification()" class="delete"></button>
+          {{ notification.mensagem }}
+        </div>
+        <div class="form">
+          <input
+            class="input in-1"
+            type="text"
+            placeholder="Nº do Brinco"
+            v-model="cattle.earring"
+          />
+          <div class="select in-1">
+            <select class="select" v-model="cattle.specie">
+              <option>Nelore</option>
+            </select>
           </div>
         </div>
-      </div>
-  
-      <div class="field">
-        <label class="label">Brinco</label>
-        <div class="control">
-          <input class="input is-primary" type="number" v-model="cattle.earring" placeholder="Brinco">
+        <div class="form">
+          <input
+            class="input in-1"
+            type="text"
+            placeholder="Nº do Brinco do Pai"
+            v-model="cattle.father"
+          />
+          <input
+            class="input in-1"
+            type="text"
+            placeholder="Nº do Brinco da Mãe"
+            v-model="cattle.mother"
+          />
         </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Peso</label>
-        <div class="control">
-          <input class="input is-primary" type="number" v-model="cattle.weight" placeholder="Peso">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Gender</label>
-        <div class="control">
-            <select v-model="cattle.gender">
-                  <option>Macho</option>
-                  <option>Fêmea</option>
+        <div class="form">
+          <input
+            class="input in-1"
+            type="text"
+            placeholder="Peso"
+            v-model="cattle.weight"
+          />
+          <div class="select in-1">
+            <select class="select" v-model="cattle.gender">
+              <option>male</option>
             </select>
+          </div>
         </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Especie</label>
-        <div class="control">
-            <select v-model="cattle.specie" v-for="item in specieList" :key="item.id">
-                  <option>Macho</option>
-                  <option>Fêmea</option>
-            </select>
+        <div class="select date">
+          <select class="select" style="width: 630px" v-model="cattle.farm">
+            <option>Guerin</option>
+          </select>
         </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Brinco do pai</label>
-        <div class="control">
-          <input class="input is-primary" type="number" v-model="cattle.father" placeholder="Brinco do pai">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Brinco da mãe</label>
-        <div class="control">
-          <input class="input is-primary" type="number" v-model="cattle.mother" placeholder="Brinco da mãe">
-        </div>
-      </div>
-  
-      <div class="columns">
-        <div class="column is-8"></div>
-        <div class="column is-2">
-          <router-link class="link-cad" to="/gados">
-            <button class="button is-danger btn-voltar">Voltar</button>
+        <hr class="linha" size="100" width="1000" />
+        <div class="btns">
+          <router-link to="/gado">
+            <button class="button btn-voltar">Voltar ao Menu</button>
           </router-link>
-        </div>
-        <div class="column is-2">
-          <button class="button is-fullwidth is-success" @click="onClickSave()">Salvar</button>
+          <button @click="onClickSave()" class="button btn-insert">
+            Cadastrar Animal
+          </button>
         </div>
       </div>
-    </div>
-  </template>
-  
-  <script lang="ts">
-    import { Vue } from 'vue-class-component';
-    import { Notification } from '@/model/notification'
-    import { Cattle } from '@/model/cattle.model'
-    import { CattleClient } from '@/client/cattle.client'
-  
-    export default class cattleInsertForm extends Vue {
-      private cattleClient !: CattleClient
-      private cattle: Cattle = new Cattle()
-      private notification : Notification = new Notification()
-      // private specieList
-  
-      public mounted(): void {
-        this.cattleClient = new CattleClient()
+    </section>
+  </aside>
+</template>
+
+<script lang="ts">
+import { Vue } from "vue-class-component";
+import { Notification } from "@/model/notification";
+import { Cattle } from "@/model/cattle.model";
+import { CattleClient } from "@/client/cattle.client";
+
+export default class cattleInsertForm extends Vue {
+  private cattleClient!: CattleClient;
+  public cattle: Cattle = new Cattle();
+  public notification: Notification = new Notification();
+
+  public mounted(): void {
+    this.cattleClient = new CattleClient();
+  }
+
+  public onClickSave(): void {
+    this.cattleClient.save(this.cattle).then(
+      (success) => {
+        this.notification = this.notification.new(
+          true,
+          "notification is-success",
+          "Gado cadastrado com sucesso!"
+        );
+        this.onClickClean();
+      },
+      (error) => {
+        this.notification = this.notification.new(
+          true,
+          "notification is-danger",
+          "Error: " + error
+        );
+        this.onClickClean();
       }
-  
-      private onClickSave(): void {
-        this.cattleClient.save(this.cattle)
-            .then(
-                success => {
-                  this.notification = this.notification.new(true, 'notification is-success', 'Gado cadastrado com sucesso!')
-                  this.onClickClean()
-                }, error => {
-                  this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
-                  this.onClickClean()
-                })
-      }
-  
-      private onClickCloseNotification(): void {
-        this.notification = new Notification()
-      }
-      private onClickClean(): void {
-        this.cattle = new Cattle()
-      }
-    }
-  
-  
-  </script>
-  
-  <style lang="scss">
-    .btn-voltar{
-      width: 100%;
-    }
-  
-    .form-cattle{
-      width: 100%;
-      padding: 30px;
-    }
-  
-  </style>
+    );
+  }
+
+  public onClickCloseNotification(): void {
+    this.notification = new Notification();
+  }
+  private onClickClean(): void {
+    this.cattle = new Cattle();
+  }
+}
+</script>
+
+<style lang="scss">
+.cattle {
+  width: 100%;
+}
+
+.insert-back {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 90%;
+  margin-top: 20px;
+}
+
+.icon-cattle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  background-color: #4a9490;
+  border-radius: 20px;
+  margin: 0px 0px 20px 0px;
+}
+
+.form {
+  display: flex;
+  .in-1 {
+    margin: 15px;
+  }
+
+  .input {
+    width: 300px;
+  }
+
+  .select {
+    width: 300px;
+  }
+}
+
+.date {
+  margin: 15px;
+  width: 630px;
+}
+
+.linha {
+  background-color: #dbdbdb;
+  margin: 30px 0px 0px 0px;
+}
+
+.btns {
+  display: flex;
+  .button {
+    font-size: 18px;
+    margin: 30px;
+    width: 300px;
+  }
+}
+
+.btn-insert {
+  background-color: #005bd4;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-insert:hover {
+  background-color: #0067ee;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-voltar {
+  background-color: #c20101;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-voltar:hover {
+  background-color: #da0000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+</style>
