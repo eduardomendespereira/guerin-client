@@ -29,6 +29,7 @@
           <th>{{ item.name }}</th>
           <th>{{ item.required }}</th>
           <th>
+            <b-button variant="danger" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css">Button</b-button>
             <button @click="onClickDetailPage(item.id)" style="background-color: dodgerblue; color: white" class="button btn-detail">Detalhar</button>
           </th>
         </tr>
@@ -65,8 +66,8 @@ export default class VaccineList extends Vue {
     );
   }
 
-  private onClickDetailPage(idVaccine: number){
-    this.$router.push({ name: 'vaccineDetail', params: { id: idVaccine, model: 'consultar' } })
+  private onClickDetailPage(id: number){
+    this.$router.push({ name: 'vaccine-detail', params: { id: id } })
   }
 }
 </script>

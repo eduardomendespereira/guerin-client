@@ -20,14 +20,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/vacina/:model/:id",
-        name: "vaccineDetail",
-        props: (router) => ({ id: router.params.id, model: router.params.model }),
+        path: "/vacina/:id",
+        name: "vaccine-detail",
+        props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
         path: "/aplicacao-vacina",
-        name: "VaccineApplication",
+        name: "vaccine-application",
         component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {

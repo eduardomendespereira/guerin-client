@@ -6,7 +6,6 @@
       <i>Id: {{vaccine.id}}</i>
       <i>Nome: {{vaccine.name}}</i>
       <i class="status">
-        Status: &nbsp;
         <i v-if="!vaccine.inactive" style="color: limegreen"> Ativa</i>
         <i v-if="vaccine.inactive" style="color: red;"> Inativa</i>
       </i>
@@ -16,40 +15,36 @@
       <router-link class="link-voltar" to="/vacina">
         <button class="button btn-voltar">Voltar</button>
       </router-link>
-<!--      <button class="button btn-editar" @click="onClickUpdate(vaccine.id)">Editar</button>-->
-<!--      <button class="button btn-desativar" @click="onClickDisable(vaccine)">Desativar</button>-->
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
-import { Vaccine } from "@/model/vaccine.model";
-import { VaccineClient } from "@/client/vaccine.client";
+  import { Vue } from 'vue-class-component';
+  import { Prop } from 'vue-property-decorator'
+  import { Vaccine } from "@/model/vaccine.model";
+  import { VaccineClient } from "@/client/vaccine.client";
 
-export default class VaccineDetail{
-  private vaccineClient!: VaccineClient
-  private vaccine : Vaccine = new Vaccine()
+  export default class VaccineDetail extends Vue{
+    public vaccine: Vaccine = new Vaccine()
+    private vaccineClient!: VaccineClient
 
-  @Prop({type: Number, required: false})
-  private readonly id!: number
-  @Prop({type: String, default: false})
-  private readonly model!: string
+    @Prop({type: Number, required: false})
+    private readonly id!: number
 
-  private mounted(): void {
-    this.vaccineClient = new VaccineClient()
-    this.getVaccine()
-  }
+    public mounted(): void {
+      this.vaccineClient = new VaccineClient()
+      this.getVaccine()
+    }
 
-  private getVaccine(): void {
-    this.vaccineClient.findById(this.id)
-        .then(
-            sucess => {
-              this.vaccine = sucess
-            },
-            error => console.log(error)
-        )
-  }
+    private getVaccine(): void {
+      this.vaccineClient.findById(this.id)
+          .then(
+              sucess => {
+                this.vaccine = sucess
+              },
+              error => console.log(error)
+          )
+    }
 }
 </script>

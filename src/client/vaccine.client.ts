@@ -5,7 +5,7 @@ import axiosClient from "../plugins/axios";
 
 export class VaccineClient {
 
-    public async findById(id: number): Promise<Vaccine> {
+    public async findById(id: number): Promise<any> {
         try{
             return (await axiosClient.get<Vaccine>(`/vaccines/${id}`)).data
         }catch (error:any) {
