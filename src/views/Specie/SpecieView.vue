@@ -1,7 +1,7 @@
 <template>
     <aside class="weight is-fullheight">
         <div class="columns is-flex is-justify-content-space-between">
-            <p class="is-size-4 pt-5 pl-5 ">Especies</p>
+            <p class="is-size-4 pt-5 pl-5 ">>Especies</p>
             <div class="ativos p-2">
                 <div class="icon-ativos">
                     <img style="width: 30px" src="@/assets/specieIcon.png" alt="Guerin" />
@@ -10,14 +10,13 @@
 
                 <div>
                     <h1 class="is-size-5 is-flex is-justify-content-flex-end pr-2" style="color: #004AAD;" span
-                    >10</h1>
+                    >{{count}}</h1>
                 </div>
             </div>
         </div>
-
         <div class="is-flex is-justify-content-center pt-5">
             <div class="header-btn">
-                <button class="button btn-insert">Inserir Especie
+                <button class="button btn-insert" @click="openModal">Inserir Especie
                     
                 </button>
             </div>
@@ -27,9 +26,23 @@
                 <DataTable  :fetchUrl="'/species'"  :columns="columns" ></DataTable>
             </div>
         </div>
-        
+        <div v-if="showModal" class="modal is-active">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">Adicionar Especie</p>
+                <button class="delete" @click="openModal" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+                <input class="input is-success" type="text" placeholder="Nome da Especie">
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success">Adicionar</button>
+                <button class="button" @click="openModal">Cancelar</button>
+              </footer>
+            </div>
+          </div>
     </aside>
-    
 </template>
 
 <script lang="ts">
@@ -50,11 +63,12 @@ import DataTable from '@/components/DataTable.vue';
 })
 export default class SpecieView extends Vue {
  
-  columns = ['ID', 'NOME'];
-  
+  columns = ['id','inactive', 'registered', 'updated', 'name'];
+  showModal = false;
   public edit = `edit-specie`;
   private specieClient!: SpecieClient
   public specieList: Specie[] = []
+  count : any = null;
   public url : string = '/species';
     private notification : Notification = new Notification();
     private pageRequest: PageRequest = new PageRequest()
@@ -62,7 +76,8 @@ export default class SpecieView extends Vue {
     public mounted(): void {
       this.specieClient = new SpecieClient()
       this.listAllVaccines()
-      console.log(this.columns)
+      this.countSpecie();
+
     }
     public listAllVaccines(): void {
       this.specieClient.findByFiltrosPaginado(this.pageRequest)
@@ -71,9 +86,29 @@ export default class SpecieView extends Vue {
                 this.pageResponse = success
                 this.specieList = this.pageResponse.content
               },
-              (error:any) => console.log(error)
+              (error:any) =>{
+                console.log(error)
+              } 
           )
     }
+    public countSpecie(): void{
+        this.specieClient.count().then(
+            (sucess)=>{
+                 return this.count = Number(sucess);
+            },
+            (error)=>{
+                return console.log(error)
+            }
+        )
+    }
+    public openModal(){
+        if(this.showModal){
+            this.showModal = false;
+        }else{
+            this.showModal = true;
+        }
+    }
+    
     
 }
 

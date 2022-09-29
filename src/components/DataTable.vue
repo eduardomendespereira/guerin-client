@@ -149,7 +149,7 @@ export default {
       axiosClient
         .get(dataFetchUrl)
         .then(({ data }) => {
-          console.log(data);
+          
           this.pagination = data;
           this.pagination.meta = {
             from: data.pageable.offset + 1,
