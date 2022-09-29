@@ -23,7 +23,7 @@
             style="color: #004aad"
             span
           >
-            {{ count }}
+            {{ counter }}
           </h1>
         </div>
       </div>
@@ -68,126 +68,282 @@
       </div>
     </div>
 
-    <div class="table-div">
-      <table class="table">
-        <thead class="header-table">
-          <tr>
-            <th>Dt.</th>
-            <th>Status</th>
-            <th>Data</th>
-            <th>Brinco</th>
-            <th>Peso</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in weighingList" :key="item.id">
-            <th>
-              <button
-                @click="onClickPageDetail(item.id)"
-                class="button btn-detail"
-              >
-                !
-              </button>
-            </th>
+    <div class="data-table mt-5">
+      <div class="main-table is-flex is-justify-content-center mb-5">
+        <table class="table-div table" style="width: 95%">
+          <thead>
+            <tr class="header-table">
+              <th @click="sortByColumn('Id')" class="table-head">
+                {{ $filters.columnHead("Id") }}
+                <span v-if="'Id' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+              </th>
+              <th @click="sortByColumn('Status')" class="table-head">
+                {{ $filters.columnHead("Status") }}
+                <span v-if="'Status' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+              </th>
+              <th @click="sortByColumn('Data')" class="table-head">
+                {{ $filters.columnHead("Data") }}
+                <span v-if="'Data' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+              </th>
+              <th @click="sortByColumn('Peso')" class="table-head">
+                {{ $filters.columnHead("Peso") }}
+                <span v-if="'Peso' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+              </th>
+              <th @click="sortByColumn('Brinco')" class="table-head">
+                {{ $filters.columnHead("Brinco") }}
+                <span v-if="'Brinco' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" v-if="tableData.length === 0">
+              <td class="lead text-center" :colspan="columns.length + 1">
+                Sem Registros.
+              </td>
+            </tr>
+            <tr
+              v-for="data in tableData"
+              :key="data.id"
+              class="m-datatable__row"
+              v-else
+            >
+              <td>
+                <button
+                  @click="onClickPageDetail(data.id)"
+                  class="tag"
+                  style="background-color: #0093ff; color: white"
+                >
+                  {{ data.id }}
+                </button>
+              </td>
+              <td>
+                <span
+                  class="tag"
+                  style="background-color: #1ba500"
+                  v-if="!data.inactive"
+                ></span>
+                <span
+                  class="tag"
+                  style="background-color: #ab0303"
+                  v-if="data.inactive"
+                ></span>
+              </td>
+              <td>{{ data.date }}</td>
+              <td>{{ data.weight }}</td>
+              <td>{{ data.cattle.earring }}</td>
 
-            <th>
-              <span v-if="!item.inactive" class="tag is-success"></span>
-              <span v-if="item.inactive" class="tag is-danger"></span>
-            </th>
+              <td>
+                <div class="field has-addons">
+                  <button
+                    class="button btn-edit"
+                    style="background-color: #1ba500; color: white"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </button>
 
-            <th>{{ item.date }}</th>
-
-            <th>{{ item.cattle.earring }}</th>
-
-            <th>{{ item.weight }} Kg</th>
-
-            <th>
-              <button
-                @click="onClickPageDetail(item.id)"
-                class="button btn-edit"
-              >
-                <img
-                  style="width: 15px"
-                  src="../../assets/editIcon.png"
-                  alt="Guerin"
-                />
-              </button>
-            </th>
-
-            <th>
-              <button
-                @click="onClickPageInactivated(item.id)"
-                class="button btn-delet"
-              >
-                X
-              </button>
-            </th>
-          </tr>
-        </tbody>
-      </table>
+                  <button
+                    class="button btn-delet"
+                    style="background-color: #ab0303; color: white"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-trash"></i>
+                    </span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav class="pagination" v-if="pagination && tableData.length > 0">
+        <a
+          class="pagination-previous"
+          href="#"
+          @click.prevent="changePage(currentPage - 1)"
+          >Anterior</a
+        >
+        <a
+          class="pagination-next"
+          href="#"
+          @click.prevent="changePage(currentPage + 1)"
+          >Proximo</a
+        >
+        <ul class="pagination-list">
+          <li
+            v-for="page in pagesNumber"
+            class="pagination-link"
+            :class="{ active: page == pagination.meta.current_page }"
+            :key="page"
+          >
+            <a
+              href="javascript:void(0)"
+              @click.prevent="changePage(page - 1)"
+              class="page-link"
+              >{{ page }}</a
+            >
+          </li>
+          <li v-if="pages > 10">
+            <span class="pagination-ellipsis">&hellip;</span>
+          </li>
+          <span style="margin-top: 8px">
+            &nbsp;
+            <i
+              >Mostrando {{ pagination.numberOfElements }} de
+              {{ pagination.totalElements }} registros.</i
+            ></span
+          >
+        </ul>
+      </nav>
     </div>
   </aside>
 </template>
 
-<script lang="ts">
-import { Vue } from "vue-class-component";
-import { PageRequest } from "@/model/page/page-request";
-import { PageResponse } from "@/model/page/page-response";
-import { WeighingClient } from "@/client/weighing.client";
-import { Weighing } from "@/model/weighing.model";
-
-export default class WeighingList extends Vue {
-  private pageRequest: PageRequest = new PageRequest();
-  private pageResponse: PageResponse<Weighing> = new PageResponse();
-  public weighingList: Weighing[] = [];
-  private weighingClient!: WeighingClient;
-  count: any = null;
-  showModal = false;
-
-  public mounted(): void {
-    this.weighingClient = new WeighingClient();
-    this.listAll();
-    this.countWeight();
-  }
-
-  public listAll(): void {
-    this.weighingClient.findByAll(this.pageRequest).then(
-      (success) => {
-        this.pageResponse = success;
-        this.weighingList = this.pageResponse.content;
+<script>
+import axiosClient from "../../plugins/axios";
+var counter = null;
+export default {
+  data() {
+    return {
+      tableData: [],
+      url: "/weighing",
+      pagination: {
+        meta: { to: 1, from: 1 },
       },
-      (error) => console.log(error)
-    );
-  }
-
-  public countWeight(): void {
-    this.weighingClient.count().then(
-      (sucess) => {
-        return (this.count = Number(sucess));
+      columns: ["Id", "Status", "Data", "Peso", "Brinco"],
+      offset: 4,
+      currentPage: 0,
+      perPage: 10,
+      sortedColumn: "Id",
+      order: "asc",
+      pages: 0,
+      count: 0,
+    };
+  },
+  watch: {
+    fetchUrl: {
+      handler: function (fetchUrl) {
+        this.url = fetchUrl;
       },
-      (error) => {
-        return console.log(error);
+      immediate: true,
+    },
+  },
+  created() {
+    return this.fetchData();
+  },
+  computed: {
+    /**
+     * Get the pages number array for displaying in the pagination.
+     * */
+    pagesNumber() {
+      if (!this.pagination.meta.to) {
+        return [];
       }
-    );
-  }
+      let from = this.pagination.meta.current_page - this.offset;
+      if (from < 1) {
+        from = 1;
+      }
+      let to = from + this.offset * 2;
+      if (to >= this.pagination.meta.last_page) {
+        to = this.pagination.meta.last_page + 1;
+      }
+      let pagesArray = [];
+      this.pages = to; //to
+      var max = this.pages;
+      if (max > 10) max = 10;
+      for (let page = from; page <= max; page++) {
+        pagesArray.push(page);
+      }
+      return pagesArray;
+    },
+    /**
+     * Get the total data displayed in the current page.
+     * */
+    totalData() {
+      return this.pagination.meta.to - this.pagination.meta.from + 1;
+    },
+  },
+  methods: {
+    fetchData() {
+      let dataFetchUrl = `/weighing?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
+      axiosClient
+        .get(dataFetchUrl)
+        .then(({ data }) => {
+          console.log(data);
+          this.pagination = data;
+          this.pagination.meta = {
+            from: data.pageable.offset + 1,
+            to: data.pageable.offset + data.numberOfElements,
+            current_page: data.number,
+            last_page: data.totalPages - 1,
+          };
+          this.tableData = data.content;
+          this.count = this.tableData.length;
+        })
+        .catch((error) => (this.tableData = []));
+    },
+    /**
+     * Get the serial number.
+     * @param key
+     * */
+    serialNumber(key) {
+      return (this.currentPage - 1) * this.perPage + 1 + key;
+    },
+    /**
+     * Change the page.
+     * @param pageNumber
+     */
+    changePage(pageNumber) {
+      if (pageNumber < this.pagesNumber.length) {
+        this.currentPage = pageNumber;
+        this.fetchData();
+      }
+    },
+    onClickPageDetail(id) {
+      this.$router.push({ name: "weight-detail", params: { id: id } });
+    },
+    /**
+     * Sort the data by column.
+     * */
+    countWeight() {
+      this.weightClient.count().then(
+        (sucess) => {
+          return (this.counter = Number(sucess));
+        },
+        (error) => {
+          return console.log(error);
+        }
+      );
+    },
 
-  public openModal() {
-    if (this.showModal) {
-      this.showModal = false;
-    } else {
-      this.showModal = true;
-    }
-  }
-
-  public onClickPageDetail(id: number) {
-    this.$router.push({ name: "weight-detail", params: { id: id } });
-  }
-
-  public onClickPageInactivated(id: number) {
-    this.$router.push({ name: "weight-inactivated", params: { id: id } });
-  }
-}
+    sortByColumn(column) {
+      if (column === this.sortedColumn) {
+        this.order = this.order === "asc" ? "desc" : "asc";
+      } else {
+        this.sortedColumn = column;
+        this.order = "asc";
+      }
+      this.fetchData();
+    },
+  },
+  name: "DataTable",
+};
 </script>
 
 <style scoped>
@@ -252,10 +408,6 @@ export default class WeighingList extends Vue {
   padding: 30px;
 }
 
-.table-div {
-  padding: 30px;
-}
-
 .table {
   box-shadow: 0px 0px 10px #d1d1d1;
   width: 100%;
@@ -303,42 +455,33 @@ export default class WeighingList extends Vue {
 }
 
 .btn-edit {
-  font-size: 13px;
   background-color: #ffffff;
   border-color: #1ba500;
   border-width: 3px;
   border-radius: 150px;
-  font-weight: bold;
-  padding: 0px 5px;
+  color: #1ba500;
+  margin-right: 10px;
 }
 
 .btn-edit:hover {
-  background-color: #ffffff;
-  transform: translate(-1px, -1px);
   transition: 1s;
-  border-color: #25e000;
-  font-weight: bold;
-  box-shadow: 2px 5px 10px #a7a7a7;
+  border-color: #1eb401;
+  background-color: #1eb401;
 }
 
 .btn-delet {
-  font-size: 13px;
   background-color: #ffffff;
   border-color: #ab0303;
   border-width: 3px;
   border-radius: 150px;
   color: #ab0303;
-  font-weight: bold;
-  padding: 0px 8px;
+  margin-left: 10px;
 }
 
 .btn-delet:hover {
-  background-color: #ffffff;
-  transform: translate(-1px, -1px);
   transition: 1s;
-  border-color: #dd0000;
-  font-weight: bold;
-  box-shadow: 2px 5px 10px #a7a7a7;
+  border-color: #c20101;
+  background-color: #c20101;
 }
 
 .btn-cad {
@@ -368,5 +511,17 @@ export default class WeighingList extends Vue {
   color: white;
   transition: 0.7s;
   box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.pagination {
+  width: 95%;
+  margin-left: 30px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  margin-bottom: 20px;
+}
+.table {
+  text-align: center;
 }
 </style>
