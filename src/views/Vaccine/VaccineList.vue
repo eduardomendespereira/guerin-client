@@ -77,6 +77,13 @@
                   <i v-else class="fa fa-arrow-up"></i>
                 </span>
             </th>
+            <th @click="sortByColumn('Opções')" class="table-head">
+              {{ $filters.columnHead("Opções") }}
+              <span v-if="'Opções' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -202,7 +209,7 @@ export default {
       pagination: {
         meta: { to: 1, from: 1 },
       },
-      columns: ["Id", "Status", "Nome", "Obrigatoria", "Data Cadastro"],
+      columns: ["Id", "Status", "Nome", "Obrigatoria", "Data Cadastro", "Opções"],
       offset: 4,
       currentPage: 0,
       perPage: 10,
@@ -323,6 +330,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .activates {
   background-color: white;
   margin-top: 45px;
@@ -498,4 +506,5 @@ export default {
 .table {
   text-align: center;
 }
+
 </style>
