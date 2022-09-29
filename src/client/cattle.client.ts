@@ -97,4 +97,27 @@ export class CattleClient {
 			return Promise.reject(error.response)
 		}
 	}
+    public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/cattle/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
+
+    public async countMale() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/cattle/count/male')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
+
+    public async countFemale() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/cattle/count/female')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 }

@@ -56,4 +56,12 @@ export class WeighingClient {
             return Promise.reject(error.response)
         }
     }
+
+    public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/weighing/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 }

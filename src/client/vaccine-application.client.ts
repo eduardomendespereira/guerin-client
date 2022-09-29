@@ -63,4 +63,12 @@ export class VaccineApplicationClient {
             return Promise.reject(error.response)
         }
     }
+
+    public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/vaccineApplications/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 }

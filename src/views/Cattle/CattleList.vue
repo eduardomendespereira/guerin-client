@@ -1,21 +1,77 @@
 <template>
   <aside class="cattle is-fullheight">
+    <!--<p class="is-size-4 pt-5 pl-5"><b>Gados</b></p>-->
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5"><b>Gados</b></p>
       <div class="ativos p-2">
         <div class="icon-ativos">
           <img
-            style="width: 30px"
+            style="width: 40px"
             src="../../assets/cowIcon.png"
             alt="Guerin"
           />
         </div>
         <h1
-          class="text-ativos has-text-weight-bold is-size-5"
+          class="text-ativos has-text-weight-bold is-size-4"
           style="color: black"
         >
-          BETA TESTE
+          Gados
         </h1>
+
+        <div>
+          <h1
+            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+            style="color: #004aad"
+            span
+          >
+            {{ count }}
+          </h1>
+        </div>
+      </div>
+      <div class="ativos p-2">
+        <div class="icon-ativos-female">
+          <img
+            style="width: 60px"
+            src="../../assets/cattleIcon.png"
+            alt="Guerin"
+          />
+        </div>
+        <h1
+          class="text-ativos has-text-weight-bold is-size-4"
+          style="color: black"
+        >
+          Vacas
+        </h1>
+
+        <div>
+          <h1
+            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+            style="color: #004aad"
+            span
+          >
+            {{ countFemale }}
+          </h1>
+        </div>
+      </div>
+      <div class="ativos p-2">
+        <div class="icon-ativos-male">
+          <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
+        </div>
+        <h1
+          class="text-ativos has-text-weight-bold is-size-4"
+          style="color: black"
+        >
+          Bois
+        </h1>
+
+        <div>
+          <h1
+            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+            style="color: #004aad"
+            span
+          >
+            {{ countMale }}
+          </h1>
+        </div>
       </div>
     </div>
 
@@ -86,10 +142,16 @@ export default class CattleList extends Vue {
   private pageResponse: PageResponse<Cattle> = new PageResponse();
   public cattleList: Cattle[] = [];
   private cattleClient!: CattleClient;
+  count: any = null;
+  countFemale: any = null;
+  countMale: any = null;
 
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.listAllCattles();
+    this.countCattle();
+    this.countCattleFemale();
+    this.countCattleMale();
   }
 
   public listAllCattles(): void {
@@ -99,6 +161,39 @@ export default class CattleList extends Vue {
         this.cattleList = this.pageResponse.content;
       },
       (error) => console.log(error)
+    );
+  }
+
+  public countCattle(): void {
+    this.cattleClient.count().then(
+      (sucess) => {
+        return (this.count = Number(sucess));
+      },
+      (error) => {
+        return console.log(error);
+      }
+    );
+  }
+
+  public countCattleFemale(): void {
+    this.cattleClient.countFemale().then(
+      (sucess) => {
+        return (this.countFemale = Number(sucess));
+      },
+      (error) => {
+        return console.log(error);
+      }
+    );
+  }
+
+  public countCattleMale(): void {
+    this.cattleClient.countMale().then(
+      (sucess) => {
+        return (this.countMale = Number(sucess));
+      },
+      (error) => {
+        return console.log(error);
+      }
     );
   }
 
@@ -116,9 +211,12 @@ export default class CattleList extends Vue {
 .ativos {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  width: 220px;
+  margin-right: 45px;
+  margin-left: 45px;
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
 }
 
 .icon-ativos {
@@ -128,14 +226,42 @@ export default class CattleList extends Vue {
   display: flex;
   justify-content: center;
   padding: 8px 8px 8px 8px;
-  width: 55px;
-  height: 45px;
+  width: 65px;
+  height: 55px;
   border-radius: 20px;
-  background-color: #4a9490;
+  background-color: #126b00;
+}
+
+.icon-ativos-female {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 65px;
+  height: 55px;
+  border-radius: 20px;
+  background-color: #007a9b;
+}
+
+.icon-ativos-male {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 65px;
+  height: 55px;
+  border-radius: 20px;
+  background-color: #ab0303;
 }
 
 .text-ativos {
-  margin-left: 60px;
+  display: flex;
+  justify-content: end;
+  margin-right: 40px;
 }
 
 .header-btn {

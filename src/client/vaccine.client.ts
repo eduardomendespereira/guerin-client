@@ -2,7 +2,6 @@ import { Vaccine } from "@/model/vaccine.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
-import {User} from "@/model/user.model";
 
 export class VaccineClient {
 
@@ -64,4 +63,12 @@ export class VaccineClient {
             return Promise.reject(error.response)
         }
     }
+
+    public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/vaccines/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 }
