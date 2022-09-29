@@ -24,7 +24,7 @@ export class SpecieClient {
   	public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<Specie>> {
 		try {
 			
-			let requestPath = ''
+			let requestPath = '/species'
 			
 			requestPath += `?page=${pageRequest.currentPage}`
 			requestPath += `&size=${pageRequest.pageSize}`

@@ -94,6 +94,7 @@ export default class SpecieView extends Vue {
       (success: any) => {
         this.pageResponse = success;
         this.specieList = this.pageResponse.content;
+        console.log(this.specieList);
       },
       (error: any) => {
         console.log(error);

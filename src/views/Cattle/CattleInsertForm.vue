@@ -25,7 +25,7 @@
           />
           <div class="select in-1">
             <select class="select" v-model="cattle.specie">
-              <option>Nelore</option>
+              <option v-for="item in specieList" :key="item.id">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -80,14 +80,36 @@ import { Vue } from "vue-class-component";
 import { Notification } from "@/model/notification";
 import { Cattle } from "@/model/cattle.model";
 import { CattleClient } from "@/client/cattle.client";
+import { SpecieClient } from "@/client/specie.client";
+import { PageRequest } from "@/model/page/page-request";
+import { PageResponse } from "@/model/page/page-response";
+import { Specie } from "@/model/specie.model";
 
 export default class cattleInsertForm extends Vue {
   private cattleClient!: CattleClient;
   public cattle: Cattle = new Cattle();
   public notification: Notification = new Notification();
+  private pageRequest: PageRequest = new PageRequest();
+  private pageResponse: PageResponse<Specie> = new PageResponse();
+    private specieClient!: SpecieClient;
+  public specieList: Specie[] = [];
 
   public mounted(): void {
     this.cattleClient = new CattleClient();
+    this.specieClient = new SpecieClient();
+    this.listAllVaccines();
+  }
+
+  public listAllVaccines(): void {
+    this.specieClient.findByFiltrosPaginado(this.pageRequest).then(
+      (success: any) => {
+        this.pageResponse = success;
+        this.specieList = this.pageResponse.content;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   public onClickSave(): void {
