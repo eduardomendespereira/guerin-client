@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
-        path: "/eventos/vacina/cadastrar",
+        path: "/eventos/vacinas/cadastrar",
         name: "vaccine-insert",
         component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
         beforeEnter: Guard.auth,
