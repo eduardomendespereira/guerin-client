@@ -331,6 +331,17 @@ export default {
 
 <style lang="scss">
 
+element.style {
+}
+.table th:not([align]) {
+  text-align: center;
+}
+element.style {
+}
+.field.has-addons {
+  display: flex;
+  justify-content: center;
+}
 .activates {
   background-color: white;
   margin-top: 45px;
