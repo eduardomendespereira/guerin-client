@@ -6,7 +6,7 @@ import { Weighing } from "@/model/weighing.model";
 
 export class WeighingClient {
 
-    public async findById(id: number): Promise<Weighing> {
+    public async findById(id: number): Promise<any> {
         try{
             return (await axiosClient.get<Weighing>(`/weighing/${id}`)).data
         }catch (error:any) {

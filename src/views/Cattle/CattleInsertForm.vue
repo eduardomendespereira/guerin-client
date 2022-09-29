@@ -61,10 +61,10 @@
             <option>Guerin</option>
           </select>
         </div>
-        <hr class="linha" size="100" width="1000" />
+        <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/gados">
-            <button class="button btn-voltar">Voltar ao Menu</button>
+            <button class="button btn-back">Voltar ao Menu</button>
           </router-link>
           <button @click="onClickSave()" class="button btn-cad">
             Cadastrar Animal
@@ -168,7 +168,7 @@ export default class cattleInsertForm extends Vue {
   width: 630px;
 }
 
-.linha {
+.line {
   background-color: #dbdbdb;
   margin: 30px 0px 0px 0px;
 }
@@ -195,13 +195,13 @@ export default class cattleInsertForm extends Vue {
   box-shadow: 0px 0px 10px #d1d1d1;
 }
 
-.btn-voltar {
+.btn-back {
   background-color: #c20101;
   color: #ffffff;
   padding: 12px;
 }
 
-.btn-voltar:hover {
+.btn-back:hover {
   background-color: #da0000;
   color: white;
   transition: 0.7s;

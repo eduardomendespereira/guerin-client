@@ -5,8 +5,8 @@
     </div>
     <div class="is-flex is-justify-content-space-around">
       <div class="is-flex is-justify-content-center">
-        <div class="ativos-vaccine">
-          <div class="icon-ativos-vaccine">
+        <div class="activates-vaccine">
+          <div class="icon-activates-vaccine">
             <img
               style="width: 50px"
               src="../../assets/vacineIcon.png"
@@ -14,13 +14,13 @@
             />
           </div>
           <h1
-            class="text-ativos has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3"
             style="color: black"
           >
             Vacinas
           </h1>
 
-          <hr class="linha" size="10" />
+          <hr class="line" size="10" />
 
           <router-link class="link is-size-5" to="/eventos/vacinas"
             >Acessar</router-link
@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="is-flex is-justify-content-center">
-        <div class="ativos-vaccine-app">
-          <div class="icon-ativos-vaccine-app">
+        <div class="activates-vaccine-app">
+          <div class="icon-activates-vaccine-app">
             <img
               style="width: 50px"
               src="../../assets/vaccineAppIcon.png"
@@ -37,15 +37,17 @@
             />
           </div>
           <h1
-            class="text-ativos has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3"
             style="color: black"
           >
             Aplicação de Vacinas
           </h1>
 
-          <hr class="linha" size="10" />
+          <hr class="line" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/aplicacoes-de-vacinas"
+          <router-link
+            class="link is-size-5"
+            to="/eventos/aplicacoes-de-vacinas"
             >Acessar</router-link
           >
         </div>
@@ -53,8 +55,8 @@
     </div>
     <div class="is-flex is-justify-content-space-around">
       <div class="is-flex is-justify-content-center">
-        <div class="ativos-events">
-          <div class="icon-ativos-events">
+        <div class="activates-events">
+          <div class="icon-activates-events">
             <img
               style="width: 50px"
               src="../../assets/eventIcon.png"
@@ -62,13 +64,13 @@
             />
           </div>
           <h1
-            class="text-ativos has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3"
             style="color: black"
           >
             Eventos Ocorridos
           </h1>
 
-          <hr class="linha" size="10" />
+          <hr class="line" size="10" />
 
           <router-link class="link is-size-5" to="/eventos/pesagem"
             >Acessar</router-link
@@ -76,8 +78,8 @@
         </div>
       </div>
       <div class="is-flex is-justify-content-center">
-        <div class="ativos">
-          <div class="icon-ativos">
+        <div class="activates">
+          <div class="icon-activates">
             <img
               style="width: 50px"
               src="../../assets/weightIcon.png"
@@ -85,13 +87,13 @@
             />
           </div>
           <h1
-            class="text-ativos has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3"
             style="color: black"
           >
             Pesagem
           </h1>
 
-          <hr class="linha" size="10" />
+          <hr class="line" size="10" />
 
           <router-link class="link is-size-5" to="/eventos/pesagem"
             >Acessar</router-link
@@ -109,7 +111,7 @@ export default class EventView extends Vue {}
 </script>
 
 <style scoped>
-.ativos {
+.activates {
   background-color: white;
   width: 250px;
   height: 250px;
@@ -119,7 +121,7 @@ export default class EventView extends Vue {}
   padding: 30px 40px 8px 40px;
 }
 
-.icon-ativos {
+.icon-activates {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -131,7 +133,7 @@ export default class EventView extends Vue {}
   background-color: #ab0303;
 }
 
-.text-ativos {
+.text-activates {
   margin-top: 30px;
   display: flex;
   justify-content: center;
@@ -139,7 +141,7 @@ export default class EventView extends Vue {}
 }
 
 /**/
-.ativos-vaccine {
+.activates-vaccine {
   background-color: white;
   margin-top: 45px;
   width: 250px;
@@ -149,7 +151,7 @@ export default class EventView extends Vue {}
   padding: 30px 40px 8px 40px;
 }
 
-.icon-ativos-vaccine {
+.icon-activates-vaccine {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -162,7 +164,7 @@ export default class EventView extends Vue {}
 }
 
 /**/
-.ativos-vaccine-app {
+.activates-vaccine-app {
   background-color: white;
   margin-top: 45px;
   width: 250px;
@@ -172,7 +174,7 @@ export default class EventView extends Vue {}
   padding: 30px 40px 8px 40px;
 }
 
-.icon-ativos-vaccine-app {
+.icon-activates-vaccine-app {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -186,7 +188,7 @@ export default class EventView extends Vue {}
 
 /**/
 
-.ativos-events {
+.activates-events {
   background-color: white;
   margin-top: 45px;
   width: 250px;
@@ -196,7 +198,7 @@ export default class EventView extends Vue {}
   padding: 30px 40px 8px 40px;
 }
 
-.icon-ativos-events {
+.icon-activates-events {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -212,7 +214,7 @@ export default class EventView extends Vue {}
   width: 100%;
 }
 
-.linha {
+.line {
   background-color: #dbdbdb;
   margin: 25px 0px 10px 0px;
 }

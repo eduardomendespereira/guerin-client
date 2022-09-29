@@ -71,4 +71,12 @@ export class FarmClient {
 			return Promise.reject(error.response)
 		}
 	}
+
+	public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/farm/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 }

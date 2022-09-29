@@ -82,10 +82,10 @@
             {{ cattle.farm?.name }}
           </h4>
         </div>
-        <hr class="linha" size="100" width="900" />
+        <hr class="line" size="100" width="900" />
         <div class="btns">
           <router-link to="/gados">
-            <button class="button btn-voltar">Voltar ao Menu</button>
+            <button class="button btn-back">Voltar ao Menu</button>
           </router-link>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default class CattleDetail extends Vue {
   }
 }
 
-.linha {
+.line {
   background-color: #dbdbdb;
   margin: 30px 0px 0px 0px;
 }
@@ -181,13 +181,13 @@ export default class CattleDetail extends Vue {
   }
 }
 
-.btn-voltar {
+.btn-back {
   background-color: #005bd4;
   color: #ffffff;
   padding: 12px;
 }
 
-.btn-voltar:hover {
+.btn-back:hover {
   background-color: #0067ee;
   color: white;
   transition: 0.7s;

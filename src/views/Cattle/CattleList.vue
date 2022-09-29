@@ -2,8 +2,8 @@
   <aside class="cattle is-fullheight">
     <!--<p class="is-size-4 pt-5 pl-5"><b>Gados</b></p>-->
     <div class="columns is-flex is-justify-content-space-between">
-      <div class="ativos p-2">
-        <div class="icon-ativos">
+      <div class="activates p-2">
+        <div class="icon-activates">
           <img
             style="width: 40px"
             src="../../assets/cowIcon.png"
@@ -11,7 +11,7 @@
           />
         </div>
         <h1
-          class="text-ativos has-text-weight-bold is-size-4"
+          class="text-activates has-text-weight-bold is-size-4"
           style="color: black"
         >
           Gados
@@ -27,8 +27,8 @@
           </h1>
         </div>
       </div>
-      <div class="ativos p-2">
-        <div class="icon-ativos-female">
+      <div class="activates p-2">
+        <div class="icon-activates-female">
           <img
             style="width: 60px"
             src="../../assets/cattleIcon.png"
@@ -36,7 +36,7 @@
           />
         </div>
         <h1
-          class="text-ativos has-text-weight-bold is-size-4"
+          class="text-activates has-text-weight-bold is-size-4"
           style="color: black"
         >
           Vacas
@@ -52,12 +52,12 @@
           </h1>
         </div>
       </div>
-      <div class="ativos p-2">
-        <div class="icon-ativos-male">
+      <div class="activates p-2">
+        <div class="icon-activates-male">
           <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
         </div>
         <h1
-          class="text-ativos has-text-weight-bold is-size-4"
+          class="text-activates has-text-weight-bold is-size-4"
           style="color: black"
         >
           Bois
@@ -208,7 +208,7 @@ export default class CattleList extends Vue {
   width: 100%;
 }
 
-.ativos {
+.activates {
   background-color: white;
   margin-top: 45px;
   width: 220px;
@@ -219,7 +219,7 @@ export default class CattleList extends Vue {
   border-radius: 10px;
 }
 
-.icon-ativos {
+.icon-activates {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -232,7 +232,7 @@ export default class CattleList extends Vue {
   background-color: #126b00;
 }
 
-.icon-ativos-female {
+.icon-activates-female {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -245,7 +245,7 @@ export default class CattleList extends Vue {
   background-color: #007a9b;
 }
 
-.icon-ativos-male {
+.icon-activates-male {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -258,7 +258,7 @@ export default class CattleList extends Vue {
   background-color: #ab0303;
 }
 
-.text-ativos {
+.text-activates {
   display: flex;
   justify-content: end;
   margin-right: 40px;

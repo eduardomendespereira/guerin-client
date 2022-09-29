@@ -2,8 +2,8 @@
   <aside class="weight is-fullheight">
     <div class="columns is-flex is-justify-content-space-between">
       <p class="is-size-4 pt-5 pl-5">Eventos <b>> Pesagem</b></p>
-      <div class="ativos p-2">
-        <div class="icon-ativos">
+      <div class="activates p-2">
+        <div class="icon-activates">
           <img
             style="width: 30px"
             src="../../assets/weightIcon.png"
@@ -11,7 +11,7 @@
           />
         </div>
         <h1
-          class="text-ativos has-text-weight-bold is-size-5"
+          class="text-activates has-text-weight-bold is-size-5"
           style="color: black"
         >
           Pesagens Ativas
@@ -60,7 +60,7 @@
           <input class="input in-1" type="text" placeholder="Brinco do Gado" />
         </section>
         <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-voltar" @click="openModal">
+          <button class="button btn-back" @click="openModal">
             Voltar ao Menu
           </button>
           <button class="button btn-cad">Cadastrar Pesagem</button>
@@ -84,7 +84,7 @@
           <tr v-for="item in weighingList" :key="item.id">
             <th>
               <button
-                @click="onClickDetailPage(item.id)"
+                @click="onClickPageDetail(item.id)"
                 class="button btn-detail"
               >
                 !
@@ -104,7 +104,7 @@
 
             <th>
               <button
-                @click="onClickDetailPage(item.id)"
+                @click="onClickPageDetail(item.id)"
                 class="button btn-edit"
               >
                 <img
@@ -117,7 +117,7 @@
 
             <th>
               <button
-                @click="onClickDetailPage(item.id)"
+                @click="onClickPageInactivated(item.id)"
                 class="button btn-delet"
               >
                 X
@@ -172,13 +172,6 @@ export default class WeighingList extends Vue {
     );
   }
 
-  public onClickDetailPage(idWeighing: number) {
-    this.$router.push({
-      name: "weighingDetail",
-      params: { id: idWeighing, model: "detail" },
-    });
-  }
-
   public openModal() {
     if (this.showModal) {
       this.showModal = false;
@@ -186,11 +179,19 @@ export default class WeighingList extends Vue {
       this.showModal = true;
     }
   }
+
+  public onClickPageDetail(id: number) {
+    this.$router.push({ name: "weight-detail", params: { id: id } });
+  }
+
+  public onClickPageInactivated(id: number) {
+    this.$router.push({ name: "weight-inactivated", params: { id: id } });
+  }
 }
 </script>
 
 <style scoped>
-.ativos {
+.activates {
   background-color: white;
   margin-top: 45px;
   margin-right: 40px;
@@ -198,7 +199,7 @@ export default class WeighingList extends Vue {
   box-shadow: 0px 0px 10px #d1d1d1;
 }
 
-.icon-ativos {
+.icon-activates {
   top: -22px;
   left: 5px;
   position: absolute;
@@ -210,7 +211,7 @@ export default class WeighingList extends Vue {
   background-color: #ab0303;
 }
 
-.text-ativos {
+.text-activates {
   margin-left: 60px;
 }
 
@@ -355,14 +356,14 @@ export default class WeighingList extends Vue {
   box-shadow: 0px 0px 10px #d1d1d1;
 }
 
-.btn-voltar {
+.btn-back {
   background-color: #c20101;
   color: #ffffff;
   padding: 12px;
   width: 200px;
 }
 
-.btn-voltar:hover {
+.btn-back:hover {
   background-color: #da0000;
   color: white;
   transition: 0.7s;
