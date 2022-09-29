@@ -78,7 +78,7 @@
     </div>
   </aside>
 </template>
-<script >
+<script>
 import axiosClient from "../plugins/axios";
 export default {
   props: {
@@ -97,7 +97,7 @@ export default {
       perPage: 2,
       sortedColumn: this.columns[0],
       order: "asc",
-      pages: 0
+      pages: 0,
     };
   },
   watch: {
@@ -125,7 +125,7 @@ export default {
       }
       let to = from + this.offset * 2;
       if (to >= this.pagination.meta.last_page) {
-        to = (this.pagination.meta.last_page + 1);
+        to = this.pagination.meta.last_page + 1;
       }
       let pagesArray = [];
       this.pages = to; //to
@@ -173,8 +173,10 @@ export default {
      * @param pageNumber
      */
     changePage(pageNumber) {
-      this.currentPage = pageNumber;
-      this.fetchData();
+      if (pageNumber < pagesNumber.length) {
+        this.currentPage = pageNumber;
+        this.fetchData();
+      }
     },
     /**
      * Sort the data by column.
@@ -193,5 +195,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
