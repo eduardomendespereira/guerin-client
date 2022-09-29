@@ -22,7 +22,7 @@
 
           <hr class="linha" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/vacina"
+          <router-link class="link is-size-5" to="/eventos/vacinas"
             >Acessar</router-link
           >
         </div>
@@ -45,7 +45,7 @@
 
           <hr class="linha" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/aplicacao-vacina"
+          <router-link class="link is-size-5" to="/eventos/aplicacoes-de-vacinas"
             >Acessar</router-link
           >
         </div>

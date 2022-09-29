@@ -2,6 +2,7 @@ import { Specie } from "@/model/specie.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
+import { number } from "yup";
 export class SpecieClient {
 
 
@@ -12,6 +13,13 @@ export class SpecieClient {
             return Promise.reject()
         }
     }
+	public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/species/count')).data
+		}catch{
+			return Promise.reject();
+		}
+	}
 
   	public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<Specie>> {
 		try {

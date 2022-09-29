@@ -15,17 +15,17 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: Guard.auth,
     children: [
         {
-        path: "/eventos/vacina",
-        name: "Vaccine",
+        path: "/eventos/vacinas",
+        name: "vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/eventos/aplicacao-vacina",
-        name: "VaccineApplication",
+        path: "/eventos/aplicacoes-de-vacinas",
+        name: "list-vaccine-applicarion",
         component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
       },
       {
-        path: "/eventos/vacina/:id",
+        path: "/eventos/vacinas/:id",
         name: "vaccine-detail",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
