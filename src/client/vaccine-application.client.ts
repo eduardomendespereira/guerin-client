@@ -7,7 +7,7 @@ export class VaccineApplicationClient {
 
     public async findById(id: number): Promise<VaccineApplication> {
         try {
-            return (await axiosClient.get<VaccineApplication>(`/${id}`)).data
+            return (await axiosClient.get<VaccineApplication>(`/vaccineApplications/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -15,7 +15,7 @@ export class VaccineApplicationClient {
 
     public async findByVaccine(id: number): Promise<VaccineApplication> {
         try {
-            return (await axiosClient.get<VaccineApplication>(`/vaccine/${id}`)).data
+            return (await axiosClient.get<VaccineApplication>(`vaccineApplications/vaccine/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -42,7 +42,7 @@ export class VaccineApplicationClient {
 
     public async save(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await axiosClient.post('/', vaccineApplication))
+            return (await axiosClient.post('/vaccineApplications/', vaccineApplication))
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -50,7 +50,7 @@ export class VaccineApplicationClient {
 
     public async update(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await axiosClient.put(`/${vaccineApplication.id}`, vaccineApplication)).data
+            return (await axiosClient.put(`/vaccineApplications/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -58,7 +58,7 @@ export class VaccineApplicationClient {
 
     public async disable(vaccineApplication: VaccineApplication): Promise<void> {
         try {
-            return (await axiosClient.put(`/disable/${vaccineApplication.id}`, vaccineApplication)).data
+            return (await axiosClient.put(`/vaccineApplications/disable/${vaccineApplication.id}`, vaccineApplication)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

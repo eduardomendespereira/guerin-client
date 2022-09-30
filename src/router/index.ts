@@ -20,21 +20,38 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineList.vue"),
       },
       {
-        path: "/eventos/aplicacoes-de-vacinas",
-        name: "list-vaccine-applicarion",
-        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
-      },
-      {
         path: "/eventos/vacinas/:id",
         name: "vaccine-detail",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
+        path: "/eventos/vacinas/cadastrar",
+        name: "vaccine-insert",
+        component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/eventos/vacinas/desativar/:id",
         name: "vaccine-disable",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Vaccine/VaccineDisable.vue"),
+      },
+      {
+        path: "/eventos/aplicacoes-de-vacinas",
+        name: "list-vaccine-application",
+        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
+      },
+      {
+        path: "/eventos/aplicacoes-de-vacinas/:id",
+        name: "vaccine-application-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/VaccineApplication/VaccineApplicationDetail.vue"),
+      },
+      {
+        path: "/eventos/aplicacoes-de-vacinas/cadastrar",
+        name: "insert-vaccine-application",
+        component: () => import("../views/VaccineApplication/VaccineApplicationInsertForm.vue"),
       },
       {
         path: "/gados",
@@ -51,12 +68,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/gados/cadastrar',
         name: 'cattle-insert',
         component: () => import("../views/Cattle/CattleInsertForm.vue")
-      },
-      {
-        path: "/eventos/vacinas/cadastrar",
-        name: "vaccine-insert",
-        component: () => import("../views/Vaccine/VaccineInsertForm.vue"),
-        beforeEnter: Guard.auth,
       },
       {
         path: "/especie",

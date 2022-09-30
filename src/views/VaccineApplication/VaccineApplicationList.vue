@@ -63,6 +63,13 @@
                   <i v-else class="fa fa-arrow-up"></i>
                 </span>
             </th>
+            <th @click="sortByColumn('Vacina Aplicada')" class="table-head">
+              {{ $filters.columnHead("Vacina Aplicada") }}
+              <span v-if="'Vacina Aplicada' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+            </th>
             <th @click="sortByColumn('Data')" class="table-head">
               {{ $filters.columnHead("Data") }}
               <span v-if="'Data' === sortedColumn">
@@ -120,6 +127,7 @@
               ></span>
             </td>
             <td>{{ data.note }}</td>
+            <td>{{ data.vaccine?.name }}</td>
             <td>{{ data.date }}</td>
             <td>{{ data.cattle?.earring }}</td>
 
@@ -203,7 +211,7 @@ export default {
       pagination: {
         meta: { to: 1, from: 1 },
       },
-      columns: ["Id", "Status", "Descrição", "Data", "Brinco do Gado", "Opções"],
+      columns: ["Id", "Status", "Descrição", "Vacina Aplicada", "Data", "Brinco do Gado", "Opções"],
       offset: 4,
       currentPage: 0,
       perPage: 10,
