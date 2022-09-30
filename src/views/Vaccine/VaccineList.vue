@@ -135,6 +135,7 @@
                 <button
                     class="button btn-edit"
                     style="background-color: #1ba500; color: white"
+                    @click="onClickPageUpdate(data.id)"
                 >
                     <span class="icon is-small">
                       <i class="fa fa-pencil"></i>
@@ -305,6 +306,10 @@
 
       onClickPageDisable(id) {
         this.$router.push({ name: "vaccine-disable", params: { id: id } });
+      },
+
+      onClickPageUpdate(id) {
+        this.$router.push({ name: "vaccine-update", params: { id: id } });
       },
 
       /**

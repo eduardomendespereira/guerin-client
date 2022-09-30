@@ -27,23 +27,24 @@
           <input class="input" style="width: 300px" type="text" v-model="vaccineApplication.note" placeholder="Descrição">
         </div>
 
-        <label>
+        <div>
           Vacina
-          <select v-model="vaccineApplication.vaccine" size="...">
-            <option v-for="v in vaccineList" :key="v.name">{{ v.name }}</option>
+          <select v-model="vaccineApplication.vaccine">
+            <option type="number" v-for="v in vaccineList" :key="v.id">{{ v.name }}
+            </option>
           </select>
-        </label>
-
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="vaccineApplication.date" placeholder="Data">
         </div>
 
-        <label>
+        <div class="control">
+          <input class="input" style="width: 300px" type="datetime-local" v-model="vaccineApplication.date" placeholder="Data">
+        </div>
+
+        <div>
           Brinco do Gado
-          <select v-model="vaccineApplication.cattle" v-if="!vaccineApplication.cattle?.inactive" size="...">
-            <option v-for="c in cattleList" :key="c.earring">{{ c.earring }}</option>
+          <select v-model="vaccineApplication.cattle">
+            <option type="number" v-for="c in cattleList" :key="c.id">{{ c.earring }}</option>
           </select>
-        </label>
+        </div>
 
       </div>
       <div class="container-buttons">
@@ -101,11 +102,12 @@ export default class VaccineInsertForm extends Vue {
             },
             error => console.log(error)
         )
-    for(var i = 0; i < this.vaccineList.length; i++){
-      if(this.vaccineList[i].inactive){
-        delete this.vaccineList[i]
-      }
-    }
+    //Não presta
+    // for(var i = 0; i < this.vaccineList.length; i++){
+    //   if(this.vaccineList[i].inactive){
+    //     delete this.vaccineList[i]
+    //   }
+    // }
   }
 
   private listAllCattles(): void{
