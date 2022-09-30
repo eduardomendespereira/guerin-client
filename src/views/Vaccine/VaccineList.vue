@@ -200,139 +200,143 @@
 </template>
 
 <script>
-import axiosClient from "../../plugins/axios";
-var counter = null;
-export default {
-  data() {
-    return {
-      tableData: [],
-      url: "/vaccines",
-      pagination: {
-        meta: { to: 1, from: 1 },
+  import axiosClient from "../../plugins/axios";
+  let counterActives = null;
+  export default {
+    data() {
+      return {
+        tableData: [],
+        url: "/vaccines",
+        pagination: {
+          meta: { to: 1, from: 1 },
+        },
+        columns: ["Id", "Status", "Nome", "Obrigatoria", "Data Cadastro", "Opções"],
+        offset: 4,
+        currentPage: 0,
+        perPage: 10,
+        sortedColumn: "Id",
+        order: "asc",
+        pages: 0,
+        count: 0,
+      };
+    },
+    watch: {
+      fetchUrl: {
+        handler: function (fetchUrl) {
+          this.url = fetchUrl;
+        },
+        immediate: true,
       },
-      columns: ["Id", "Status", "Nome", "Obrigatoria", "Data Cadastro", "Opções"],
-      offset: 4,
-      currentPage: 0,
-      perPage: 10,
-      sortedColumn: "Id",
-      order: "asc",
-      pages: 0,
-      count: 0,
-    };
-  },
-  watch: {
-    fetchUrl: {
-      handler: function (fetchUrl) {
-        this.url = fetchUrl;
+    },
+    created() {
+      return this.fetchData();
+    },
+    computed: {
+      /**
+       * Get the pages number array for displaying in the pagination.
+       * */
+      pagesNumber() {
+        if (!this.pagination.meta.to) {
+          return [];
+        }
+        let from = this.pagination.meta.current_page - this.offset;
+        if (from < 1) {
+          from = 1;
+        }
+        let to = from + this.offset * 2;
+        if (to >= this.pagination.meta.last_page) {
+          to = this.pagination.meta.last_page + 1;
+        }
+        let pagesArray = [];
+        this.pages = to; //to
+        var max = this.pages;
+        if (max > 10) max = 10;
+        for (let page = from; page <= max; page++) {
+          pagesArray.push(page);
+        }
+        return pagesArray;
       },
-      immediate: true,
+      /**
+       * Get the total data displayed in the current page.
+       * */
+      totalData() {
+        return this.pagination.meta.to - this.pagination.meta.from + 1;
+      },
     },
-  },
-  created() {
-    return this.fetchData();
-  },
-  computed: {
-    /**
-     * Get the pages number array for displaying in the pagination.
-     * */
-    pagesNumber() {
-      if (!this.pagination.meta.to) {
-        return [];
-      }
-      let from = this.pagination.meta.current_page - this.offset;
-      if (from < 1) {
-        from = 1;
-      }
-      let to = from + this.offset * 2;
-      if (to >= this.pagination.meta.last_page) {
-        to = this.pagination.meta.last_page + 1;
-      }
-      let pagesArray = [];
-      this.pages = to; //to
-      var max = this.pages;
-      if (max > 10) max = 10;
-      for (let page = from; page <= max; page++) {
-        pagesArray.push(page);
-      }
-      return pagesArray;
-    },
-    /**
-     * Get the total data displayed in the current page.
-     * */
-    totalData() {
-      return this.pagination.meta.to - this.pagination.meta.from + 1;
-    },
-  },
-  methods: {
-    fetchData() {
-      let dataFetchUrl = `/vaccines?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
-      axiosClient
-          .get(dataFetchUrl)
-          .then(({ data }) => {
-            console.log(data);
-            this.pagination = data;
-            this.pagination.meta = {
-              from: data.pageable.offset + 1,
-              to: data.pageable.offset + data.numberOfElements,
-              current_page: data.number,
-              last_page: data.totalPages - 1,
-            };
-            this.tableData = data.content;
-            this.count = this.tableData.length;
-          })
-          .catch((error) => (this.tableData = []));
-    },
-    /**
-     * Get the serial number.
-     * @param key
-     * */
-    serialNumber(key) {
-      return (this.currentPage - 1) * this.perPage + 1 + key;
-    },
-    /**
-     * Change the page.
-     * @param pageNumber
-     */
-    changePage(pageNumber) {
-      if (pageNumber < this.pagesNumber.length) {
-        this.currentPage = pageNumber;
+    methods: {
+      fetchData() {
+        let dataFetchUrl = `/vaccines?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
+        axiosClient
+            .get(dataFetchUrl)
+            .then(({ data }) => {
+              console.log(data);
+              this.pagination = data;
+              this.pagination.meta = {
+                from: data.pageable.offset + 1,
+                to: data.pageable.offset + data.numberOfElements,
+                current_page: data.number,
+                last_page: data.totalPages - 1,
+              };
+              this.tableData = data.content;
+              this.count = this.tableData.length;
+            })
+            .catch((error) => (this.tableData = []));
+      },
+      /**
+       * Get the serial number.
+       * @param key
+       * */
+      serialNumber(key) {
+        return (this.currentPage - 1) * this.perPage + 1 + key;
+      },
+      /**
+       * Change the page.
+       * @param pageNumber
+       */
+      changePage(pageNumber) {
+        if (pageNumber < this.pagesNumber.length) {
+          this.currentPage = pageNumber;
+          this.fetchData();
+        }
+      },
+      onClickPageDetail(id) {
+        this.$router.push({ name: "vaccine-detail", params: { id: id } });
+      },
+
+      onClickPageDisable(id) {
+        this.$router.push({ name: "vaccine-disable", params: { id: id } });
+      },
+
+      /**
+       * Sort the data by column.
+       * */
+      countVaccine() {
+        this.vaccineClient.count().then(
+            (sucess) => {
+              return (this.counterActives = Number(sucess));
+            },
+            (error) => {
+              return console.log(error);
+            }
+        );
+      },
+
+      contaPoha(){
+        counterActives = this.vaccineClient.count().then()
+      },
+
+      sortByColumn(column) {
+        if (column === this.sortedColumn) {
+          this.order = this.order === "asc" ? "desc" : "asc";
+        } else {
+          this.sortedColumn = column;
+          this.order = "asc";
+        }
         this.fetchData();
-      }
+      },
     },
-    onClickPageDetail(id) {
-      this.$router.push({ name: "vaccine-detail", params: { id: id } });
-    },
-
-    onClickPageDisable(id) {
-      this.$router.push({ name: "vaccine-disable", params: { id: id } });
-    },
-
-    /**
-     * Sort the data by column.
-     * */
-    countVaccine() {
-      this.vaccineClient.count().then(
-          (sucess) => {
-            return (this.counter = Number(sucess));
-          },
-          (error) => {
-            return console.log(error);
-          }
-      );
-    },
-
-    sortByColumn(column) {
-      if (column === this.sortedColumn) {
-        this.order = this.order === "asc" ? "desc" : "asc";
-      } else {
-        this.sortedColumn = column;
-        this.order = "asc";
-      }
-      this.fetchData();
-    },
-  },
-  name: "DataTable",
-};
+    name: "DataTable",
+  };
 </script>
 
 <style lang="scss">
