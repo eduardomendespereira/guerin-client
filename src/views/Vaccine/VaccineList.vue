@@ -144,6 +144,7 @@
                 <button
                     class="button btn-delet"
                     style="background-color: #ab0303; color: white"
+                    @click="onClickPageDisable(data.id)"
                 >
                     <span class="icon is-small">
                       <i class="fa fa-trash"></i>
@@ -301,6 +302,11 @@ export default {
     onClickPageDetail(id) {
       this.$router.push({ name: "vaccine-detail", params: { id: id } });
     },
+
+    onClickPageDisable(id) {
+      this.$router.push({ name: "vaccine-disable", params: { id: id } });
+    },
+
     /**
      * Sort the data by column.
      * */

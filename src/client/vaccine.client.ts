@@ -56,9 +56,9 @@ export class VaccineClient {
         }
     }
 
-    public async disable(vaccine: Vaccine): Promise<void> {
+    public async disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.put(`/vaccines/disable/${vaccine.id}`, vaccine)).data
+            return (await axiosClient.put(`/vaccines/disable/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

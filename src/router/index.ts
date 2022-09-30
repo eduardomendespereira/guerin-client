@@ -31,6 +31,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
       },
       {
+        path: "/eventos/vacinas/desativar/:id",
+        name: "vaccine-disable",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Vaccine/VaccineDisable.vue"),
+      },
+      {
         path: "/gados",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
