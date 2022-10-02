@@ -31,10 +31,85 @@
         </button>
       </div>
     </div>
-    <div class="columns is-flex is-justify-content-space-between mt-5">
-      <div class="column">
-        <DataTable :fetchUrl="'/species'" :columns="columns"></DataTable>
-      </div>
+    <div class="table-div">
+      <table class="table">
+        <thead class="header-table">
+          <tr>
+            <th>Dt.</th>
+            <th>Status</th>
+            <th>Registrado em</th>
+            <th>Nome</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in specieList" :key="item.id">
+            <th>
+              <button
+              @click="onClickPageSpecieDetail(item.id)"
+                class="button btn-detail"
+              >
+                !
+              </button>
+            </th>
+
+            <th>
+              <span v-if="!item.inactive" class="tag is-success"></span>
+              <span v-if="item.inactive" class="tag is-danger"></span>
+            </th>
+
+            <th>{{ item.registered }}</th>
+
+            <th>{{ item.name }}</th>
+
+            <th>
+              <button
+                
+                class="button btn-edit"
+              >
+                <img
+                  style="width: 15px"
+                  src="../../assets/editIcon.png"
+                  alt="Guerin"
+                />
+              </button>
+            </th>
+
+            <th>
+              <button
+                @click="openDelete(item.id)"
+                class="button btn-delet"
+              >
+                X
+              </button>
+              <div v-if="deleteModal" class="modal is-active">
+                
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                  
+                  <header class="modal-card-head">
+                    <p class="modal-card-title">Desativar Especie {{specie.id}}</p>
+                    <button class="delete" @click="openDelete" aria-label="close"></button>
+                  </header>
+                  <section class="modal-card-body is-flex is-flex-direction-column is-align-items-center" >
+                    <h1 style="color: red;">Deseja desativar essa especie ?</h1>
+                    <h1 class="pt-2" >Estado : <span v-if="!specie.inactive" style="color: green;">Ativo</span>
+                         <span v-if="specie.inactive" style="color: red;">Inativo</span>
+                    </h1>
+                    <h1 >Nome : {{specie.name}}</h1>
+                  </section>
+                  <footer class="modal-card-foot is-flex is-justify-content-center">
+                    <button class="button btn-back is-danger" @click="disableSpecie()" >
+                      Desativar Especie
+                    </button>
+                    <button class="button btn-cad is-success" @click="openDelete">Voltar</button>
+                  </footer>
+              </div>
+            </div>
+            </th>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div v-if="showModal" class="modal is-active">
       <div class="modal-background"></div>
@@ -44,18 +119,16 @@
           <button class="delete" @click="openModal" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <input
-            class="input is-success"
-            type="text"
-            placeholder="Nome da Especie"
-          />
+          <input class="input in-1" type="text" placeholder="Nome da Especie" />
         </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success">Adicionar</button>
-          <button class="button" @click="openModal">Cancelar</button>
+        <footer class="modal-card-foot is-flex is-justify-content-center">
+          <button class="button btn-back" >
+            Cadastrar Especie
+          </button>
+          <button class="button btn-cad" @click="openModal">Voltar</button>
         </footer>
       </div>
-    </div>
+    </div>  
   </aside>
 </template>
 
@@ -79,7 +152,9 @@ export default class SpecieView extends Vue {
   public edit = `edit-specie`;
   private specieClient!: SpecieClient;
   public specieList: Specie[] = [];
+  public specie: Specie = new Specie()
   count: any = null;
+  deleteModal = false;
   public url: string = "/species";
   private notification: Notification = new Notification();
   private pageRequest: PageRequest = new PageRequest();
@@ -117,6 +192,33 @@ export default class SpecieView extends Vue {
     } else {
       this.showModal = true;
     }
+  }
+  public onClickPageSpecieDetail(id : any){
+    this.$router.push({ name: "specie-detail", params: { id: id } });
+  }
+  public openDelete(id : any){
+    if(this.deleteModal){
+      this.deleteModal = false;
+    }else{
+      this.deleteModal = true;
+    }
+    this.specieClient.findById(id)
+        .then(
+            sucess => {
+              this.specie = sucess
+            },
+            error => console.log(error)
+    )
+  }
+  public disableSpecie(){
+    this.specieClient.desativar(this.specie).then(
+      (sucess:any) => {
+        console.log(sucess);
+      },
+      (error:any) =>{
+        console.log(error);
+      } 
+    )
   }
 }
 </script>

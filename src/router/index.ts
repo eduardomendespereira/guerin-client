@@ -82,6 +82,13 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
+        path: "/especie/:id",
+        name: "specie-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Specie/SpecieDetail.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/usuarios",
         name: "usuarios",
         component: () => import("../views/User/UserList.vue"),

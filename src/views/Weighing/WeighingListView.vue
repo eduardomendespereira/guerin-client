@@ -23,7 +23,7 @@
             style="color: #004aad"
             span
           >
-            {{ counter }}
+            {{ count }}
           </h1>
         </div>
       </div>
@@ -216,9 +216,9 @@
 </template>
 
 <script>
-import axiosClient from "../../plugins/axios";
-var counter = null;
+import axiosClient from '@/plugins/axios';
 export default {
+  
   data() {
     return {
       tableData: [],
@@ -233,7 +233,8 @@ export default {
       sortedColumn: "Id",
       order: "asc",
       pages: 0,
-      count: 0,
+      count : 0,
+      
     };
   },
   watch: {
@@ -244,9 +245,12 @@ export default {
       immediate: true,
     },
   },
-  created() {
+  async created() {
+    
+   
     return this.fetchData();
   },
+ 
   computed: {
     /**
      * Get the pages number array for displaying in the pagination.
@@ -278,6 +282,7 @@ export default {
     totalData() {
       return this.pagination.meta.to - this.pagination.meta.from + 1;
     },
+
   },
   methods: {
     fetchData() {
@@ -321,16 +326,6 @@ export default {
     /**
      * Sort the data by column.
      * */
-    countWeight() {
-      this.weightClient.count().then(
-        (sucess) => {
-          return (this.counter = Number(sucess));
-        },
-        (error) => {
-          return console.log(error);
-        }
-      );
-    },
 
     sortByColumn(column) {
       if (column === this.sortedColumn) {

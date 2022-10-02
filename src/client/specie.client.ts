@@ -8,7 +8,7 @@ export class SpecieClient {
 
     public async findById(id: number): Promise<Specie> {
         try {
-            return (await axiosClient.get<Specie>(`/${id}`)).data
+            return (await axiosClient.get<Specie>(`/species/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
@@ -59,7 +59,7 @@ export class SpecieClient {
 
 	public async desativar(specie: Specie): Promise<void> {
 		try {
-			return (await axiosClient.put(`/disable/${specie.id}`, specie)).data
+			return (await axiosClient.put(`species/disable/${specie.id}`, specie)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
