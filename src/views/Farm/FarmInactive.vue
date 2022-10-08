@@ -64,7 +64,7 @@ export default class farmDetail extends Vue {
         this.farmClient.disable(this.farm)
             .then(
                 success => {
-                    this.notification = this.notification.new(true, "notification is-success", "Fazenda cadastrada com sucesso!");
+                    this.notification = this.notification.new(true, "notification is-success", "Fazenda desativada com sucesso!");
                 },
                 error => {
                     this.notification = this.notification.new(true, "notification is-danger", "Error: " + error);
