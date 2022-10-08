@@ -130,7 +130,6 @@ export default class cattleInsertForm extends Vue {
   }
 
   private onClickSave(): void {
-    console.log(this.cattle.gender)
     this.cattleClient.save(this.cattle).then(
       (success) => {
         this.notification = this.notification.new(

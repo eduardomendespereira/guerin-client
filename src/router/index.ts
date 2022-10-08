@@ -76,6 +76,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
+        path: '/gados/editar/:earring',
+        name: 'cattle-edit',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleEditForm.vue")
+      },
+      {
         path: "/especie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
