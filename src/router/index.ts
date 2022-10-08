@@ -82,6 +82,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleEditForm.vue")
       },
       {
+        path: "/fazendas",
+        name: "farm",
+        component: () => import("../views/Farm/FarmList.vue"),
+      },
+      {
+        path: "/fazendas/cadastrar",
+        name: "farm-insert",
+        component: () => import("../views/Farm/FarmInsertForm.vue"),
+      },
+      {
         path: "/especie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
@@ -123,11 +133,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "weight-inactivated",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Weighing/WeighingInactivatedView.vue"),
-      },
-      {
-        path: "/fazendas",
-        name: "farm",
-        component: () => import("../views/Farm/FarmList.vue"),
       },
     ],
   },

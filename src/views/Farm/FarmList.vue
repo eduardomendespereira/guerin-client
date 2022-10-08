@@ -31,7 +31,9 @@
 
     <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
-        <button class="button btn-insert">Inserir Fazenda</button>
+        <router-link to="/fazendas/cadastrar">
+          <button class="button btn-insert">Inserir Fazenda</button>    
+        </router-link>
       </div>
     </div>
 
