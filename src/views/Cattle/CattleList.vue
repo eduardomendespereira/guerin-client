@@ -74,7 +74,7 @@
         <tbody>
           <tr v-for="item in cattleList" :key="item.id">
             <th>
-              <button class="button btn-detail">
+              <button class="button btn-detail" @click="onClickPageCattleDetail(item.earring)">
                 !
               </button>
             </th>
@@ -143,6 +143,7 @@ export default class CattleList extends Vue {
   private cattleGender!: String;
 
   public mounted(): void {
+    this.pageRequest.pageSize = 1000
     this.cattleClient = new CattleClient();
     this.listAllCattles();
     this.countCattle();
