@@ -23,7 +23,7 @@
             style="color: #004aad"
             span
           >
-            {{ count }}
+
           </h1>
         </div>
       </div>
@@ -336,7 +336,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 
   element.style {
   }

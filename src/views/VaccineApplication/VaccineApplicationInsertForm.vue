@@ -30,7 +30,7 @@
         <div>
           Vacina
           <select v-model="vaccineApplication.vaccine">
-            <option type="number" v-for="v in vaccineList" :key="v.id">{{ v.name }}
+            <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}
             </option>
           </select>
         </div>
@@ -42,7 +42,7 @@
         <div>
           Brinco do Gado
           <select v-model="vaccineApplication.cattle">
-            <option type="number" v-for="c in cattleList" :key="c.id">{{ c.earring }}</option>
+            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
           </select>
         </div>
 

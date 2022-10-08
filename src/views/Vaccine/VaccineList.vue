@@ -23,7 +23,7 @@
             style="color: #004aad"
             span
           >
-            {{ count }}
+
           </h1>
         </div>
       </div>
@@ -110,7 +110,7 @@
             <td>
                 <span
                     class="tag"
-                    style="background-color: #1ba500"
+                    style="background-color: #1ba500;"
                     v-if="!data.inactive"
                 ></span>
               <span
@@ -344,7 +344,7 @@
   };
 </script>
 
-<style lang="scss">
+<style scoped>
 
 element.style {
 }
