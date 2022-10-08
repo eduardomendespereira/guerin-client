@@ -25,7 +25,7 @@
           />
           <div class="select in-1">
             <select class="select" v-model="cattle.specie">
-              <option v-for="item in specieList" :key="item.id">{{item.name}}</option>
+              <option v-for="item in specieList" :key="item.id" :value="item">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -52,13 +52,14 @@
           />
           <div class="select in-1">
             <select class="select" v-model="cattle.gender">
-              <option>male</option>
+              <option value="male">Macho</option>
+              <option value="female">Fêmea</option>
             </select>
           </div>
         </div>
         <div class="select date">
           <select class="select" style="width: 630px" v-model="cattle.farm">
-            <option>Guerin</option>
+            <option v-for="item in farmList" :key="item.id" :value="item">{{item.name}}</option>
           </select>
         </div>
         <hr class="line" size="100" width="1000" />
@@ -84,23 +85,29 @@ import { SpecieClient } from "@/client/specie.client";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import { Specie } from "@/model/specie.model";
+import { FarmClient } from "@/client/farm.client";
+import { Farm } from "@/model/farm.model"
 
 export default class cattleInsertForm extends Vue {
   private cattleClient!: CattleClient;
-  public cattle: Cattle = new Cattle();
-  public notification: Notification = new Notification();
+  private cattle: Cattle = new Cattle();
+  private notification: Notification = new Notification();
   private pageRequest: PageRequest = new PageRequest();
-  private pageResponse: PageResponse<Specie> = new PageResponse();
-    private specieClient!: SpecieClient;
-  public specieList: Specie[] = [];
+  private pageResponse: PageResponse<any> = new PageResponse();
+  private specieClient!: SpecieClient;
+  private specieList: Specie[] = [];
+  private farmClient!: FarmClient;
+  private farmList: Farm[] = [];
 
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.specieClient = new SpecieClient();
-    this.listAllVaccines();
+    this.farmClient = new FarmClient();
+    this.listAllSpecies();
+    this.listAllFarms();
   }
 
-  public listAllVaccines(): void {
+  private listAllSpecies(): void {
     this.specieClient.findByFiltrosPaginado(this.pageRequest).then(
       (success: any) => {
         this.pageResponse = success;
@@ -112,7 +119,18 @@ export default class cattleInsertForm extends Vue {
     );
   }
 
-  public onClickSave(): void {
+  private listAllFarms(): void {
+    this.farmClient.findAll(this.pageRequest).then(
+      (success) => {
+        this.pageResponse = success;
+        this.farmList = this.pageResponse.content;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  private onClickSave(): void {
+    console.log(this.cattle.gender)
     this.cattleClient.save(this.cattle).then(
       (success) => {
         this.notification = this.notification.new(
@@ -133,7 +151,7 @@ export default class cattleInsertForm extends Vue {
     );
   }
 
-  public onClickCloseNotification(): void {
+  private onClickCloseNotification(): void {
     this.notification = new Notification();
   }
   private onClickClean(): void {
