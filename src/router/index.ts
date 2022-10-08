@@ -87,6 +87,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Farm/FarmList.vue"),
       },
       {
+        path: "/fazendas/:id",
+        name: "farm-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmDetail.vue"),
+      },
+      {
         path: "/fazendas/cadastrar",
         name: "farm-insert",
         component: () => import("../views/Farm/FarmInsertForm.vue"),

@@ -43,7 +43,7 @@
           <tr>
             <th>Dt.</th>
             <th>Status</th>
-            <th>Registrado em</th>
+            <!-- <th>Registrado em</th> -->
             <th>Nome</th>
             <th>Endereço</th>
             <th></th>
@@ -65,7 +65,7 @@
               <span v-if="item.inactive" class="tag is-danger"></span>
             </th>
 
-            <th>{{ item.registered }}</th>
+            <!-- <th>{{ item.registered }}</th> -->
 
             <th>{{ item.name }}</th>
 
