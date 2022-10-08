@@ -73,7 +73,7 @@
 
             <th>
               <button
-                @click="onClickPageFarmDetail(item.id)"
+                @click="onClickPageFarmEdit(item.id)"
                 class="button btn-edit"
               >
                 <img
@@ -120,6 +120,7 @@ export default class FarmList extends Vue {
   }
 
   public listAllFarms(): void {
+    this.pageRequest.pageSize = 1000
     this.farmClient.findAll(this.pageRequest).then(
       (success) => {
         this.pageResponse = success;
@@ -142,6 +143,10 @@ export default class FarmList extends Vue {
 
   public onClickPageFarmDetail(id: number) {
     this.$router.push({ name: "farm-detail", params: { id: id } });
+  }
+
+  public onClickPageFarmEdit(id: number) {
+    this.$router.push({ name: "farm-edit", params: { id: id } });
   }
 }
 </script>
