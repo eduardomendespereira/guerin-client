@@ -4,50 +4,28 @@
     <div class="columns is-flex is-justify-content-space-between">
       <div class="activates p-2">
         <div class="icon-activates">
-          <img
-            style="width: 40px"
-            src="../../assets/cowIcon.png"
-            alt="Guerin"
-          />
+          <img style="width: 40px" src="../../assets/cowIcon.png" alt="Guerin" />
         </div>
-        <h1
-          class="text-activates has-text-weight-bold is-size-4"
-          style="color: black"
-        >
+        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
           Gados
         </h1>
 
         <div>
-          <h1
-            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
-            style="color: #004aad"
-            span
-          >
+          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
             {{ count }}
           </h1>
         </div>
       </div>
       <div class="activates p-2">
         <div class="icon-activates-female">
-          <img
-            style="width: 60px"
-            src="../../assets/cattleIcon.png"
-            alt="Guerin"
-          />
+          <img style="width: 60px" src="../../assets/cattleIcon.png" alt="Guerin" />
         </div>
-        <h1
-          class="text-activates has-text-weight-bold is-size-4"
-          style="color: black"
-        >
+        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
           Vacas
         </h1>
 
         <div>
-          <h1
-            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
-            style="color: #004aad"
-            span
-          >
+          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
             {{ countFemale }}
           </h1>
         </div>
@@ -56,19 +34,12 @@
         <div class="icon-activates-male">
           <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
         </div>
-        <h1
-          class="text-activates has-text-weight-bold is-size-4"
-          style="color: black"
-        >
+        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
           Bois
         </h1>
 
         <div>
-          <h1
-            class="is-size-4 is-flex is-justify-content-flex-end pr-2"
-            style="color: #004aad"
-            span
-          >
+          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
             {{ countMale }}
           </h1>
         </div>
@@ -83,50 +54,73 @@
       </div>
     </div>
 
-    <table class="table table-div is-fullwidth mt-5">
-      <thead class="green">
-        <tr style="background-color: mediumpurple">
-          <th style="color: #fff">Brinco</th>
-          <th style="color: #fff">Peso</th>
-          <th style="color: #fff">Genero</th>
-          <th style="color: #fff">Fazenda</th>
-          <th style="color: #fff">Especie</th>
-          <th style="color: #fff">B. Pai</th>
-          <th style="color: #fff">B. Mãe</th>
-          <th style="color: #fff">Ativo</th>
-          <th style="color: #fff">Opções</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in cattleList" :key="item.id">
-          <th>{{ item.earring }}</th>
-          <th>{{ item.weight }}</th>
-          <th>{{ item.gender }}</th>
-          <th>{{ item.farm?.name }}</th>
-          <th>{{ item.specie?.name }}</th>
-          <th>
-            <span v-if="!item.father"> --- </span>
-            <span v-if="item.father"> {{ item.father }} </span>
-          </th>
-          <th>
-            <span v-if="!item.mother"> --- </span>
-            <span v-if="item.mother"> {{ item.mother }} </span>
-          </th>
-          <th>
-            <span v-if="!item.inactive" class="tag is-success"> Ativo </span>
-            <span v-if="item.inactive" class="tag is-danger"> Inativo </span>
-          </th>
-          <th>
-            <button
-              @click="onClickPageCattleDetail(item.earring)"
-              class="button is-small is-warning"
-            >
-              Detalhar
-            </button>
-          </th>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-div">
+      <table class="table">
+        <thead class="header-table">
+          <tr>
+            <th>Dt.</th>
+            <th>Status</th>
+            <!-- <th>Registrado em</th> -->
+            <th>Brinco</th>
+            <th>Gênero</th>
+            <th>Especie</th>
+            <th>Fazenda</th>
+            <th>Peso</th>
+            <th>B. Pai</th>
+            <th>B. Mãe</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in cattleList" :key="item.id">
+            <th>
+              <button class="button btn-detail">
+                !
+              </button>
+            </th>
+
+            <th>
+              <span v-if="!item.inactive" class="tag is-success"></span>
+              <span v-if="item.inactive" class="tag is-danger"></span>
+            </th>
+
+            <!-- <th>{{ item.registered }}</th> -->
+
+            <th>{{ item.earring }}</th>
+
+            <th >{{ getGender(item.gender) }}</th>
+            
+            <th>{{ item.specie?.name }}</th>
+
+            <th>{{ item.farm?.name }}</th>
+
+            <th>{{ item.weight }}</th>
+
+            <th>
+              <span v-if="!item.father"> --- </span>
+              <span v-if="item.father"> {{ item.father }} </span>
+            </th>
+
+            <th>
+              <span v-if="!item.mother"> --- </span>
+              <span v-if="item.mother"> {{ item.mother }} </span>
+            </th>
+
+            <th>
+              <button class="button btn-edit">
+                <img style="width: 15px" src="../../assets/editIcon.png" alt="Guerin" />
+              </button>
+            </th>
+
+            <th>
+              <button class="button btn-delet">
+                X
+              </button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </aside>
 </template>
 
@@ -136,6 +130,7 @@ import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import { Cattle } from "@/model/cattle.model";
 import { CattleClient } from "@/client/cattle.client";
+import { Gender } from "@/model/gender.enum";
 
 export default class CattleList extends Vue {
   private pageRequest: PageRequest = new PageRequest();
@@ -145,6 +140,7 @@ export default class CattleList extends Vue {
   count: any = null;
   countFemale: any = null;
   countMale: any = null;
+  private cattleGender!: String;
 
   public mounted(): void {
     this.cattleClient = new CattleClient();
@@ -200,12 +196,26 @@ export default class CattleList extends Vue {
   public onClickPageCattleDetail(earring: number) {
     this.$router.push({ name: "cattle-detail", params: { earring: earring } });
   }
+
+  private getGender(gender: any): Gender {
+    if (gender == "male") {
+      return Gender["male"]
+    }
+    else {
+      return Gender["female"]
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style scoped>
 .cattle {
   width: 100%;
+}
+
+.tag {
+  border-radius: 50px;
+  padding: 12px;
 }
 
 .activates {
@@ -285,4 +295,75 @@ export default class CattleList extends Vue {
   transition: 1s;
   box-shadow: 0px 0px 10px #d1d1d1;
 }
+
+
+.btn-detail {
+  font-size: 13px;
+  background-color: #ffffff;
+  border-color: #0093ff;
+  border-width: 3px;
+  border-radius: 150px;
+  color: #0093ff;
+  font-weight: bold;
+  padding: 12px;
+}
+
+.btn-detail:hover {
+  background-color: #ffffff;
+  transform: translate(-1px, -1px);
+  transition: 1s;
+  border-color: #00c1ff;
+  color: #00c1ff;
+  font-weight: bold;
+  box-shadow: 2px 5px 10px #a7a7a7;
+}
+
+.btn-edit {
+  font-size: 13px;
+  background-color: #ffffff;
+  border-color: #1ba500;
+  border-width: 3px;
+  border-radius: 150px;
+  font-weight: bold;
+  padding: 0px 5px;
+}
+
+.btn-edit:hover {
+  background-color: #ffffff;
+  transform: translate(-1px, -1px);
+  transition: 1s;
+  border-color: #25e000;
+  font-weight: bold;
+  box-shadow: 2px 5px 10px #a7a7a7;
+}
+
+.btn-delet {
+  font-size: 13px;
+  background-color: #ffffff;
+  border-color: #ab0303;
+  border-width: 3px;
+  border-radius: 150px;
+  color: #ab0303;
+  font-weight: bold;
+  padding: 0px 8px;
+}
+
+.btn-delet:hover {
+  background-color: #ffffff;
+  transform: translate(-1px, -1px);
+  transition: 1s;
+  border-color: #dd0000;
+  font-weight: bold;
+  box-shadow: 2px 5px 10px #a7a7a7;
+}
+
+.table-div {
+  padding: 30px;
+}
+
+.table {
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 100%;
+}
+
 </style>
