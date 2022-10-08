@@ -82,6 +82,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleEditForm.vue")
       },
       {
+        path: '/gados/desativar/:earring',
+        name: 'cattle-inactive',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleInactive.vue")
+      },
+      {
         path: "/fazendas",
         name: "farm",
         component: () => import("../views/Farm/FarmList.vue"),
@@ -102,6 +108,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "farm-edit",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Farm/FarmEditForm.vue"),
+      },
+      {
+        path: "/fazendas/desativar/:id",
+        name: "farm-inactive",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmInactive.vue"),
       },
       {
         path: "/especie",

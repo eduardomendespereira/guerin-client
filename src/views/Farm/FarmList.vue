@@ -86,7 +86,7 @@
 
             <th>
               <button
-                @click="onClickPageFarmDetail(item.id)"
+                @click="onClickPageFarmInactive(item.id)"
                 class="button btn-delet"
               >
                 X
@@ -147,6 +147,10 @@ export default class FarmList extends Vue {
 
   public onClickPageFarmEdit(id: number) {
     this.$router.push({ name: "farm-edit", params: { id: id } });
+  }
+
+  public onClickPageFarmInactive(id: number) {
+    this.$router.push({ name: "farm-inactive", params: { id: id } });
   }
 }
 </script>

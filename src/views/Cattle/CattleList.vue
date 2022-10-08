@@ -113,7 +113,7 @@
             </th>
 
             <th>
-              <button class="button btn-delet">
+              <button class="button btn-delet" @click="onClickPageCattleInactive(item.earring)">
                 X
               </button>
             </th>
@@ -202,6 +202,9 @@ export default class CattleList extends Vue {
     this.$router.push({ name: "cattle-edit", params: { earring: earring } });
   }
 
+  private onClickPageCattleInactive(earring: number) {
+    this.$router.push({ name: "cattle-inactive", params: { earring: earring } });
+  }
 
   private getGender(gender: any): Gender {
     if (gender == "male") {
