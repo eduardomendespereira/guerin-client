@@ -72,7 +72,7 @@
 
           <hr class="line" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/pesagem"
+          <router-link class="link is-size-5" to="/eventos/eventos-gados"
             >Acessar</router-link
           >
         </div>
