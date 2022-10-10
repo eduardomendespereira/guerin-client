@@ -46,8 +46,6 @@
           <input class="input" style="width: 300px" type="datetime-local" v-model="cattleEvent.date" placeholder="Data">
         </div>
 
-
-
       </div>
       <div class="container-buttons">
         <div class="container-boptions">
@@ -73,7 +71,6 @@ import {CattleEventClient} from "@/client/cattle-event.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 import {EventType} from "@/model/event-type.model";
-import {VaccineApplication} from "@/model/vaccine-application.model";
 import {EventTypeClient} from "@/client/event-type.client";
 
 export default class VaccineInsertForm extends Vue {

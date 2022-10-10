@@ -145,10 +145,10 @@
             <td>{{ data.cattle?.earring }}</td>
             <td>{{ data.eventType?.name }}</td>
             <td>
-              <span v-if="data.vaccine != null" style="color: green">
+              <span v-if="data.vaccineApplication != null" style="color: green">
               <b>Sim</b>
             </span>
-              <span v-if="data.vaccine == null" style="color: #df0000">
+              <span v-if="data.vaccineApplication == null" style="color: #df0000">
               <b>Não</b>
             </span>
             </td>
