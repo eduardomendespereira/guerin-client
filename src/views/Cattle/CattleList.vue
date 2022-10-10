@@ -107,13 +107,13 @@
             </th>
 
             <th>
-              <button class="button btn-edit">
+              <button class="button btn-edit" @click="onClickPageCattleEdit(item.earring)">
                 <img style="width: 15px" src="../../assets/editIcon.png" alt="Guerin" />
               </button>
             </th>
 
             <th>
-              <button class="button btn-delet">
+              <button class="button btn-delet" @click="onClickPageCattleInactive(item.earring)">
                 X
               </button>
             </th>
@@ -196,6 +196,14 @@ export default class CattleList extends Vue {
 
   public onClickPageCattleDetail(earring: number) {
     this.$router.push({ name: "cattle-detail", params: { earring: earring } });
+  }
+
+  public onClickPageCattleEdit(earring: number) {
+    this.$router.push({ name: "cattle-edit", params: { earring: earring } });
+  }
+
+  private onClickPageCattleInactive(earring: number) {
+    this.$router.push({ name: "cattle-inactive", params: { earring: earring } });
   }
 
   private getGender(gender: any): Gender {

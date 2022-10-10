@@ -76,6 +76,46 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInsertForm.vue")
       },
       {
+        path: '/gados/editar/:earring',
+        name: 'cattle-edit',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleEditForm.vue")
+      },
+      {
+        path: '/gados/desativar/:earring',
+        name: 'cattle-inactive',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleInactive.vue")
+      },
+      {
+        path: "/fazendas",
+        name: "farm",
+        component: () => import("../views/Farm/FarmList.vue"),
+      },
+      {
+        path: "/fazendas/:id",
+        name: "farm-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmDetail.vue"),
+      },
+      {
+        path: "/fazendas/cadastrar",
+        name: "farm-insert",
+        component: () => import("../views/Farm/FarmInsertForm.vue"),
+      },
+      {
+        path: "/fazendas/editar/:id",
+        name: "farm-edit",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmEditForm.vue"),
+      },
+      {
+        path: "/fazendas/desativar/:id",
+        name: "farm-inactive",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmInactive.vue"),
+      },
+      {
         path: "/especie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
@@ -117,11 +157,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "weight-inactivated",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Weighing/WeighingInactivatedView.vue"),
-      },
-      {
-        path: "/fazendas",
-        name: "farm",
-        component: () => import("../views/Farm/FarmList.vue"),
       },
     ],
   },

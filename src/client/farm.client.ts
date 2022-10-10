@@ -4,9 +4,9 @@ import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 export class FarmClient {
 
-    public async findById(farm: Farm): Promise<any> {
+    public async findById(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<any>(`/farm/${farm.id}`)).data
+            return (await axiosClient.get<any>(`/farm/${id}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
