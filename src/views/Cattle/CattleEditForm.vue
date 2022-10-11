@@ -121,12 +121,12 @@ export default class cattleInsertForm extends Vue {
     }
 
     private onClickSave(): void {
-        this.cattleClient.save(this.cattle).then(
+        this.cattleClient.update(this.cattle).then(
             (success) => {
                 this.notification = this.notification.new(
                     true,
                     "notification is-success",
-                    "Gado cadastrado com sucesso!"
+                    "Gado editado com sucesso!"
                 );
                 this.onClickClean();
             },

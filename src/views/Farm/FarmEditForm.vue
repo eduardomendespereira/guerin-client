@@ -82,12 +82,12 @@
   
   
     private onClickSave(): void {
-      this.farmClient.save(this.farm).then(
+      this.farmClient.update(this.farm).then(
         (success) => {
           this.notification = this.notification.new(
             true,
             "notification is-success",
-            "Fazenda cadastrada com sucesso!"
+            "Fazenda editada com sucesso!"
           );
           this.onClickClean();
         },
