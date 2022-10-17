@@ -31,7 +31,9 @@
 
     <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
-        <button class="button btn-insert">Inserir Fazenda</button>
+        <router-link to="/fazendas/cadastrar">
+          <button class="button btn-insert">Inserir Fazenda</button>    
+        </router-link>
       </div>
     </div>
 
@@ -41,7 +43,7 @@
           <tr>
             <th>Dt.</th>
             <th>Status</th>
-            <th>Registrado em</th>
+            <!-- <th>Registrado em</th> -->
             <th>Nome</th>
             <th>Endereço</th>
             <th></th>
@@ -63,7 +65,7 @@
               <span v-if="item.inactive" class="tag is-danger"></span>
             </th>
 
-            <th>{{ item.registered }}</th>
+            <!-- <th>{{ item.registered }}</th> -->
 
             <th>{{ item.name }}</th>
 
@@ -71,7 +73,7 @@
 
             <th>
               <button
-                @click="onClickPageFarmDetail(item.id)"
+                @click="onClickPageFarmEdit(item.id)"
                 class="button btn-edit"
               >
                 <img
@@ -84,7 +86,7 @@
 
             <th>
               <button
-                @click="onClickPageFarmDetail(item.id)"
+                @click="onClickPageFarmInactive(item.id)"
                 class="button btn-delet"
               >
                 X
@@ -118,6 +120,7 @@ export default class FarmList extends Vue {
   }
 
   public listAllFarms(): void {
+    this.pageRequest.pageSize = 1000
     this.farmClient.findAll(this.pageRequest).then(
       (success) => {
         this.pageResponse = success;
@@ -140,6 +143,14 @@ export default class FarmList extends Vue {
 
   public onClickPageFarmDetail(id: number) {
     this.$router.push({ name: "farm-detail", params: { id: id } });
+  }
+
+  public onClickPageFarmEdit(id: number) {
+    this.$router.push({ name: "farm-edit", params: { id: id } });
+  }
+
+  public onClickPageFarmInactive(id: number) {
+    this.$router.push({ name: "farm-inactive", params: { id: id } });
   }
 }
 </script>

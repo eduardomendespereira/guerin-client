@@ -2,7 +2,7 @@
   <div class="form-vaccine-application">
     <div class="columns">
       <div class="column is-12 is-size-3">
-        Eventos > Aplicações de Vacinas > Cadastrar Aplicação de Vacina
+        Aplicações de Vacinas > Editar
       </div>
     </div>
 
@@ -45,7 +45,6 @@
             <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
           </select>
         </div>
-
       </div>
       <div class="container-buttons">
         <div class="container-boptions">
@@ -54,7 +53,7 @@
           </router-link>
         </div>
         <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickSave()">Salvar</button>
+          <button class="button is-fullwidth is-link" @click="onClickEdit()">Atualizar</button>
         </div>
       </div>
     </div>
@@ -63,13 +62,14 @@
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
-import { PageRequest } from '@/model/page/page-request'
-import { PageResponse } from '@/model/page/page-response'
 import { Notification } from '@/model/notification'
-import {VaccineApplication} from "@/model/vaccine-application.model";
-import {VaccineApplicationClient} from "@/client/vaccine-application.client";
+import { VaccineApplication } from "@/model/vaccine-application.model";
+import { VaccineApplicationClient } from "@/client/vaccine-application.client";
 import {Vaccine} from "@/model/vaccine.model";
 import {VaccineClient} from "@/client/vaccine.client";
+import {Prop} from "vue-property-decorator";
+import {PageRequest} from "@/model/page/page-request";
+import {PageResponse} from "@/model/page/page-response";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
@@ -80,15 +80,19 @@ export default class VaccineInsertForm extends Vue {
   private vaccineList: Vaccine[] = []
   private vaccineClient!: VaccineClient
   private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<Vaccine> = new PageResponse()
+  private pageResponseVaccine: PageResponse<Vaccine> = new PageResponse()
   private cattleList: Cattle[] = []
   private cattleClient!: CattleClient
   private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
+
+  @Prop({type: Number, required: false})
+  private readonly id!: number
 
   public mounted(): void {
     this.vaccineApplicationClient = new VaccineApplicationClient()
     this.vaccineClient = new VaccineClient()
     this.cattleClient = new CattleClient()
+    this.getVaccineApplication()
     this.listAllVaccines()
     this.listAllCattles()
   }
@@ -97,8 +101,8 @@ export default class VaccineInsertForm extends Vue {
     this.vaccineClient.findByAll(this.pageRequest)
         .then(
             success => {
-              this.pageResponse = success
-              this.vaccineList = this.pageResponse.content
+              this.pageResponseVaccine = success
+              this.vaccineList = this.pageResponseVaccine.content
             },
             error => console.log(error)
         )
@@ -115,11 +119,21 @@ export default class VaccineInsertForm extends Vue {
         )
   }
 
-  private onClickSave(): void {
-    this.vaccineApplicationClient.save(this.vaccineApplication)
+  private getVaccineApplication(): void {
+    this.vaccineApplicationClient.findById(this.id)
         .then(
             success => {
-              this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de Vacina cadastrada com sucesso!!!')
+              this.vaccineApplication = success
+            },
+            error => console.log(error)
+        )
+  }
+
+  private onClickEdit(): void {
+    this.vaccineApplicationClient.update(this.vaccineApplication)
+        .then(
+            success => {
+              this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de vacina atualizada com sucesso!!!')
               this.onClickClean()
             }, error => {
               this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
@@ -134,6 +148,7 @@ export default class VaccineInsertForm extends Vue {
     this.vaccineApplication = new VaccineApplication()
   }
 }
+
 
 </script>
 

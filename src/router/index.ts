@@ -14,6 +14,28 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     beforeEnter: Guard.auth,
     children: [
+      {
+        path: "/eventos/eventos-gados",
+        name: "cattle-event",
+        component: () => import("../views/CattleEvent/CattleEventList.vue"),
+      },
+      {
+        path: "/eventos/eventos-gados/cadastrar",
+        name: "cattle-event-insert",
+        component: () => import("../views/CattleEvent/CattleEventInsertForm.vue"),
+      },
+      {
+        path: "/eventos/eventos-gados/:id",
+        name: "cattle-event-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/CattleEvent/CattleEventDetail.vue"),
+      },
+      {
+        path: "/eventos/eventos-gados/atualizar/:id",
+        name: "cattle-event-update",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/CattleEvent/CattleEventUpdateForm.vue"),
+      },
         {
         path: "/eventos/vacinas",
         name: "vaccine",
@@ -55,6 +77,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/VaccineApplication/VaccineApplicationDetail.vue"),
       },
       {
+        path: "/eventos/aplicacoes-de-vacinas/atualizar/:id",
+        name: "vaccine-application-update",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/VaccineApplication/VaccineApplicationUpdateForm.vue"),
+      },
+      {
         path: "/eventos/aplicacoes-de-vacinas/cadastrar",
         name: "insert-vaccine-application",
         component: () => import("../views/VaccineApplication/VaccineApplicationInsertForm.vue"),
@@ -74,6 +102,46 @@ const routes: Array<RouteRecordRaw> = [
         path: '/gados/cadastrar',
         name: 'cattle-insert',
         component: () => import("../views/Cattle/CattleInsertForm.vue")
+      },
+      {
+        path: '/gados/editar/:earring',
+        name: 'cattle-edit',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleEditForm.vue")
+      },
+      {
+        path: '/gados/desativar/:earring',
+        name: 'cattle-inactive',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleInactive.vue")
+      },
+      {
+        path: "/fazendas",
+        name: "farm",
+        component: () => import("../views/Farm/FarmList.vue"),
+      },
+      {
+        path: "/fazendas/:id",
+        name: "farm-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmDetail.vue"),
+      },
+      {
+        path: "/fazendas/cadastrar",
+        name: "farm-insert",
+        component: () => import("../views/Farm/FarmInsertForm.vue"),
+      },
+      {
+        path: "/fazendas/editar/:id",
+        name: "farm-edit",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmEditForm.vue"),
+      },
+      {
+        path: "/fazendas/desativar/:id",
+        name: "farm-inactive",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmInactive.vue"),
       },
       {
         path: "/especie",
@@ -117,11 +185,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "weight-inactivated",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Weighing/WeighingInactivatedView.vue"),
-      },
-      {
-        path: "/fazendas",
-        name: "farm",
-        component: () => import("../views/Farm/FarmList.vue"),
       },
     ],
   },

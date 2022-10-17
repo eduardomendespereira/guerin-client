@@ -1,27 +1,27 @@
 <template>
   <aside class="is-fullheight" style="width: 100%">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Eventos <b>> Aplicação de Vacinas</b></p>
+      <p class="is-size-4 pt-5 pl-5">Eventos <b>> Eventos dos Gados</b></p>
       <div class="activates p-2">
-        <div class="icon-activate">
+        <div class="icon-activate" style="background-color: dodgerblue">
           <img
-            style="width: 30px"
-            src="../../assets/vaccineAppIcon.png"
-            alt="Guerin"
+              style="width: 30px;"
+              src="../../assets/eventIcon.png"
+              alt="Guerin"
           />
         </div>
         <h1
-          class="text-activates has-text-weight-bold is-size-5"
-          style="color: black"
+            class="text-activates has-text-weight-bold is-size-5"
+            style="color: black"
         >
-          Vacinas Aplicadas Ativas
+          Eventos Ativos
         </h1>
 
         <div>
           <h1
-            class="is-size-5 is-flex is-justify-content-flex-end pr-2"
-            style="color: #004aad"
-            span
+              class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+              style="color: #004aad"
+              span
           >
 
           </h1>
@@ -31,8 +31,8 @@
 
     <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
-        <router-link class="link-cad" to="/eventos/aplicacoes-de-vacinas/cadastrar">
-          <button class="button btn-insert" style="background-color: green; color: white">Cadastrar Aplicação de Vacina</button>
+        <router-link class="link-cad" to="/eventos/eventos-gados/cadastrar">
+          <button class="button btn-insert" style="background-color: green; color: white">Cadastrar Evento</button>
         </router-link>
       </div>
     </div>
@@ -63,13 +63,6 @@
                   <i v-else class="fa fa-arrow-up"></i>
                 </span>
             </th>
-            <th @click="sortByColumn('Vacina Aplicada')" class="table-head">
-              {{ $filters.columnHead("Vacina Aplicada") }}
-              <span v-if="'Vacina Aplicada' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-            </th>
             <th @click="sortByColumn('Data')" class="table-head">
               {{ $filters.columnHead("Data") }}
               <span v-if="'Data' === sortedColumn">
@@ -80,6 +73,27 @@
             <th @click="sortByColumn('Brinco do Gado')" class="table-head">
               {{ $filters.columnHead("Brinco do Gado") }}
               <span v-if="'Brinco do Gado' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+            </th>
+            <th @click="sortByColumn('Tipo')" class="table-head">
+              {{ $filters.columnHead("Tipo") }}
+              <span v-if="'Tipo' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+            </th>
+            <th @click="sortByColumn('Vacinação')" class="table-head">
+              {{ $filters.columnHead("Vacinação") }}
+              <span v-if="'Vacinação' === sortedColumn">
+                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
+                  <i v-else class="fa fa-arrow-up"></i>
+                </span>
+            </th>
+            <th @click="sortByColumn('Pesagem')" class="table-head">
+              {{ $filters.columnHead("Pesagem") }}
+              <span v-if="'Pesagem' === sortedColumn">
                   <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
                   <i v-else class="fa fa-arrow-up"></i>
                 </span>
@@ -117,7 +131,7 @@
             <td>
                 <span
                     class="tag"
-                    style="background-color: #1ba500"
+                    style="background-color: #1ba500;"
                     v-if="!data.inactive"
                 ></span>
               <span
@@ -126,10 +140,26 @@
                   v-if="data.inactive"
               ></span>
             </td>
-            <td>{{ data.note }}</td>
-            <td>{{ data.vaccine?.name }}</td>
+            <td>{{ data.description }}</td>
             <td>{{ data.date }}</td>
             <td>{{ data.cattle?.earring }}</td>
+            <td>{{ data.eventType?.name }}</td>
+            <td>
+              <span v-if="data.vaccineApplication != null" style="color: green">
+              <b>Sim</b>
+            </span>
+              <span v-if="data.vaccineApplication == null" style="color: #df0000">
+              <b>Não</b>
+            </span>
+            </td>
+            <td>
+              <span v-if="data.weighing != null" style="color: green">
+              <b>Sim</b>
+            </span>
+              <span v-if="data.weighing == null" style="color: #df0000">
+              <b>Não</b>
+            </span>
+            </td>
 
             <td>
               <div class="field has-addons">
@@ -203,16 +233,15 @@
 
 <script>
 import axiosClient from "../../plugins/axios";
-var counter = null;
 export default {
   data() {
     return {
       tableData: [],
-      url: "/vaccineApplications",
+      url: "/cattleEvent",
       pagination: {
         meta: { to: 1, from: 1 },
       },
-      columns: ["Id", "Status", "Descrição", "Vacina Aplicada", "Data", "Brinco do Gado", "Opções"],
+      columns: ["Id", "Status", "Descrição", "Data", "Brinco do Gado", "Tipo", "Vacinação", "Pesagem", "Opções"],
       offset: 4,
       currentPage: 0,
       perPage: 10,
@@ -267,7 +296,7 @@ export default {
   },
   methods: {
     fetchData() {
-      let dataFetchUrl = `/vaccineApplications?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
+      let dataFetchUrl = `/cattleEvent?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
       axiosClient
           .get(dataFetchUrl)
           .then(({ data }) => {
@@ -302,24 +331,24 @@ export default {
       }
     },
     onClickPageDetail(id) {
-      this.$router.push({ name: "vaccine-application-detail", params: { id: id } });
-    },
-
-    onClickPageUpdate(id) {
-      this.$router.push({ name: "vaccine-application-update", params: { id: id } });
+      this.$router.push({ name: "cattle-event-detail", params: { id: id } });
     },
 
     onClickPageDisable(id) {
-      this.$router.push({ name: "vaccine-application-disable", params: { id: id } });
+      this.$router.push({ name: "cattle-event-disable", params: { id: id } });
+    },
+
+    onClickPageUpdate(id) {
+      this.$router.push({ name: "cattle-event-update", params: { id: id } });
     },
 
     /**
      * Sort the data by column.
      * */
     countVaccine() {
-      this.vaccineApplicationClient.count().then(
+      this.vaccineClient.count().then(
           (sucess) => {
-            return (this.counter = Number(sucess));
+            return (this.counterActives = Number(sucess));
           },
           (error) => {
             return console.log(error);
@@ -343,180 +372,191 @@ export default {
 
 <style scoped>
 
-  element.style {
-  }
-  .table th:not([align]) {
-    text-align: center;
-  }
-  element.style {
-  }
-  .field.has-addons {
-    display: flex;
-    justify-content: center;
-  }
-  .activates {
-    background-color: white;
-    margin-top: 45px;
-    margin-right: 40px;
-    position: relative;
-    box-shadow: 0px 0px 10px #d1d1d1;
-  }
-  .icon-activate {
-    top: -22px;
-    left: 5px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    padding: 8px 8px 8px 8px;
-    width: 55px;
-    border-radius: 20px;
-    background-color: #126b00;
-  }
-  .text-activates {
-    margin-left: 60px;
-  }
+element.style {
+}
+.table th:not([align]) {
+  text-align: center;
+}
+element.style {
+}
+.field.has-addons {
+  display: flex;
+  justify-content: center;
+}
+.activates {
+  background-color: white;
+  margin-top: 45px;
+  margin-right: 40px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+.icon-activate {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 55px;
+  border-radius: 20px;
+  background-color: #126b00;
+}
+.text-activates {
+  margin-left: 60px;
+}
 
-  .delete {
-    position: absolute;
-    top: 3%;
-    right: 2%;
-  }
+.icon-weight-ins {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  background-color: #ab0303;
+  border-radius: 20px;
+  margin: 0px 0px 20px 0px;
+}
 
-  .in-1 {
-    margin: 10px 0px;
-  }
+.delete {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+}
 
-  .weight {
-    width: 100%;
-  }
+.in-1 {
+  margin: 10px 0px;
+}
 
-  .header-btn {
-    background-color: white;
-    width: 95%;
-    padding: 30px;
-    box-shadow: 0px 0px 10px #d1d1d1;
-  }
+.weight {
+  width: 100%;
+}
 
-  .modal-header {
-    background-color: #ffffff;
-    padding: 30px;
-  }
+.header-btn {
+  background-color: white;
+  width: 95%;
+  padding: 30px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
 
-  .table {
-    box-shadow: 0px 0px 10px #d1d1d1;
-    width: 100%;
-  }
+.modal-header {
+  background-color: #ffffff;
+  padding: 30px;
+}
 
-  .tag {
-    border-radius: 50px;
-    padding: 12px;
-  }
+.table {
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 100%;
+}
 
-  .btn-insert {
-    font-size: 15px;
-    background-color: #126b00;
-    border-color: #126b00;
-    color: #ffffff;
-    padding: 12px;
-  }
+.tag {
+  border-radius: 50px;
+  padding: 12px;
+}
 
-  .btn-insert:hover {
-    background-color: #178a00;
-    transform: translate(-1px, -1px);
-    transition: 1s;
-    box-shadow: 0px 0px 10px #d1d1d1;
-  }
+.btn-insert {
+  font-size: 15px;
+  background-color: #126b00;
+  border-color: #126b00;
+  color: #ffffff;
+  padding: 12px;
+}
 
-  .btn-detail {
-    font-size: 13px;
-    background-color: #ffffff;
-    border-color: #0093ff;
-    border-width: 3px;
-    border-radius: 150px;
-    color: #0093ff;
-    font-weight: bold;
-    padding: 12px;
-  }
+.btn-insert:hover {
+  background-color: #178a00;
+  transform: translate(-1px, -1px);
+  transition: 1s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
 
-  .btn-detail:hover {
-    background-color: #ffffff;
-    transform: translate(-1px, -1px);
-    transition: 1s;
-    border-color: #00c1ff;
-    color: #00c1ff;
-    font-weight: bold;
-    box-shadow: 2px 5px 10px #a7a7a7;
-  }
+.btn-detail {
+  font-size: 13px;
+  background-color: #ffffff;
+  border-color: #0093ff;
+  border-width: 3px;
+  border-radius: 150px;
+  color: #0093ff;
+  font-weight: bold;
+  padding: 12px;
+}
 
-  .btn-edit {
-    background-color: #ffffff;
-    border-color: #1ba500;
-    border-width: 3px;
-    border-radius: 150px;
-    color: #1ba500;
-    margin-right: 10px;
-  }
+.btn-detail:hover {
+  background-color: #ffffff;
+  transform: translate(-1px, -1px);
+  transition: 1s;
+  border-color: #00c1ff;
+  color: #00c1ff;
+  font-weight: bold;
+  box-shadow: 2px 5px 10px #a7a7a7;
+}
 
-  .btn-edit:hover {
-    transition: 1s;
-    border-color: #1eb401;
-    background-color: #1eb401;
-  }
+.btn-edit {
+  background-color: #ffffff;
+  border-color: #1ba500;
+  border-width: 3px;
+  border-radius: 150px;
+  color: #1ba500;
+  margin-right: 10px;
+}
 
-  .btn-delet {
-    background-color: #ffffff;
-    border-color: #ab0303;
-    border-width: 3px;
-    border-radius: 150px;
-    color: #ab0303;
-    margin-left: 10px;
-  }
+.btn-edit:hover {
+  transition: 1s;
+  border-color: #1eb401;
+  background-color: #1eb401;
+}
 
-  .btn-delet:hover {
-    transition: 1s;
-    border-color: #c20101;
-    background-color: #c20101;
-  }
+.btn-delet {
+  background-color: #ffffff;
+  border-color: #ab0303;
+  border-width: 3px;
+  border-radius: 150px;
+  color: #ab0303;
+  margin-left: 10px;
+}
 
-  .btn-cad {
-    background-color: #005bd4;
-    color: #ffffff;
-    padding: 12px;
-    width: 200px;
-    margin-left: 20px;
-  }
+.btn-delet:hover {
+  transition: 1s;
+  border-color: #c20101;
+  background-color: #c20101;
+}
 
-  .btn-cad:hover {
-    background-color: #0067ee;
-    color: white;
-    transition: 0.7s;
-    box-shadow: 0px 0px 10px #d1d1d1;
-  }
+.btn-cad {
+  background-color: #005bd4;
+  color: #ffffff;
+  padding: 12px;
+  width: 200px;
+  margin-left: 20px;
+}
 
-  .btn-back {
-    background-color: #c20101;
-    color: #ffffff;
-    padding: 12px;
-    width: 200px;
-  }
+.btn-cad:hover {
+  background-color: #0067ee;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
 
-  .btn-back:hover {
-    background-color: #da0000;
-    color: white;
-    transition: 0.7s;
-    box-shadow: 0px 0px 10px #d1d1d1;
-  }
+.btn-back {
+  background-color: #c20101;
+  color: #ffffff;
+  padding: 12px;
+  width: 200px;
+}
 
-  .pagination {
-    width: 95%;
-    margin-left: 30px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px #d1d1d1;
-    margin-bottom: 20px;
-  }
-  .table {
-    text-align: center;
-  }
+.btn-back:hover {
+  background-color: #da0000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.pagination {
+  width: 95%;
+  margin-left: 30px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  margin-bottom: 20px;
+}
+.table {
+  text-align: center;
+}
 
 </style>

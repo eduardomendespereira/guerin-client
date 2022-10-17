@@ -2,13 +2,13 @@
   <div class="form-vaccine-application">
     <div class="columns">
       <div class="column is-12 is-size-3">
-        Eventos > Aplicações de Vacinas > Cadastrar Aplicação de Vacina
+        Eventos > Eventos do Gado > Cadastrar Evento
       </div>
     </div>
 
     <div class="content-form">
       <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
+        <img style="width: 140px; background-color: dodgerblue; border-radius: 15px"  src="../../assets/eventIcon.png" />
       </div>
 
       <br/>
@@ -23,33 +23,33 @@
       </div>
 
       <div class="container-inputs">
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="vaccineApplication.note" placeholder="Descrição">
+        <div>
+          Brinco do Gado
+          <select v-model="cattleEvent.cattle">
+            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+          </select>
         </div>
 
         <div>
-          Vacina
-          <select v-model="vaccineApplication.vaccine">
-            <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}
+          Tipo de Evento
+          <select v-model="cattleEvent.eventType">
+            <option type="number" v-for="e in eventTypeList" :key="e.id" :value="e">{{ e.name }}
             </option>
           </select>
         </div>
 
         <div class="control">
-          <input class="input" style="width: 300px" type="datetime-local" v-model="vaccineApplication.date" placeholder="Data">
+          <input class="input" style="width: 300px" type="text" v-model="cattleEvent.description" placeholder="Descrição">
         </div>
 
-        <div>
-          Brinco do Gado
-          <select v-model="vaccineApplication.cattle">
-            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
-          </select>
+        <div class="control">
+          <input class="input" style="width: 300px" type="datetime-local" v-model="cattleEvent.date" placeholder="Data">
         </div>
 
       </div>
       <div class="container-buttons">
         <div class="container-boptions">
-          <router-link class="link-cad" to="/eventos/aplicacoes-de-vacinas">
+          <router-link class="link-cad" to="/eventos/eventos-gados">
             <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
           </router-link>
         </div>
@@ -66,39 +66,39 @@ import { Vue } from 'vue-class-component';
 import { PageRequest } from '@/model/page/page-request'
 import { PageResponse } from '@/model/page/page-response'
 import { Notification } from '@/model/notification'
-import {VaccineApplication} from "@/model/vaccine-application.model";
-import {VaccineApplicationClient} from "@/client/vaccine-application.client";
-import {Vaccine} from "@/model/vaccine.model";
-import {VaccineClient} from "@/client/vaccine.client";
+import {CattleEvent} from "@/model/cattle-event.model";
+import {CattleEventClient} from "@/client/cattle-event.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
+import {EventType} from "@/model/event-type.model";
+import {EventTypeClient} from "@/client/event-type.client";
 
 export default class VaccineInsertForm extends Vue {
-  private vaccineApplicationClient!: VaccineApplicationClient
-  private vaccineApplication : VaccineApplication = new VaccineApplication()
+  private cattleEventClient!: CattleEventClient
+  private cattleEvent : CattleEvent = new CattleEvent()
   private notification : Notification = new Notification()
-  private vaccineList: Vaccine[] = []
-  private vaccineClient!: VaccineClient
+  private eventTypeList: EventType[] = []
+  private eventTypeClient!: EventTypeClient
   private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<Vaccine> = new PageResponse()
+  private pageResponse: PageResponse<EventType> = new PageResponse()
   private cattleList: Cattle[] = []
   private cattleClient!: CattleClient
   private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
 
   public mounted(): void {
-    this.vaccineApplicationClient = new VaccineApplicationClient()
-    this.vaccineClient = new VaccineClient()
+    this.cattleEventClient = new CattleEventClient()
+    this.eventTypeClient = new EventTypeClient()
     this.cattleClient = new CattleClient()
-    this.listAllVaccines()
+    this.listAllEventsTypes()
     this.listAllCattles()
   }
 
-  private listAllVaccines(): void{
-    this.vaccineClient.findByAll(this.pageRequest)
+  private listAllEventsTypes(): void{
+    this.eventTypeClient.findByAll(this.pageRequest)
         .then(
             success => {
               this.pageResponse = success
-              this.vaccineList = this.pageResponse.content
+              this.eventTypeList = this.pageResponse.content
             },
             error => console.log(error)
         )
@@ -116,10 +116,10 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private onClickSave(): void {
-    this.vaccineApplicationClient.save(this.vaccineApplication)
+    this.cattleEventClient.save(this.cattleEvent)
         .then(
             success => {
-              this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de Vacina cadastrada com sucesso!!!')
+              this.notification = this.notification.new(true, 'notification is-success', 'Evento cadastrado com sucesso!!!')
               this.onClickClean()
             }, error => {
               this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
@@ -131,7 +131,7 @@ export default class VaccineInsertForm extends Vue {
     this.notification = new Notification()
   }
   private onClickClean(): void {
-    this.vaccineApplication = new VaccineApplication()
+    this.cattleEvent = new CattleEvent()
   }
 }
 
