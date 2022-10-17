@@ -8,7 +8,7 @@ export class CattleEventClient {
 
     public async findById(id: number): Promise<CattleEvent> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/${id}`)).data
+            return (await axiosClient.get<CattleEvent>(`/cattleEvent/${id}`)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

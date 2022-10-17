@@ -24,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "cattle-event-insert",
         component: () => import("../views/CattleEvent/CattleEventInsertForm.vue"),
       },
+      {
+        path: "/eventos/eventos-gados/:id",
+        name: "cattle-event-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/CattleEvent/CattleEventDetail.vue"),
+      },
         {
         path: "/eventos/vacinas",
         name: "vaccine",
