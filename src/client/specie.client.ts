@@ -43,7 +43,7 @@ export class SpecieClient {
 
 	public async cadastrar(specie: Specie): Promise<void> {
 		try {
-			return (await axiosClient.post('/', specie))
+			return (await axiosClient.post('/species', specie))
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
