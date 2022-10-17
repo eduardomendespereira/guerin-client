@@ -30,6 +30,12 @@ const routes: Array<RouteRecordRaw> = [
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/CattleEvent/CattleEventDetail.vue"),
       },
+      {
+        path: "/eventos/eventos-gados/atualizar/:id",
+        name: "cattle-event-update",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/CattleEvent/CattleEventUpdateForm.vue"),
+      },
         {
         path: "/eventos/vacinas",
         name: "vaccine",
