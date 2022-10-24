@@ -64,7 +64,7 @@
 
             <th>
               <button
-                
+                @click="onClickPageSpecieEdit(item.id)"
                 class="button btn-edit"
               >
                 <img
@@ -195,6 +195,9 @@ export default class SpecieView extends Vue {
   }
   public onClickPageSpecieDetail(id : any){
     this.$router.push({ name: "specie-detail", params: { id: id } });
+  }
+  public onClickPageSpecieEdit(id : any){
+    this.$router.push({ name: "specie-edit", params: { id: id } });
   }
   public openDelete(id : any){
     if(this.deleteModal){
