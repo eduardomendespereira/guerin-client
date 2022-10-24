@@ -58,7 +58,7 @@ export class FarmClient {
 
 	public async update(farm: Farm): Promise<any> {
 		try {
-			return (await axiosClient.put(`/farm/${farm.id}`, farm)).data
+			return (await axiosClient.post(`/farm/${farm.id}`, farm)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -66,7 +66,7 @@ export class FarmClient {
 
 	public async disable(farm: Farm): Promise<any> {
 		try {
-			return (await axiosClient.put(`/farm/disable/${farm.id}`, farm)).data
+			return (await axiosClient.post(`/farm/disable/${farm.id}`, farm)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
