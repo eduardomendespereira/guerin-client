@@ -169,9 +169,9 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
-        path: "/usuarios/editar",
+        path: "/usuarios/editar/:userId",
         name: "user-edit",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ userId: router.params.userId}),
         component: () => import("../views/User/UserEdit.vue"),
         beforeEnter: Guard.auth,
       },

@@ -159,7 +159,7 @@ export default class UserList extends Vue {
   }
   public onClickPageUpdate(id: number) {
     console.log(id);
-    this.$router.push({ name: "user-edit", params: { id: id } });
+    this.$router.push({ name: "user-edit", params: { userId: id } });
   }
   public listAll(): void {
     UserClient.findAll()

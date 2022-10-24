@@ -147,17 +147,17 @@ export default class UserEdit extends Vue {
   private errors: Array<Notification> = new Array<Notification>();
 
   @Prop({ type: Number, required: false })
-  private readonly id!: number;
+  private readonly userId!: number;
 
   public mounted(): void {
     this.getUser();
   }
 
   private getUser(): void {    
-    console.log(this.id);
-    UserClient.findById(this.id).then(
+    UserClient.findById(this.userId).then(
       (success) => {
-        this.user = success;
+        console.log(success);
+        this.user = success.data;
       },
       (error) => {
         console.log(error);
