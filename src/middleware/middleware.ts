@@ -1,6 +1,6 @@
 import { getCookie, setCookie, removeCookie } from "typescript-cookie";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import { UserClient } from "@/client/user.client";
+import UserClient from "@/client/user.client";
 
 export default {
   async auth(to: any, from: any, next: any): Promise<void> {
@@ -34,9 +34,8 @@ export default {
         tokenExp.getTime() / calc - dtNow.getTime() / calc < 2 &&
         rfTokenExp &&
         rfTokenExp > dtNow)
-    ) {
-      var userClient = new UserClient();
-      var newToken = await userClient.refreshToken(refresh_token);
+    ) {      
+      var newToken = await UserClient.refreshToken(refresh_token);
       removeCookie("access_token");
       removeCookie("refresh_token");
       setCookie("access_token", newToken.access_token, { expires: 1 });

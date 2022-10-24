@@ -35,7 +35,7 @@
             <router-link to="/fazendas">
               <button class="button btn-back">Voltar ao Menu</button>
             </router-link>
-            <button @click="onClickSave()" class="button btn-cad">
+            <button @click="onClickUpdate()" class="button btn-cad">
               Editar Fazenda
             </button>
           </div>
@@ -81,7 +81,7 @@
     }
   
   
-    private onClickSave(): void {
+    private onClickUpdate(): void {
       this.farmClient.update(this.farm).then(
         (success) => {
           this.notification = this.notification.new(

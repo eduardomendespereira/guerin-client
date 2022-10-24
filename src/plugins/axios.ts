@@ -1,21 +1,20 @@
 import axios from "axios";
 import { getCookie, setCookie, removeCookie } from "typescript-cookie";
-import { UserClient } from "@/client/user.client";
+import UserClient from "@/client/user.client";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
 var axiosClient = axios.create({
   baseURL: "http://localhost:8085/api",
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json","Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS" },
 });
 
 axiosClient.defaults.headers.common["Authorization"] =
   "Bearer " + getCookie("access_token");
-
+  
 axiosClient.interceptors.request.use(
   async (config) => {
     var token = getCookie("access_token") ?? "";
     var refresh_token = getCookie("refresh_token") ?? "";
-    var userClient = new UserClient();
     if ((token && refresh_token) || (!token && refresh_token)) {
       var decodedToken = token ? jwtDecode<JwtPayload>(token) : null;
       var decodedRfToken = jwtDecode<JwtPayload>(refresh_token);
@@ -32,17 +31,18 @@ axiosClient.interceptors.request.use(
       if (
         tokenExp == null ||
         (tokenExp != null &&
-          ((tokenExp.getTime() / calc) - (dtNow.getTime() / calc)) < 2 &&
+          tokenExp.getTime() / calc - dtNow.getTime() / calc < 2 &&
           rfTokenExp > dtNow)
       ) {
-        var newToken = await userClient.refreshToken(refresh_token);
+        var newToken = await UserClient.refreshToken(refresh_token);
         removeCookie("access_token");
         removeCookie("refresh_token");
         setCookie("access_token", newToken.access_token, { expires: 1 });
         setCookie("refresh_token", newToken.refresh_token, { expires: 4 });
-
         config.headers = {
           ...config.headers,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
           authorization: `Bearer ${newToken.access_token}`,
         };
       }

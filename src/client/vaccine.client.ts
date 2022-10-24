@@ -58,7 +58,15 @@ export class VaccineClient {
 
     public async disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.put(`/vaccines/disable/${id}`)).data
+            return (await axiosClient.get("/vaccines/disable/" + id)).data
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async enable(id: number): Promise<any> {
+        try {
+            return (await axiosClient.get("/vaccines/enable/" + id)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

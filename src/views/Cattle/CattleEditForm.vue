@@ -43,7 +43,7 @@
                     <router-link to="/gados">
                         <button class="button btn-back">Voltar ao Menu</button>
                     </router-link>
-                    <button @click="onClickSave()" class="button btn-cad">
+                    <button @click="onClickUpdate()" class="button btn-cad">
                         Editar Animal
                     </button>
                 </div>
@@ -120,7 +120,7 @@ export default class cattleInsertForm extends Vue {
         );
     }
 
-    private onClickSave(): void {
+    private onClickUpdate(): void {
         this.cattleClient.update(this.cattle).then(
             (success) => {
                 this.notification = this.notification.new(

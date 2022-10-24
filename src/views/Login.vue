@@ -14,8 +14,11 @@
                     is-flex
                   "
                 >
-                  <img class="img_logo" src="../assets/Logo_Black.png" />          
-                  <div class="field" style="max-width: 100%; min-width: 90%; margin-top: 10%">
+                  <img class="img_logo" src="../assets/Logo_Black.png" />
+                  <div
+                    class="field"
+                    style="max-width: 100%; min-width: 90%; margin-top: 10%"
+                  >
                     <p class="control has-icons-left">
                       <input
                         class="input login input is-sucess"
@@ -80,25 +83,21 @@
 import { Vue } from "vue-class-component";
 import { reactive } from "vue";
 import axios from "axios";
-import { UserClient } from "@/client/user.client";
+import UserClient from "@/client/user.client";
 import { getCookie, setCookie, removeCookie } from "typescript-cookie";
 import { Notification } from "@/model/notification";
 
 export default class Login extends Vue {
-  private userClient!: UserClient;
   private request = { username: "", password: "" };
   private notification: Notification = new Notification();
 
   public mounted(): void {
-    this.userClient = new UserClient();
     removeCookie("access_token");
     removeCookie("refresh_token");
   }
 
   public login(): void {
-    if (!this.userClient) this.userClient = new UserClient();
-    this.userClient
-      .login(this.request.username, this.request.password)
+    UserClient.login(this.request.username, this.request.password)
       .then((response) => {
         if (response.data.access_token && response.data.refresh_token) {
           setCookie("access_token", response.data.access_token, { expires: 1 });

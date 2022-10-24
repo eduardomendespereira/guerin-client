@@ -56,9 +56,17 @@ export class VaccineApplicationClient {
         }
     }
 
-    public async disable(vaccineApplication: VaccineApplication): Promise<void> {
+    public async disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.put(`/vaccineApplications/disable/${vaccineApplication.id}`, vaccineApplication)).data
+            return (await axiosClient.get("/vaccineApplications/disable/" + id)).data
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async enable(id: number): Promise<any> {
+        try {
+            return (await axiosClient.get("/vaccineApplications/enable/" + id)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

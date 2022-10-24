@@ -46,7 +46,7 @@ export class CattleEventClient {
         }
     }
 
-    public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<CattleEvent>> {
+    public async findAll(pageRequest : PageRequest): Promise<PageResponse<CattleEvent>> {
         try {
 
             let requestPath = '/cattleEvent'
@@ -82,9 +82,17 @@ export class CattleEventClient {
         }
     }
 
-    public async disable(cattleEvent: CattleEvent): Promise<void> {
+    public async disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.put(`/cattleEvent/disable/${cattleEvent.id}`)).data
+            return (await axiosClient.get("/cattleEvent/disable/" + id)).data
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async enable(id: number): Promise<any> {
+        try {
+            return (await axiosClient.get("/cattleEvent/enable/" + id)).data
         } catch (error:any) {
             return Promise.reject(error.response)
         }

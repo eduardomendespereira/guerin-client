@@ -190,6 +190,19 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
+        path: "/usuarios/cadastrar",
+        name: "user-form",
+        component: () => import("../views/User/UserForm.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/usuarios/editar",
+        name: "user-edit",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/User/UserEdit.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/eventos",
         name: "events",
         component: () => import("../views/Events/EventView.vue"),

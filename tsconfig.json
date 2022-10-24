@@ -14,6 +14,7 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "allowJs": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -39,5 +40,9 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "typeRoots": [
+    "./typings",
+    "./node_modules/@types/"
   ]
 }

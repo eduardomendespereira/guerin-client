@@ -69,7 +69,7 @@
               success => {
                 this.notification = this.notification.new(true, 'notification is-success', 'Vacina cadastrada com sucesso!!!')
                 this.onClickClean()
-              }, error => {
+              }, error => {                
                 this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
                 this.onClickClean()
               })
