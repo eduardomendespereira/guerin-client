@@ -8,7 +8,7 @@
 
     <div class="content-form">
       <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
+        <img style="width: 100px; background-color: green; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
       </div>
 
       <br/>
@@ -23,29 +23,27 @@
       </div>
 
       <div class="container-inputs">
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="vaccineApplication.note" placeholder="Descrição">
+        <div class="division-inputs">
+          <input class="input" style="width: 300px; margin: 15px" type="text" v-model="vaccineApplication.note" placeholder="Descrição">
+          <input class="input" style="width: 300px; margin: 15px" type="datetime-local" v-model="vaccineApplication.date" placeholder="Data">
         </div>
 
-        <div>
-          Vacina
-          <select v-model="vaccineApplication.vaccine">
-            <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}
-            </option>
-          </select>
-        </div>
+        <div class="division-inputs">
+          <div class="select" style="margin: 15px">
+            <select class="select" style="width: 290px;" v-model="vaccineApplication.vaccine">
+              <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}
+              </option>
+            </select>
+          </div>
 
-        <div class="control">
-          <input class="input" style="width: 300px" type="datetime-local" v-model="vaccineApplication.date" placeholder="Data">
-        </div>
-
-        <div>
-          Brinco do Gado
-          <select v-model="vaccineApplication.cattle">
-            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
-          </select>
+          <div class="select" style="margin: 15px">
+            <select class="select" style="width: 290px;" v-model="vaccineApplication.cattle">
+              <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+            </select>
+          </div>
         </div>
       </div>
+      <hr class="line" size="100" width="1000" />
       <div class="container-buttons">
         <div class="container-boptions">
           <router-link class="link-cad" to="/eventos/aplicacoes-de-vacinas">
@@ -153,16 +151,28 @@ export default class VaccineInsertForm extends Vue {
 </script>
 
 <style lang="scss">
+
 .form-vaccine-application{
   width: 100%;
   padding: 0px 30px 0px 30px;
   background-color: lightgray;
 }
 .content-form{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: white;
   width: 100%;
   border-radius: 10px;
   padding: 20px;
+}
+
+.division-inputs{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 20px;
 }
 .align-icon-container{
   display: flex;
@@ -171,16 +181,17 @@ export default class VaccineInsertForm extends Vue {
 .container-inputs{
   display: flex;
   flex-direction: row;
-  margin-top: 200px;
-  justify-content: space-evenly;
+  margin-top: 130px;
+  align-items: center;
+  justify-content: center;
 }
 .container-buttons{
   display: flex;
-  margin-top: 200px;
+  margin-top: 100px;
   justify-content: space-evenly;
 }
 .container-boptions{
   width: 300px;
+  margin: 30px;
 }
-
 </style>
