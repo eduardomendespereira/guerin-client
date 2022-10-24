@@ -60,7 +60,6 @@ export default class farmDetail extends Vue {
     }
 
     private onClickInactive(): void {
-        console.log(this.farm)
         this.farmClient.disable(this.farm)
             .then(
                 success => {
