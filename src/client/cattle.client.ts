@@ -54,25 +54,15 @@ export class CattleClient {
         }
     }
 
-  	public async findAll(pageRequest : PageRequest): Promise<PageResponse<Cattle>> {
-		try {
-			
-			let requestPath = '/cattle'
-			
-			requestPath += `?page=${pageRequest.currentPage}`
-			requestPath += `&size=${pageRequest.pageSize}`
-			requestPath += `&sort=${pageRequest.sortField === undefined 
-				? '' : pageRequest.sortField},${pageRequest.direction}`
-			
-			return (await axiosClient.get<PageResponse<Cattle>>(requestPath, 
-				{ 
-					params: { filtros: pageRequest.filter } 
-				}
-			)).data
-		} catch (error:any) { 
-			return Promise.reject(error.response) 
-		}
-  	}
+	public async findAll(): Promise<any> {
+        try {
+            let requestPath = '/cattle'
+
+            return axiosClient.get(requestPath)
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
 
 	public async save(cattle: Cattle): Promise<void> {
 		try {

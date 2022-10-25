@@ -1,127 +1,127 @@
 <template>
-  <aside class="cattle is-fullheight">
-    <!--<p class="is-size-4 pt-5 pl-5"><b>Gados</b></p>-->
+  <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <div class="activates p-2">
-        <div class="icon-activates">
-          <img style="width: 40px" src="../../assets/cowIcon.png" alt="Guerin" />
-        </div>
-        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
-          Gados
-        </h1>
-
-        <div>
-          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
-            {{ count }}
-          </h1>
-        </div>
-      </div>
-      <div class="activates p-2">
-        <div class="icon-activates-female">
-          <img style="width: 60px" src="../../assets/cattleIcon.png" alt="Guerin" />
-        </div>
-        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
-          Vacas
-        </h1>
-
-        <div>
-          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
-            {{ countFemale }}
-          </h1>
-        </div>
-      </div>
-      <div class="activates p-2">
-        <div class="icon-activates-male">
-          <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
-        </div>
-        <h1 class="text-activates has-text-weight-bold is-size-4" style="color: black">
-          Bois
-        </h1>
-
-        <div>
-          <h1 class="is-size-4 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
-            {{ countMale }}
-          </h1>
+      <p class="is-size-4 pt-5 pl-5">Gados</p>
+      <div class="is-size-4 pt-5 pl-5">
+        <div class="tile is-ancestor">
+          <div class="tile is-parent">
+            <article class="tile is-child box">
+              <p class="title"><i class="fa fa-users"> Gados Ativos</i></p>
+              <p class="subtitle" style="float: right">
+                <span style="font-size: 12pt" class="tag is-info">{{
+                  count
+                }}</span>
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="is-flex is-justify-content-center pt-5">
-      <div class="header-btn">
-        <router-link to="/gados/cadastrar">
-          <button class="button btn-insert">Inserir Gado</button>
-        </router-link>
+    <div class="columns is-flex">
+      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+        <div class="tile is-ancestor">
+          <div class="tile is-parent">
+            <article class="tile is-child box">
+              <div class="buttons">
+                <router-link to="/gados/cadastrar">
+                  <button class="button is-success">Cadastrar</button>
+                </router-link>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="table-div">
-      <table class="table">
-        <thead class="header-table">
-          <tr>
-            <th>Dt.</th>
-            <th>Status</th>
-            <!-- <th>Registrado em</th> -->
-            <th>Brinco</th>
-            <th>Gênero</th>
-            <th>Especie</th>
-            <th>Fazenda</th>
-            <th>Peso</th>
-            <th>B. Pai</th>
-            <th>B. Mãe</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in cattleList" :key="item.id">
-            <th>
-              <button class="button btn-detail" @click="onClickPageCattleDetail(item.earring)">
-                !
-              </button>
-            </th>
-
-            <th>
-              <span v-if="!item.inactive" class="tag is-success"></span>
-              <span v-if="item.inactive" class="tag is-danger"></span>
-            </th>
-
-            <!-- <th>{{ item.registered }}</th> -->
-
-            <th>{{ item.earring }}</th>
-
-            <th >{{ getGender(item.gender) }}</th>
-            
-            <th>{{ item.specie?.name }}</th>
-
-            <th>{{ item.farm?.name }}</th>
-
-            <th>{{ item.weight }}</th>
-
-            <th>
-              <span v-if="!item.father"> --- </span>
-              <span v-if="item.father"> {{ item.father }} </span>
-            </th>
-
-            <th>
-              <span v-if="!item.mother"> --- </span>
-              <span v-if="item.mother"> {{ item.mother }} </span>
-            </th>
-
-            <th>
-              <button class="button btn-edit" @click="onClickPageCattleEdit(item.earring)">
-                <img style="width: 15px" src="../../assets/editIcon.png" alt="Guerin" />
-              </button>
-            </th>
-
-            <th>
-              <button class="button btn-delet" @click="onClickPageCattleInactive(item.earring)">
-                X
-              </button>
-            </th>
-          </tr>
-        </tbody>
-      </table>
+    <div class="columns is-flex">
+      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+        <vue-good-table
+          ref="cattletable"
+          :columns="columns"
+          :rows="rows"
+          :search-options="{
+            enabled: true,
+            placeholder: 'Buscar...',
+          }"
+          :pagination-options="{
+            enabled: true,
+            mode: 'records',
+            rowsPerPageLabel: 'Resultados por pagina',
+            nextLabel: 'Proximo',
+            prevLabel: 'Anterior',
+            ofLabel: 'de',
+            allLabel: 'Todos',
+          }"
+          theme="polar-bear"
+        >
+          <template #table-row="props">
+            <span v-if="props.column.field == 'earring'">
+              <span>{{ props.row.earring }}</span>
+            </span>
+            <span v-if="props.column.field == 'weight'">
+              <span>{{ props.row.weight }}</span>
+            </span>
+            <span v-if="props.column.field == 'specie'">
+              <span>{{ props.row.specie?.name}}</span>
+            </span>
+            <span v-if="props.column.field == 'farm'">
+              <span>{{ props.row.farm?.name }}</span>
+            </span>
+            <span v-if="props.column.field == 'gender'">
+              <span>{{ props.row.gender }}</span>
+            </span>
+            <span v-if="props.column.field == 'father'">
+              <span>{{ props.row.father }}</span>
+            </span>
+            <span v-if="props.column.field == 'mother'">
+              <span>{{ props.row.mother }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'inactive'">
+              <span v-if="!props.row.inactive" class="tag is-success"
+                >Ativo</span
+              >
+              <span v-else-if="props.row.inactive" class="tag is-danger"
+                >Inativo</span
+              >
+              <span v-else>{{ props.row.inactive }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'actions'">
+              <p class="buttons">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageCattleEdit(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-pencil"></i>
+                  </span>
+                </button>
+                <button
+                  v-if="!props.row.inactive"
+                  class="button is-danger is-outlined"
+                  @click="onClickPageCattleInactive(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </button>
+                <button
+                  v-else-if="props.row.inactive"
+                  class="button is-success is-outlined"
+                  @click="onClickPageCattleInactive(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-check"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+            <span v-else>
+              {{ props.formattedRow[props.column.field] }}
+            </span>
+          </template>
+        </vue-good-table>
+      </div>
     </div>
-  </aside>
+  </main>
 </template>
 
 <script lang="ts">
@@ -142,8 +142,48 @@ export default class CattleList extends Vue {
   countMale: any = null;
   private cattleGender!: String;
 
+  columns = [
+    {
+      label: "Brinco",
+      field: "earring",
+    },
+    {
+      label: "Peso",
+      field: "weight",
+    },
+    {
+      label: "Especie",
+      field: "specie",
+    },
+    {
+      label: "Fazenda",
+      field: "farm",
+    },
+    {
+      label: "Genero",
+      field: "gender",
+    },
+    {
+      label: "Pai",
+      field: "father",
+    },
+    {
+      label: "Mãe",
+      field: "mother",
+    },
+    {
+      label: "Ativo",
+      field: "inactive",
+    },
+    {
+      label: "Ações",
+      field: "actions",
+      html: true,
+    },
+  ];
+  rows = [];
+
   public mounted(): void {
-    this.pageRequest.pageSize = 1000
     this.cattleClient = new CattleClient();
     this.listAllCattles();
     this.countCattle();
@@ -152,10 +192,10 @@ export default class CattleList extends Vue {
   }
 
   public listAllCattles(): void {
-    this.cattleClient.findAll(this.pageRequest).then(
-      (success) => {
-        this.pageResponse = success;
-        this.cattleList = this.pageResponse.content;
+    this.cattleClient.findAll().then(
+      (success: any) => {
+        this.rows = success.data;
+        this.count = success.data.filter((t) => !t.inactive).length;
       },
       (error) => console.log(error)
     );
