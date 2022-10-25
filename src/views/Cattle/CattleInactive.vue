@@ -66,7 +66,8 @@ export default class cattleDetail extends Vue {
                     this.notification = this.notification.new(true, "notification is-success", "Gado desativado com sucesso!");
                 },
                 error => {
-                    this.notification = this.notification.new(true, "notification is-danger", "Error: " + error);
+                    console.log(error)
+                    this.notification = this.notification.new(true, "notification is-danger", "Erro: " + error.data);
                 }
             )
     }
