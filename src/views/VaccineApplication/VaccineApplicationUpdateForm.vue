@@ -64,7 +64,7 @@ import { Notification } from '@/model/notification'
 import { VaccineApplication } from "@/model/vaccine-application.model";
 import { VaccineApplicationClient } from "@/client/vaccine-application.client";
 import {Vaccine} from "@/model/vaccine.model";
-import {VaccineClient} from "@/client/vaccine.client";
+import vaccineClient from "@/client/vaccine.client";
 import {Prop} from "vue-property-decorator";
 import {PageRequest} from "@/model/page/page-request";
 import {PageResponse} from "@/model/page/page-response";
@@ -76,7 +76,6 @@ export default class VaccineInsertForm extends Vue {
   private vaccineApplication : VaccineApplication = new VaccineApplication()
   private notification : Notification = new Notification()
   private vaccineList: Vaccine[] = []
-  private vaccineClient!: VaccineClient
   private pageRequest: PageRequest = new PageRequest()
   private pageResponseVaccine: PageResponse<Vaccine> = new PageResponse()
   private cattleList: Cattle[] = []
@@ -88,7 +87,6 @@ export default class VaccineInsertForm extends Vue {
 
   public mounted(): void {
     this.vaccineApplicationClient = new VaccineApplicationClient()
-    this.vaccineClient = new VaccineClient()
     this.cattleClient = new CattleClient()
     this.getVaccineApplication()
     this.listAllVaccines()
@@ -96,7 +94,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private listAllVaccines(): void{
-    this.vaccineClient.findByAll(this.pageRequest)
+    vaccineClient.findAll()
         .then(
             success => {
               this.pageResponseVaccine = success

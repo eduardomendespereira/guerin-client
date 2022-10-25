@@ -52,11 +52,10 @@
 import { Vue } from 'vue-class-component';
 import { Notification } from '@/model/notification'
 import { Vaccine } from "@/model/vaccine.model";
-import { VaccineClient } from "@/client/vaccine.client";
+import vaccineClient from "@/client/vaccine.client";
 import {Prop} from "vue-property-decorator";
 
 export default class VaccineInsertForm extends Vue {
-  private vaccineClient!: VaccineClient
   private vaccine : Vaccine = new Vaccine()
   private notification : Notification = new Notification()
 
@@ -64,12 +63,11 @@ export default class VaccineInsertForm extends Vue {
   private readonly id!: number
 
   public mounted(): void {
-    this.vaccineClient = new VaccineClient()
     this.getVaccine()
   }
 
   private getVaccine(): void {
-    this.vaccineClient.findById(this.id)
+    vaccineClient.findById(this.id)
         .then(
             success => {
               this.vaccine = success
@@ -79,7 +77,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private onClickEdit(): void {
-    this.vaccineClient.update(this.vaccine)
+    vaccineClient.update(this.vaccine)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Vacina atualizada com sucesso!!!')

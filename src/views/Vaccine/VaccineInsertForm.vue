@@ -52,19 +52,17 @@
   import { Vue } from 'vue-class-component';
   import { Notification } from '@/model/notification'
   import { Vaccine } from "@/model/vaccine.model";
-  import { VaccineClient } from "@/client/vaccine.client";
+  import vaccineClient from "@/client/vaccine.client";
 
   export default class VaccineInsertForm extends Vue {
-    private vaccineClient!: VaccineClient
     private vaccine : Vaccine = new Vaccine()
     private notification : Notification = new Notification()
 
     public mounted(): void {
-      this.vaccineClient = new VaccineClient()
     }
 
     private onClickSave(): void {
-      this.vaccineClient.save(this.vaccine)
+      vaccineClient.save(this.vaccine)
           .then(
               success => {
                 this.notification = this.notification.new(true, 'notification is-success', 'Vacina cadastrada com sucesso!!!')

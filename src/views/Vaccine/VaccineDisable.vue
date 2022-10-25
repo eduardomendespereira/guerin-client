@@ -35,33 +35,25 @@
 <script lang="ts">
   import { Vue } from 'vue-class-component';
   import { Vaccine } from "@/model/vaccine.model";
-  import { VaccineClient } from "@/client/vaccine.client";
+  import vaccineClient from "@/client/vaccine.client";
   import { Prop } from 'vue-property-decorator';
 
   export default class VaccineDisable extends Vue {
-    private vaccineClient!: VaccineClient
     private vaccine : Vaccine = new Vaccine()
 
     @Prop({type: Number, required: false})
     private readonly id!: number
 
     private getVaccine(): any {
-      return this.vaccineClient.findById(this.id);
+      return vaccineClient.findById(this.id);
     }
 
     public mounted(): void{
-      this.vaccineClient = new VaccineClient();
-      console.log(this.getVaccine())
-
     }
-
-    // private getTest(): Vaccine{
-    //   this.vaccine = this.getVaccine()
-    // }
 
     private onClickDisable(){
       this.vaccine = this.getVaccine()
-      this.vaccineClient.disable(this.vaccine.id)
+      vaccineClient.disable(this.vaccine.id)
           .then(
               sucess => {
                 console.log("deu bão")
