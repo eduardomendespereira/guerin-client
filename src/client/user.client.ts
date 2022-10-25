@@ -57,7 +57,7 @@ class UserClient {
   }
   disable(id: number): Promise<void> {
     try {
-      return axiosClient.get("/user/disable/" + id);
+      return axiosClient.delete("/user/disable/" + id);
     } catch (error: any) {
       return Promise.reject(error.response);
     }

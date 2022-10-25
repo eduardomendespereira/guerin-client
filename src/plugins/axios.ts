@@ -5,12 +5,18 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 
 var axiosClient = axios.create({
   baseURL: "http://localhost:8085/api",
-  headers: { "Content-Type": "application/json","Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS" },
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
 });
 
 axiosClient.defaults.headers.common["Authorization"] =
   "Bearer " + getCookie("access_token");
-  
+
+axiosClient.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+
 axiosClient.interceptors.request.use(
   async (config) => {
     var token = getCookie("access_token") ?? "";
