@@ -144,6 +144,26 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Farm/FarmInactive.vue"),
       },
       {
+        path: "/tipo-de-evento",
+        name: "eventType",
+        component: () => import("../views/EventType/EventTypeView.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/tipo-de-evento/:id",
+        name: "eventType-detail",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/EventType/EventTypeViewDetail.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/tipo-de-evento/edit/:id",
+        name: "eventType-edit",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/EventType/EventTypeViewUpdate.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/especie",
         name: "specie",
         component: () => import("../views/Specie/SpecieView.vue"),
@@ -154,6 +174,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "specie-detail",
         props: (router) => ({ id: router.params.id}),
         component: () => import("../views/Specie/SpecieDetail.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
+        path: "/especie/editar/:id",
+        name: "specie-edit",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Specie/SpecieUpdateForm.vue"),
         beforeEnter: Guard.auth,
       },
       {

@@ -62,22 +62,20 @@
   import { Vue } from 'vue-class-component';
   import { Prop } from 'vue-property-decorator'
   import { Vaccine } from "@/model/vaccine.model";
-  import { VaccineClient } from "@/client/vaccine.client";
+  import vaccineClient from "@/client/vaccine.client";
 
   export default class VaccineDetail extends Vue{
     public vaccine: Vaccine = new Vaccine()
-    private vaccineClient!: VaccineClient
 
     @Prop({type: Number, required: false})
     private readonly id!: number
 
     public mounted(): void {
-      this.vaccineClient = new VaccineClient()
       this.getVaccine()
     }
 
     private getVaccine(): void {
-      this.vaccineClient.findById(this.id)
+      vaccineClient.findById(this.id)
           .then(
               sucess => {
                 this.vaccine = sucess
