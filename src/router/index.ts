@@ -116,6 +116,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Cattle/CattleInactive.vue")
       },
       {
+        path: '/gados/ativar/:earring',
+        name: 'cattle-active',
+        props: (router) => ({ earring: router.params.earring}),
+        component: () => import("../views/Cattle/CattleActive.vue")
+      },
+      {
         path: "/fazendas",
         name: "farm",
         component: () => import("../views/Farm/FarmList.vue"),

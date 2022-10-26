@@ -102,7 +102,7 @@
                 <button
                     v-else-if="props.row.inactive"
                     class="button is-success is-outlined"
-                    @click="onClickPageCattleInactive(props.row.earring)"
+                    @click="onClickPageCattleActive(props.row.earring)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>
@@ -234,6 +234,9 @@ export default class CattleList extends Vue {
 
   private onClickPageCattleInactive(earring: number) {
     this.$router.push({ name: "cattle-inactive", params: { earring: earring } });
+  }
+  private onClickPageCattleActive(earring: number) {
+    this.$router.push({ name: "cattle-active", params: { earring: earring } });
   }
 }
 </script>

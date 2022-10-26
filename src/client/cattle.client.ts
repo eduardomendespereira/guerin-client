@@ -87,6 +87,15 @@ export class CattleClient {
 			return Promise.reject(error.response)
 		}
 	}
+
+    public async enable(cattle: Cattle): Promise<void> {
+		try {
+			return (await axiosClient.put(`/cattle/enable/${cattle.earring}`, cattle)).data
+		} catch (error:any) {
+			return Promise.reject(error.response)
+		}
+	}
+
     public async count() : Promise<any>{
 		try{
 			return (await axiosClient.get<any>('/cattle/count')).data
