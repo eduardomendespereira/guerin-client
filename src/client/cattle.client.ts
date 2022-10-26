@@ -74,7 +74,7 @@ export class CattleClient {
 
 	public async update(cattle: Cattle): Promise<void> {
 		try {
-			return (await axiosClient.post(`/cattle/${cattle.earring}`, cattle)).data
+			return (await axiosClient.put(`/cattle/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
@@ -82,7 +82,7 @@ export class CattleClient {
 
 	public async disable(cattle: Cattle): Promise<void> {
 		try {
-			return (await axiosClient.post(`/cattle/disable/${cattle.earring}`, cattle)).data
+			return (await axiosClient.put(`/cattle/disable/${cattle.earring}`, cattle)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
