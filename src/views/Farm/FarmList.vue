@@ -179,5 +179,8 @@ export default class FarmList extends Vue {
   public onClickPageFarmInactive(id: number) {
     this.$router.push({ name: "farm-inactive", params: { id: id } });
   }
+  public onClickPageFarmActive(id: number) {
+    this.$router.push({ name: "farm-active", params: { id: id } });
+  }
 }
 </script>

@@ -150,6 +150,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Farm/FarmInactive.vue"),
       },
       {
+        path: "/fazendas/ativar/:id",
+        name: "farm-active",
+        props: (router) => ({ id: router.params.id}),
+        component: () => import("../views/Farm/FarmActive.vue"),
+      },
+      {
         path: "/tipo-de-evento",
         name: "eventType",
         component: () => import("../views/EventType/EventTypeView.vue"),

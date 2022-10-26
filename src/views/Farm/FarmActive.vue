@@ -1,7 +1,7 @@
 <template>
     <aside class="farm is-fullheight">
         <div class="text-up columns">
-            <p class="is-size-4 pt-5 pl-5">Desativar <b>> Fazenda</b></p>
+            <p class="is-size-4 pt-5 pl-5">Ativar <b>> Fazenda</b></p>
         </div>
         <section class="is-flex is-justify-content-center">
             <div class="insert-back">
@@ -14,12 +14,12 @@
                 </div>
 
                 <div class="form">
-                    <p style="font-size: 1.2rem;">Você tem certeza que deseja desativar esta Fazenda ?</p>
+                    <p style="font-size: 1.2rem;">Você tem certeza que deseja ativar esta Fazenda ?</p>
                 </div>
                 <hr class="line" size="100" width="900" />
                 <div class="btns">
-                    <button @click="onClickInactive()" class="button btn-cad">
-                        Desativar
+                    <button @click="onClickActive()" class="button btn-cad">
+                        Ativar
                     </button>
                     <router-link to="/fazendas">
                         <button class="button btn-back">Cancelar</button>
@@ -59,11 +59,11 @@ export default class farmDetail extends Vue {
         );
     }
 
-    private onClickInactive(): void {
-        this.farmClient.disable(this.farm)
+    private onClickActive(): void {
+        this.farmClient.enable(this.farm)
             .then(
                 success => {
-                    this.notification = this.notification.new(true, "notification is-success", "Fazenda desativada com sucesso!");
+                    this.notification = this.notification.new(true, "notification is-success", "Fazenda Ativada com sucesso!");
                 },
                 error => {
                     this.notification = this.notification.new(true, "notification is-danger", "Erro: " + error.data);

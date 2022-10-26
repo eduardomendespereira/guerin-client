@@ -78,7 +78,7 @@ export default class cattleInsertForm extends Vue {
         this.notification = this.notification.new(
           true,
           "notification is-danger",
-          "Error: " + error
+          "Erro: " + error.data
         );
         this.onClickClean();
       }
