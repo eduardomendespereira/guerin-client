@@ -1,6 +1,4 @@
-import { VaccineApplication } from "@/model/vaccine-application.model";
-import { PageRequest } from "@/model/page/page-request";
-import { PageResponse } from "@/model/page/page-response";
+import { VaccineApplication } from "@/model/vaccine-application.model"
 import axiosClient from "../plugins/axios";
 
 class VaccineApplicationClient {
