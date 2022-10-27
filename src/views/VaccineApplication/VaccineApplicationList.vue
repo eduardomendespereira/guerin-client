@@ -60,10 +60,10 @@
             <span v-else-if="props.column.field == 'vaccine'">
               <span>{{props.row.vaccine?.name}}</span>
             </span>
-            <span v-if="props.column.field == 'cattle'">
+            <span v-else-if="props.column.field == 'cattle'">
               <span>{{props.row.cattle?.earring}}</span>
             </span>
-            <span v-if="props.column.field == 'date'">
+            <span v-else-if="props.column.field == 'date'">
               <span>{{props.row.date}}</span>
             </span>
             <span v-else-if="props.column.field == 'inactive'">
