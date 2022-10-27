@@ -67,14 +67,13 @@ import { PageRequest } from '@/model/page/page-request'
 import { PageResponse } from '@/model/page/page-response'
 import { Notification } from '@/model/notification'
 import {VaccineApplication} from "@/model/vaccine-application.model";
-import {VaccineApplicationClient} from "@/client/vaccine-application.client";
+import VaccineApplicationClient from "@/client/vaccine-application.client";
 import {Vaccine} from "@/model/vaccine.model";
 import vaccineClient from "@/client/vaccine.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
 export default class VaccineInsertForm extends Vue {
-  private vaccineApplicationClient!: VaccineApplicationClient
   private vaccineApplication : VaccineApplication = new VaccineApplication()
   private notification : Notification = new Notification()
   private vaccineList: Vaccine[] = []
@@ -85,7 +84,6 @@ export default class VaccineInsertForm extends Vue {
   private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
 
   public mounted(): void {
-    this.vaccineApplicationClient = new VaccineApplicationClient()
     this.cattleClient = new CattleClient()
     this.listAllVaccines()
     this.listAllCattles()
@@ -114,7 +112,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private onClickSave(): void {
-    this.vaccineApplicationClient.save(this.vaccineApplication)
+    VaccineApplicationClient.save(this.vaccineApplication)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de Vacina cadastrada com sucesso!!!')

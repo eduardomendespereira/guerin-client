@@ -2,81 +2,74 @@ import { VaccineApplication } from "@/model/vaccine-application.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
-export class VaccineApplicationClient {
 
+class VaccineApplicationClient {
 
-    public async findById(id: number): Promise<VaccineApplication> {
+    findById(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<VaccineApplication>(`/vaccineApplications/${id}`)).data
+            return axiosClient.get(`/vaccineApplications/${id}`);
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByVaccine(id: number): Promise<VaccineApplication> {
+    findByVaccine(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<VaccineApplication>(`vaccineApplications/vaccine/${id}`)).data
+            return axiosClient.get(`vaccineApplications/vaccine/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByAll(pageRequest : PageRequest): Promise<PageResponse<VaccineApplication>> {
+    findByAll(): Promise<any> {
         try {
             let requestPath = '/vaccineApplications'
 
-            requestPath += `?page=${pageRequest.currentPage}`
-            requestPath += `&size=${pageRequest.pageSize}`
-            requestPath += `&sort=${pageRequest.sortField === undefined
-                ? '' : pageRequest.sortField},${pageRequest.direction}`
-
-            return (await axiosClient.get<PageResponse<VaccineApplication>>(requestPath,
-                {
-                    params: { filtros: pageRequest.filter }
-                }
-            )).data
+            return axiosClient.get(requestPath)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async save(vaccineApplication: VaccineApplication): Promise<void> {
+    save(vaccineApplication: VaccineApplication): Promise<any> {
         try {
-            return (await axiosClient.post('/vaccineApplications/', vaccineApplication))
+            return axiosClient.post('/vaccineApplications/', vaccineApplication)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async update(vaccineApplication: VaccineApplication): Promise<void> {
+    update(vaccineApplication: VaccineApplication): Promise<any> {
         try {
-            return (await axiosClient.put(`/vaccineApplications/${vaccineApplication.id}`, vaccineApplication)).data
+            return axiosClient.put(`/vaccineApplications/${vaccineApplication.id}`, vaccineApplication)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async disable(id: number): Promise<any> {
+    disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.get("/vaccineApplications/disable/" + id)).data
+            return axiosClient.get("/vaccineApplications/disable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async enable(id: number): Promise<any> {
+    enable(id: number): Promise<any> {
         try {
-            return (await axiosClient.get("/vaccineApplications/enable/" + id)).data
+            return axiosClient.get("/vaccineApplications/enable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async count() : Promise<any>{
+    count() : Promise<any>{
 		try{
-			return (await axiosClient.get<any>('/vaccineApplications/count')).data
+			return axiosClient.get<any>('/vaccineApplications/count')
 		}catch{
 			return Promise.reject();
 		}
 	}
 }
+
+export default new VaccineApplicationClient();

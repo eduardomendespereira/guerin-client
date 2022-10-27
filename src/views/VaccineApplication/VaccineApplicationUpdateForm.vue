@@ -62,7 +62,7 @@
 import { Vue } from 'vue-class-component';
 import { Notification } from '@/model/notification'
 import { VaccineApplication } from "@/model/vaccine-application.model";
-import { VaccineApplicationClient } from "@/client/vaccine-application.client";
+import VaccineApplicationClient from "@/client/vaccine-application.client";
 import {Vaccine} from "@/model/vaccine.model";
 import vaccineClient from "@/client/vaccine.client";
 import {Prop} from "vue-property-decorator";
@@ -72,7 +72,6 @@ import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
 export default class VaccineInsertForm extends Vue {
-  private vaccineApplicationClient!: VaccineApplicationClient
   private vaccineApplication : VaccineApplication = new VaccineApplication()
   private notification : Notification = new Notification()
   private vaccineList: Vaccine[] = []
@@ -86,7 +85,6 @@ export default class VaccineInsertForm extends Vue {
   private readonly id!: number
 
   public mounted(): void {
-    this.vaccineApplicationClient = new VaccineApplicationClient()
     this.cattleClient = new CattleClient()
     this.getVaccineApplication()
     this.listAllVaccines()
@@ -116,7 +114,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private getVaccineApplication(): void {
-    this.vaccineApplicationClient.findById(this.id)
+    VaccineApplicationClient.findById(this.id)
         .then(
             success => {
               this.vaccineApplication = success
@@ -126,7 +124,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private onClickEdit(): void {
-    this.vaccineApplicationClient.update(this.vaccineApplication)
+    VaccineApplicationClient.update(this.vaccineApplication)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de vacina atualizada com sucesso!!!')
