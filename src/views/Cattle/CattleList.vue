@@ -23,7 +23,7 @@
           <div class="tile is-parent">
             <article class="tile is-child box">
               <div class="buttons">
-                <router-link to="/eventos/vacinas/cadastrar">
+                <router-link to="/gados/cadastrar">
                   <button class="button is-success">Cadastrar</button>
                 </router-link>
               </div>
