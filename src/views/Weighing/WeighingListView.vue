@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="is-flex is-justify-content-center pt-5">
+    <!-- <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
         <button @click="openModal" class="button btn-insert">
           Inserir Pesagem
@@ -67,278 +67,194 @@
         </footer>
       </div>
     </div>
+-->
+    <div class="columns is-flex">
+      <div class="is-size-12 pt-5 pl-5" style="width: 98%; text-align: center">
+        <vue-good-table
+          ref="weighttable"
+          :columns="columns"
+          :rows="rows"
+          styleClass="vgt-table striped"
+          :search-options="{
+            enabled: true,
+            placeholder: 'Buscar...',
+          }"
+          :pagination-options="{
+            enabled: true,
+            mode: 'records',
+            rowsPerPageLabel: 'Resultados por pagina',
+            nextLabel: 'Proximo',
+            prevLabel: 'Anterior',
+            ofLabel: 'de',
+            allLabel: 'Todos',
+          }"
+          theme="polar-bear"
+        >
+          <template #table-row="props">
+            <span v-if="props.column.field == 'id'">
+              <span>{{ props.row.id }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'inactive'">
+              <span v-if="!props.row.inactive" class="tag is-success"
+                >Ativo</span
+              >
+              <span v-else-if="props.row.inactive" class="tag is-danger"
+                >Inativo</span
+              >
+            </span>
+            <span v-else-if="props.column.field == 'date'">
+              <span>{{ props.row.date }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'weight'">
+              <span>{{ props.row.weight }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'cattle'">
+              <span>{{ props.row.cattle?.earring }}</span>
+            </span>
 
-    <div class="data-table mt-5">
-      <div class="main-table is-flex is-justify-content-center mb-5">
-        <table class="table-div table" style="width: 95%">
-          <thead>
-            <tr class="header-table">
-              <th @click="sortByColumn('Id')" class="table-head">
-                {{ $filters.columnHead("Id") }}
-                <span v-if="'Id' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-              </th>
-              <th @click="sortByColumn('Status')" class="table-head">
-                {{ $filters.columnHead("Status") }}
-                <span v-if="'Status' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-              </th>
-              <th @click="sortByColumn('Data')" class="table-head">
-                {{ $filters.columnHead("Data") }}
-                <span v-if="'Data' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-              </th>
-              <th @click="sortByColumn('Peso')" class="table-head">
-                {{ $filters.columnHead("Peso") }}
-                <span v-if="'Peso' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-              </th>
-              <th @click="sortByColumn('Brinco')" class="table-head">
-                {{ $filters.columnHead("Brinco") }}
-                <span v-if="'Brinco' === sortedColumn">
-                  <i v-if="order === 'asc'" class="fa fa-arrow-up"></i>
-                  <i v-else class="fa fa-arrow-up"></i>
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="" v-if="tableData.length === 0">
-              <td class="lead text-center" :colspan="columns.length + 1">
-                Sem Registros.
-              </td>
-            </tr>
-            <tr
-              v-for="data in tableData"
-              :key="data.id"
-              class="m-datatable__row"
-              v-else
-            >
-              <td>
+            <span v-else-if="props.column.field == 'actions'">
+              <p class="buttons">
                 <button
-                  @click="onClickPageDetail(data.id)"
-                  class="tag"
-                  style="background-color: #0093ff; color: white"
+                  class="button is-info is-outlined"
+                  @click="onClickPageCattleEdit(props.row.id)"
                 >
-                  {{ data.id }}
+                  <span class="icon is-small">
+                    <i class="fa fa-pencil"></i>
+                  </span>
                 </button>
-              </td>
-              <td>
-                <span
-                  class="tag"
-                  style="background-color: #1ba500"
-                  v-if="!data.inactive"
-                ></span>
-                <span
-                  class="tag"
-                  style="background-color: #ab0303"
-                  v-if="data.inactive"
-                ></span>
-              </td>
-              <td>{{ data.date }}</td>
-              <td>{{ data.weight }}</td>
-              <td>{{ data.cattle.earring }}</td>
-
-              <td>
-                <div class="field has-addons">
-                  <button
-                    class="button btn-edit"
-                    style="background-color: #1ba500; color: white"
-                  >
-                    <span class="icon is-small">
-                      <i class="fa fa-pencil"></i>
-                    </span>
-                  </button>
-
-                  <button
-                    class="button btn-delet"
-                    style="background-color: #ab0303; color: white"
-                  >
-                    <span class="icon is-small">
-                      <i class="fa fa-trash"></i>
-                    </span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <button
+                  v-if="!props.row.inactive"
+                  class="button is-danger is-outlined"
+                  @click="onClickPageCattleInactive(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </button>
+                <button
+                  v-else-if="props.row.inactive"
+                  class="button is-success is-outlined"
+                  @click="onClickPageCattleActive(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-check"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+            <span v-else>
+              {{ props.formattedRow[props.column.field] }}
+            </span>
+          </template>
+        </vue-good-table>
       </div>
-      <nav class="pagination" v-if="pagination && tableData.length > 0">
-        <a
-          class="pagination-previous"
-          href="#"
-          @click.prevent="changePage(currentPage - 1)"
-          >Anterior</a
-        >
-        <a
-          class="pagination-next"
-          href="#"
-          @click.prevent="changePage(currentPage + 1)"
-          >Proximo</a
-        >
-        <ul class="pagination-list">
-          <li
-            v-for="page in pagesNumber"
-            class="pagination-link"
-            :class="{ active: page == pagination.meta.current_page }"
-            :key="page"
-          >
-            <a
-              href="javascript:void(0)"
-              @click.prevent="changePage(page - 1)"
-              class="page-link"
-              >{{ page }}</a
-            >
-          </li>
-          <li v-if="pages > 10">
-            <span class="pagination-ellipsis">&hellip;</span>
-          </li>
-          <span style="margin-top: 8px">
-            &nbsp;
-            <i
-              >Mostrando {{ pagination.numberOfElements }} de
-              {{ pagination.totalElements }} registros.</i
-            ></span
-          >
-        </ul>
-      </nav>
     </div>
   </aside>
 </template>
 
-<script>
-import axiosClient from '@/plugins/axios';
-export default {
-  
-  data() {
-    return {
-      tableData: [],
-      url: "/weighing",
-      pagination: {
-        meta: { to: 1, from: 1 },
-      },
-      columns: ["Id", "Status", "Data", "Peso", "Brinco"],
-      offset: 4,
-      currentPage: 0,
-      perPage: 10,
-      sortedColumn: "Id",
-      order: "asc",
-      pages: 0,
-      count : 0,
-      
-    };
-  },
-  watch: {
-    fetchUrl: {
-      handler: function (fetchUrl) {
-        this.url = fetchUrl;
-      },
-      immediate: true,
-    },
-  },
-  async created() {
-    
-   
-    return this.fetchData();
-  },
- 
-  computed: {
-    /**
-     * Get the pages number array for displaying in the pagination.
-     * */
-    pagesNumber() {
-      if (!this.pagination.meta.to) {
-        return [];
-      }
-      let from = this.pagination.meta.current_page - this.offset;
-      if (from < 1) {
-        from = 1;
-      }
-      let to = from + this.offset * 2;
-      if (to >= this.pagination.meta.last_page) {
-        to = this.pagination.meta.last_page + 1;
-      }
-      let pagesArray = [];
-      this.pages = to; //to
-      var max = this.pages;
-      if (max > 10) max = 10;
-      for (let page = from; page <= max; page++) {
-        pagesArray.push(page);
-      }
-      return pagesArray;
-    },
-    /**
-     * Get the total data displayed in the current page.
-     * */
-    totalData() {
-      return this.pagination.meta.to - this.pagination.meta.from + 1;
-    },
+<script lang="ts">
+import { Vue } from "vue-class-component";
+import { Weighing } from "@/model/weighing.model";
+import { WeighingClient } from "@/client/weighing.client";
+import { PageRequest } from "@/model/page/page-request";
+import { PageResponse } from "@/model/page/page-response";
 
-  },
-  methods: {
-    fetchData() {
-      let dataFetchUrl = `/weighing?page=${this.currentPage}&sort=${this.sortedColumn},${this.order}&size=${this.perPage}`;
-      axiosClient
-        .get(dataFetchUrl)
-        .then(({ data }) => {
-          console.log(data);
-          this.pagination = data;
-          this.pagination.meta = {
-            from: data.pageable.offset + 1,
-            to: data.pageable.offset + data.numberOfElements,
-            current_page: data.number,
-            last_page: data.totalPages - 1,
-          };
-          this.tableData = data.content;
-          this.count = this.tableData.length;
-        })
-        .catch((error) => (this.tableData = []));
-    },
-    /**
-     * Get the serial number.
-     * @param key
-     * */
-    serialNumber(key) {
-      return (this.currentPage - 1) * this.perPage + 1 + key;
-    },
-    /**
-     * Change the page.
-     * @param pageNumber
-     */
-    changePage(pageNumber) {
-      if (pageNumber < this.pagesNumber.length) {
-        this.currentPage = pageNumber;
-        this.fetchData();
-      }
-    },
-    onClickPageDetail(id) {
-      this.$router.push({ name: "weight-detail", params: { id: id } });
-    },
-    /**
-     * Sort the data by column.
-     * */
+export default class WeightList extends Vue {
+  public weightList: Weighing[] = [];
+  private weighingClient!: WeighingClient;
+  private pageRequest: PageRequest = new PageRequest();
+  private pageResponse: PageResponse<Weighing> = new PageResponse();
+  count: any = null;
 
-    sortByColumn(column) {
-      if (column === this.sortedColumn) {
-        this.order = this.order === "asc" ? "desc" : "asc";
-      } else {
-        this.sortedColumn = column;
-        this.order = "asc";
-      }
-      this.fetchData();
+  columns = [
+    {
+      label: "ID",
+      field: "id",
     },
-  },
-  name: "DataTable",
-};
+    {
+      label: "Status",
+      field: "inactive",
+    },
+    {
+      label: "Data",
+      field: "date",
+    },
+    {
+      label: "Peso",
+      field: "weight",
+    },
+    {
+      label: "Brinco",
+      field: "cattle",
+    },
+    {
+      label: "Ações",
+      field: "actions",
+      html: true,
+    },
+  ];
+  rows = [];
+
+  public mounted(): void {
+    this.weighingClient = new WeighingClient();
+    this.countWeight();
+    this.listAll();
+  }
+
+  /*public listAll(): void {
+    this.weighingClient.findByAll().then(
+      (success: any) => {
+        this.rows = success.data;
+        console.log("Console:" + success);
+        //this.count = success.content.filter((t: any) => !t.inactive).length;
+      },
+      (error) => console.log(error)
+    );
+  }*/
+
+  public listAll(): void {
+    this.weighingClient.findByAll(this.pageRequest).then(
+      (success: any) => {
+        this.pageResponse = success;
+        this.weightList = this.pageResponse.content;
+        this.rows = success.content;
+        console.log(this.weightList);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  public countWeight(): void {
+    this.weighingClient.count().then(
+      (sucess) => {
+        return (this.count = Number(sucess));
+      },
+      (error) => {
+        return console.log(error);
+      }
+    );
+  }
+
+  public onClickPageCattleDetail(id: number) {
+    this.$router.push({ name: "cattle-detail", params: { id: id } });
+  }
+
+  public onClickPageCattleEdit(id: number) {
+    this.$router.push({ name: "cattle-edit", params: { id: id } });
+  }
+
+  private onClickPageCattleInactive(id: number) {
+    this.$router.push({
+      name: "cattle-inactive",
+      params: { id: id },
+    });
+  }
+  private onClickPageCattleActive(id: number) {
+    this.$router.push({ name: "cattle-active", params: { id: id } });
+  }
+}
 </script>
 
 <style scoped>
