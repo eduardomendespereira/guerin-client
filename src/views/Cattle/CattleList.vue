@@ -6,7 +6,7 @@
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <article class="tile is-child box">
-              <p class="title"><i class="fa fa-users"> Gados Ativos</i></p>
+              <p class="title"><i class="fa"> &#128003; Gados Ativos</i></p>
               <p class="subtitle" style="float: right">
                 <span style="font-size: 12pt" class="tag is-info">{{
                     count
