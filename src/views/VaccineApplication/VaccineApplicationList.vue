@@ -121,7 +121,6 @@ import {VaccineApplication} from "@/model/vaccine-application.model";
 import {Cattle} from "@/model/cattle.model";
 
 export default class VaccineApplicationList extends Vue {
-  public vaccineAppList: VaccineApplication[] = [];
   columns = [
     {
       label: "Descrição",

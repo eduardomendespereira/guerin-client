@@ -67,14 +67,13 @@ import { PageRequest } from '@/model/page/page-request'
 import { PageResponse } from '@/model/page/page-response'
 import { Notification } from '@/model/notification'
 import {CattleEvent} from "@/model/cattle-event.model";
-import {CattleEventClient} from "@/client/cattle-event.client";
+import CattleEventClient from "@/client/cattle-event.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 import {EventType} from "@/model/event-type.model";
 import {EventTypeClient} from "@/client/event-type.client";
 
 export default class VaccineInsertForm extends Vue {
-  private cattleEventClient!: CattleEventClient
   private cattleEvent : CattleEvent = new CattleEvent()
   private notification : Notification = new Notification()
   private eventTypeList: EventType[] = []
@@ -86,7 +85,6 @@ export default class VaccineInsertForm extends Vue {
   private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
 
   public mounted(): void {
-    this.cattleEventClient = new CattleEventClient()
     this.eventTypeClient = new EventTypeClient()
     this.cattleClient = new CattleClient()
     this.listAllEventsTypes()
@@ -116,7 +114,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private onClickSave(): void {
-    this.cattleEventClient.save(this.cattleEvent)
+    CattleEventClient.save(this.cattleEvent)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Evento cadastrado com sucesso!!!')

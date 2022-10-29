@@ -88,23 +88,21 @@
 import { Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator'
 import {CattleEvent} from "@/model/cattle-event.model";
-import {CattleEventClient} from "@/client/cattle-event.client";
+import CattleEventClient from "@/client/cattle-event.client";
 
 export default class CattleEventDetail extends Vue{
   public cattleEvent: CattleEvent = new CattleEvent()
-  private cattleEventClient!: CattleEventClient
 
   @Prop({type: Number, required: false})
   private readonly id!: number
 
   public mounted(): void {
-    this.cattleEventClient = new CattleEventClient()
     this.getCattleEvent()
     console.log(this.cattleEvent)
   }
 
   private getCattleEvent(): void {
-    this.cattleEventClient.findById(this.id)
+    CattleEventClient.findById(this.id)
         .then(
             sucess => {
               this.cattleEvent = sucess

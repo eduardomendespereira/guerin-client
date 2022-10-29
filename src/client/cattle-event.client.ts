@@ -3,98 +3,91 @@ import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
 
-export class CattleEventClient {
+class CattleEventClient {
 
 
-    public async findById(id: number): Promise<CattleEvent> {
+    findById(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/cattleEvent/${id}`)).data
+            return axiosClient.get<CattleEvent>(`/cattleEvent/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByEventType(id: number): Promise<CattleEvent> {
+    findByEventType(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/cattleEvent/eventType/${id}`)).data
+            return axiosClient.get(`/cattleEvent/eventType/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByWeighing(id: number): Promise<CattleEvent> {
+    findByWeighing(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/cattleEvent/weighing/${id}`)).data
+            return axiosClient.get(`/cattleEvent/weighing/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByVaccineApplication(id: number): Promise<CattleEvent> {
+    findByVaccineApplication(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/cattleEvent/vacineApp/${id}`)).data
+            return axiosClient.get<CattleEvent>(`/cattleEvent/vacineApp/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByCattle(id: number): Promise<CattleEvent> {
+    findByCattle(id: number): Promise<any> {
         try {
-            return (await axiosClient.get<CattleEvent>(`/cattleEvent/cattle/${id}`)).data
+            return axiosClient.get<CattleEvent>(`/cattleEvent/cattle/${id}`)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findAll(pageRequest : PageRequest): Promise<PageResponse<CattleEvent>> {
+    findAll(): Promise<any> {
         try {
 
             let requestPath = '/cattleEvent'
 
-            requestPath += `?page=${pageRequest.currentPage}`
-            requestPath += `&size=${pageRequest.pageSize}`
-            requestPath += `&sort=${pageRequest.sortField === undefined
-                ? '' : pageRequest.sortField},${pageRequest.direction}`
-
-            return (await axiosClient.get<PageResponse<CattleEvent>>(requestPath,
-                {
-                    params: { filtros: pageRequest.filter }
-                }
-            )).data
+            return axiosClient.get(requestPath)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async save(cattleEvent: CattleEvent): Promise<void> {
+    save(cattleEvent: CattleEvent): Promise<any> {
         try {
-            return (await axiosClient.post('/cattleEvent/', cattleEvent))
+            return axiosClient.post('/cattleEvent/', cattleEvent)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async update(cattleEvent: CattleEvent): Promise<void> {
+    update(cattleEvent: CattleEvent): Promise<any> {
         try {
-            return (await axiosClient.put(`/cattleEvent/${cattleEvent.id}`, cattleEvent)).data
+            return axiosClient.put(`/cattleEvent/${cattleEvent.id}`, cattleEvent)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async disable(id: number): Promise<any> {
+    disable(id: number): Promise<any> {
         try {
-            return (await axiosClient.get("/cattleEvent/disable/" + id)).data
+            return axiosClient.get("/cattleEvent/disable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async enable(id: number): Promise<any> {
+    enable(id: number): Promise<any> {
         try {
-            return (await axiosClient.get("/cattleEvent/enable/" + id)).data
+            return axiosClient.get("/cattleEvent/enable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
     }
 }
+
+export default new CattleEventClient();

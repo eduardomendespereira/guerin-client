@@ -65,7 +65,7 @@
 import { Vue } from 'vue-class-component';
 import { Notification } from '@/model/notification'
 import { CattleEvent } from "@/model/cattle-event.model";
-import { CattleEventClient } from "@/client/cattle-event.client";
+import CattleEventClient from "@/client/cattle-event.client";
 import {Prop} from "vue-property-decorator";
 import {EventTypeClient} from "@/client/event-type.client";
 import {CattleClient} from "@/client/cattle.client";
@@ -76,7 +76,6 @@ import {Cattle} from "@/model/cattle.model";
 
 
 export default class CattleEventUpdateForm extends Vue {
-  private cattleEventClient!: CattleEventClient
   private cattleEvent : CattleEvent = new CattleEvent()
   private notification : Notification = new Notification()
   private eventTypeList: EventType[] = []
@@ -91,7 +90,6 @@ export default class CattleEventUpdateForm extends Vue {
   private readonly id!: number
 
   public mounted(): void {
-    this.cattleEventClient = new CattleEventClient()
     this.getCattleEvent()
     this.eventTypeClient = new EventTypeClient()
     this.cattleClient = new CattleClient()
@@ -123,7 +121,7 @@ export default class CattleEventUpdateForm extends Vue {
 
 
   private getCattleEvent(): void {
-    this.cattleEventClient.findById(this.id)
+    CattleEventClient.findById(this.id)
         .then(
             success => {
               this.cattleEvent = success
@@ -133,7 +131,7 @@ export default class CattleEventUpdateForm extends Vue {
   }
 
   private onClickEdit(): void {
-    this.cattleEventClient.update(this.cattleEvent)
+    CattleEventClient.update(this.cattleEvent)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Evento atualizado com sucesso!!!')
