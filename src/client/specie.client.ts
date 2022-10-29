@@ -20,6 +20,7 @@ export class ConvenioClient {
             return Promise.reject()
         }
     }
+<<<<<<< Updated upstream
 
   	public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<Specie>> {
 		try {
@@ -38,9 +39,24 @@ export class ConvenioClient {
 			)).data
 		} catch (error:any) { 
 			return Promise.reject(error.response) 
+=======
+	public async count() : Promise<any>{
+		try{
+			return (await axiosClient.get<any>('/species/count')).data
+		}catch{
+			return Promise.reject();
 		}
-  	}
-
+	}
+	findAll(): Promise<any> {
+		try {
+		  let requestPath = "/species";
+	
+		  return axiosClient.get(requestPath);
+		} catch (error: any) {
+		  return Promise.reject(error.response);
+>>>>>>> Stashed changes
+		}
+	}
 	public async cadastrar(specie: Specie): Promise<void> {
 		try {
 			return (await this.axiosClient.post('/', specie))
@@ -51,7 +67,11 @@ export class ConvenioClient {
 
 	public async editar(specie: Specie): Promise<void> {
 		try {
+<<<<<<< Updated upstream
 			return (await this.axiosClient.put(`/${specie.id}`, specie)).data
+=======
+			return (await axiosClient.put(`species/${specie.id}`, specie)).data
+>>>>>>> Stashed changes
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}
