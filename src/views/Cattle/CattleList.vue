@@ -66,6 +66,10 @@
             <span v-else-if="props.column.field == 'farm'">
               <span>{{ props.row.farm?.name }}</span>
             </span>
+            <span v-else-if="props.column.field == 'gender'">
+              <span v-if="props.row.gender == 'male'">Macho</span>
+              <span v-else>Fêmea</span>
+            </span>
             <span v-else-if="props.column.field == 'father'">
               <span>{{ props.row.father }}</span>
             </span>
