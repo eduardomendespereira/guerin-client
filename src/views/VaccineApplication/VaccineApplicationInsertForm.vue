@@ -1,167 +1,170 @@
 <template>
-  <div class="form-vaccine-application">
-    <div class="columns">
-      <div class="column is-12 is-size-3">
-        Eventos > Aplicações de Vacinas > Cadastrar Aplicação de Vacina
-      </div>
+  <main class="farm is-fullheight">
+    <div class="text-up columns">
+      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Aplicação de Vacina</b></p>
     </div>
+    <section class="is-flex is-justify-content-center">
+      <div class="insert-background-vaccine-app">
+        <div class="icon-user">
+          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
+        </div>
 
-    <div class="content-form">
-      <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
-      </div>
-
-      <br/>
-
-      <div class="columns" v-if="notification.ativo">
-        <div class="column is-12">
-          <div :class="notification.classe">
-            <button @click="onClickCloseNotification()" class="delete" ></button>
-            {{ notification.mensagem }}
+        <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
+          <div class="column is-12">
+            <div :class="notification.classe">
+              <button
+                  @click="onClickCloseNotification()"
+                  class="delete"
+              ></button>
+              {{ notification.mensagem }}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="container-inputs">
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="vaccineApplication.note" placeholder="Descrição">
+        <p v-if="errors.length" style="margin-top: 5%">
+          <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+          <ul>
+            <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
+          </ul>
+        </p>
+        <div class="field is-horizontal form">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="Vacina"
+                    v-model="vaccineApplication.vaccine"
+                />
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="Gado"
+                    v-model="vaccineApplication.cattle"
+                />
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div>
-          Vacina
-          <select v-model="vaccineApplication.vaccine">
-            <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}
-            </option>
-          </select>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="datetime-local"
+                    placeholder="Data"
+                    v-model="vaccineApplication.date"
+                />
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="Descrição"
+                    v-model="vaccineApplication.note"
+                />
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="control">
-          <input class="input" style="width: 300px" type="datetime-local" v-model="vaccineApplication.date" placeholder="Data">
-        </div>
-
-        <div>
-          Brinco do Gado
-          <select v-model="vaccineApplication.cattle">
-            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
-          </select>
-        </div>
-
-      </div>
-      <div class="container-buttons">
-        <div class="container-boptions">
-          <router-link class="link-cad" to="/eventos/aplicacoes-de-vacinas">
-            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+        <hr class="line" size="100" width="1000" />
+        <div class="btns">
+          <router-link to="/eventos/aplicacoes-de-vacinas">
+            <button class="button is-danger">Voltar</button>
           </router-link>
-        </div>
-        <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickSave()">Salvar</button>
+          <button @click="onClickSave()" class="button is-link">Salvar</button>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
-import { PageRequest } from '@/model/page/page-request'
-import { PageResponse } from '@/model/page/page-response'
-import { Notification } from '@/model/notification'
-import {VaccineApplication} from "@/model/vaccine-application.model";
-import VaccineApplicationClient from "@/client/vaccine-application.client";
-import {Vaccine} from "@/model/vaccine.model";
-import vaccineClient from "@/client/vaccine.client";
-import {Cattle} from "@/model/cattle.model";
-import {CattleClient} from "@/client/cattle.client";
+import { Vue } from "vue-class-component";
+import { Notification } from "@/model/notification";
+import { VaccineApplication } from "@/model/vaccine-application.model";
+import vaccineApplicationClient from "@/client/vaccine-application.client";
 
-export default class VaccineInsertForm extends Vue {
-  private vaccineApplication : VaccineApplication = new VaccineApplication()
-  private notification : Notification = new Notification()
-  private vaccineList: Vaccine[] = []
-  private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<Vaccine> = new PageResponse()
-  private cattleList: Cattle[] = []
-  private cattleClient!: CattleClient
-  private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
+export default class VaccineApplicationInsertForm extends Vue {
+  private vaccineApplication: VaccineApplication = new VaccineApplication();
+  private notification: Notification = new Notification();
+  private errors: Array<Notification> = new Array<Notification>();
 
   public mounted(): void {
-    this.cattleClient = new CattleClient()
-    this.listAllVaccines()
-    this.listAllCattles()
-  }
 
-  private listAllVaccines(): void{
-    vaccineClient.findAll()
-        .then(
-            success => {
-              this.pageResponse = success
-              this.vaccineList = this.pageResponse.content
-            },
-            error => console.log(error)
-        )
-  }
-
-  private listAllCattles(): void{
-    this.cattleClient.findAll()
-        .then(
-            success => {
-              this.pageResponseCattle = success
-              this.cattleList = this.pageResponseCattle.content
-            },
-            error => console.log(error)
-        )
   }
 
   private onClickSave(): void {
-    VaccineApplicationClient.save(this.vaccineApplication)
-        .then(
-            success => {
-              this.notification = this.notification.new(true, 'notification is-success', 'Aplicação de Vacina cadastrada com sucesso!!!')
-              this.onClickClean()
-            }, error => {
-              this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
-              this.onClickClean()
-            })
+    this.errors = new Array<Notification>();
+    if (!this.vaccineApplication.vaccine || !this.vaccineApplication.vaccine) {
+      this.errors.push(new Notification().newNot("Vacina é obrigatória"));
+    }
+    if (!this.vaccineApplication.cattle) {
+      this.errors.push(new Notification().newNot("Gado é obrigatorio."));
+    }
+    if (!this.vaccineApplication.date) {
+      this.errors.push(new Notification().newNot("Data é obrigatoria."));
+    }
+    if (this.errors.length == 0) {
+      vaccineApplicationClient.save(this.vaccineApplication).then(
+          (success) => {
+            this.notification = this.notification.new(
+                true,
+                "notification is-success",
+                "Aplicação de vacina cadastrada com sucesso!!!"
+            );
+            this.onClickClean();
+          },
+          (error) => {
+            console.log(error);
+            this.notification = this.notification.new(
+                true,
+                "notification is-danger",
+                "Error: " + error.response.data
+            );
+            this.onClickClean();
+          }
+      );
+    }
   }
-
   private onClickCloseNotification(): void {
-    this.notification = new Notification()
+    this.notification = new Notification();
   }
   private onClickClean(): void {
-    this.vaccineApplication = new VaccineApplication()
+    this.vaccineApplication = new VaccineApplication();
   }
 }
-
 </script>
 
 <style lang="scss">
-.form-vaccine-application{
-  width: 100%;
-  padding: 0px 30px 0px 30px;
-  background-color: lightgray;
-}
-.content-form{
+.insert-background-vaccine-app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
   background-color: white;
-  width: 100%;
   border-radius: 10px;
-  padding: 20px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 90%;
+  margin-top: 20px;
 }
-.align-icon-container{
+.form {
+  margin-top: 5%;
   display: flex;
-  justify-content: center;
 }
-.container-inputs{
+.btns {
   display: flex;
-  flex-direction: row;
-  margin-top: 200px;
-  justify-content: space-evenly;
+  .button {
+    font-size: 18px;
+    margin: 30px;
+    width: 300px;
+  }
 }
-.container-buttons{
-  display: flex;
-  margin-top: 200px;
-  justify-content: space-evenly;
-}
-.container-boptions{
-  width: 300px;
-}
-
 </style>

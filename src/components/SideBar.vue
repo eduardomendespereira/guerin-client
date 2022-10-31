@@ -5,7 +5,7 @@
     </div>
 
     <div class="menu-toggle-wrap">
-      <h4>Olá Lucas</h4>
+      <h4>Olá Eduardo</h4>
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="icon is-small is-left">
           <i class="material-icons fa fa-angle-double-right"></i>
