@@ -108,7 +108,7 @@ export default class cattleInsertForm extends Vue {
   }
 
   private listAllSpecies(): void {
-    this.specieClient.findByFiltrosPaginado(this.pageRequest).then(
+    this.specieClient.findAll().then(
       (success: any) => {
         this.pageResponse = success;
         this.specieList = this.pageResponse.content;
@@ -122,7 +122,8 @@ export default class cattleInsertForm extends Vue {
   private listAllFarms(): void {
     this.farmClient.findAll().then(
       (success) => {
-        this.farmList = success.data;
+        this.pageResponse = success;
+        this.farmList = this.pageResponse.content;
       },
       (error) => console.log(error)
     );
@@ -142,7 +143,7 @@ export default class cattleInsertForm extends Vue {
         this.notification = this.notification.new(
           true,
           "notification is-danger",
-          "Erro: " + error.data
+          "Error: " + error
         );
         this.onClickClean();
       }

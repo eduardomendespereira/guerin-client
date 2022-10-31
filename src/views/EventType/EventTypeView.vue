@@ -31,84 +31,76 @@
           </button>
         </div>
       </div>
-      <div class="table-div">
-        <table class="table">
-          <thead class="header-table">
-            <tr>
-              <th>Dt.</th>
-              <th>Status</th>
-              <th>Registrado em</th>
-              <th>Nome</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in eventList" :key="item.id">
-              <th>
-                <button
-                @click="onClickPageEventDetail(item.id)"
-                  class="button btn-detail"
+      <div class="columns is-flex">
+        <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+          <vue-good-table
+            ref="specitable"
+            :columns="columns"
+            :rows="rows"
+            :search-options="{
+              enabled: true,
+              placeholder: 'Buscar...',
+            }"
+            :pagination-options="{
+              enabled: true,
+              mode: 'records',
+              rowsPerPageLabel: 'Resultados por pagina',
+              nextLabel: 'Proximo',
+              prevLabel: 'Anterior',
+              ofLabel: 'de',
+              allLabel: 'Todos',
+            }"
+            theme="polar-bear"
+          >
+            <template #table-row="props">
+              <span v-if="props.column.field == 'detail'">
+                <p class="buttons">
+                  <button
+                    class="button is-info is-outlined"
+                    @click="onClickPageEventDetail(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-info"></i>
+                    </span>
+                  </button>
+                </p>
+              </span>
+              <span v-else-if="props.column.field == 'name'">
+                <span>{{props.row.name}}</span>
+              </span>
+              <span v-else-if="props.column.field == 'inactive'">
+                <span v-if="!props.row.inactive" class="tag is-success"
+                  >Ativo</span
                 >
-                  !
-                </button>
-              </th>
-  
-              <th>
-                <span v-if="!item.inactive" class="tag is-success"></span>
-                <span v-if="item.inactive" class="tag is-danger"></span>
-              </th>
-  
-              <th>{{ item.registered }}</th>
-  
-              <th>{{ item.name }}</th>
-  
-              <th>
-                <button
-                  @click="onClickPageEventEdit(item.id)"
-                  class="button btn-edit"
+                <span v-else-if="props.row.inactive" class="tag is-danger"
+                  >Inativo</span
                 >
-                  <img
-                    style="width: 15px"
-                    src="../../assets/editIcon.png"
-                    alt="Guerin"
-                  />
-                </button>
-              </th>
-  
-              <th>
-                <button
-                  @click="openDelete(item.id)"
-                  class="button btn-delet"
-                >
-                  X
-                </button>
-                <div v-if="deleteModal" class="modal is-active">
-                  
-                  <div class="modal-background"></div>
-                  <div class="modal-card">
-                    <header class="modal-card-head">
-                      <p class="modal-card-title">Desativar Tipo de Evento {{event.id}}</p>
-                      <button class="delete" @click="openDelete" aria-label="close"></button>
-                    </header>
-                    <section class="modal-card-body is-flex is-flex-direction-column is-align-items-center" >
-                      <h1 style="color: red;">Deseja desativar esse tipo de Evento ?</h1>
-                      <h1 class="pt-2" >Estado : <span v-if="!event.inactive" style="color: green;">Ativo</span>
-                           <span v-if="event.inactive" style="color: red;">Inativo</span>
-                      </h1>
-                      <h1 >Nome : {{event.name}}</h1>
-                    </section>
-                    <footer class="modal-card-foot is-flex is-justify-content-center">
-                      <button class="button btn-back is-danger" @click="disableSpecie()" >
-                        Desativar Evento
-                      </button>
-                      <button class="button btn-cad is-success" @click="openDelete">Voltar</button>
-                    </footer>
-                </div>
-              </div>
-              </th>
-            </tr>
-          </tbody>
-        </table>
+                <span v-else>{{ props.row.role }}</span>
+              </span>
+              <span v-else-if="props.column.field == 'actions'">
+                <p class="buttons">
+                  <button
+                    class="button is-info is-outlined"
+                    @click="onClickPageEventEdit(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </button>
+                  <button
+                    v-if="!props.row.inactive"
+                    class="button is-danger is-outlined"
+                    @click="openDelete(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-trash"></i>
+                    </span>
+                  </button>
+                </p>
+              </span>
+            </template>
+          </vue-good-table>
+        </div>
       </div>
       <div v-if="showModal" class="modal is-active">
         <div class="modal-background"></div>
@@ -135,7 +127,22 @@
             <button class="button btn-cad" @click="openModal">Voltar</button>
           </footer>
         </div>
-      </div>  
+      </div>
+      <div v-if="deleteModal" class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Deseja deletar esse evento ?</p>
+            <button class="delete" @click="openDelete" aria-label="close"></button>
+          </header>
+          <footer class="modal-card-foot is-flex is-justify-content-center">
+            <button class="button btn-back" @click="disableEvent" >
+              Deletar Especie
+            </button>
+            <button class="button btn-cad" @click="openDelete">Voltar</button>
+          </footer>
+        </div>
+      </div>    
     </aside>
   </template>
   
@@ -154,14 +161,33 @@
     },
   })
   export default class EventTypeView extends Vue {
-    columns = ["id", "inactive", "registered", "updated", "name"];
+    count = 0;
+    columns = [
+    {
+      label: "Detalhar",
+      field: "detail"
+    },
+    {
+      label: "Nome",
+      field: "name",
+    },
+    {
+      label: "Estado",
+      field : "inactive"
+    },
+    {
+      label: "Ações",
+      field: "actions",
+      html: true,
+    },
+  ];
+    rows = [];
     showModal = false;
     public edit = `edit-specie`;
     public nome : string = '';
     private eventClient!: EventTypeClient;
     public eventList: EventType[] = [];
     public event: EventType = new EventType()
-    count: any = null;
     deleteModal = false;
     public url: string = "/species";
     private notification: Notification = new Notification();
@@ -169,20 +195,19 @@
     private pageResponse: PageResponse<EventType> = new PageResponse();
     public mounted(): void {
       this.eventClient = new EventTypeClient();
-      this.listAllEventType();
+      this.listAll();
       //this.countSpecie();
     }
-    public listAllEventType(): void {
-      this.eventClient.findByFiltrosPaginado(this.pageRequest).then(
-        (success: any) => {
-          this.pageResponse = success;
-          this.eventList = this.pageResponse.content;
-          console.log(this.eventList);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+    public listAll(): void {
+      this.eventClient.findAll()
+        .then((response: any) => {
+          this.rows = response.data.content;
+          this.count = response.data.content.filter((t) => !t.inactive).length;
+          console.log(response);
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
     }
     public countSpecie(): void {
       this.eventClient.count().then(
@@ -222,10 +247,19 @@
       )
     }
     public insert(item : any){
-        this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Cadastrado com sucesso !!!')
-        this.eventClient.cadastrar(item);
+        
+        this.eventClient.cadastrar(item).then(
+          (sucess:any) => {
+            this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Cadastrado com sucesso !!!')
+            console.log(sucess);
+          },
+          (error:any) =>{
+            this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+            console.log(error);
+          } 
+        )
     }
-    public disableSpecie(){
+    public disableEvent(){
       this.eventClient.desativar(this.event).then(
         (sucess:any) => {
           console.log(sucess);

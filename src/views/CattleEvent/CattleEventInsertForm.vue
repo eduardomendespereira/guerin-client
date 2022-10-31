@@ -92,7 +92,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private listAllEventsTypes(): void{
-    this.eventTypeClient.findByFiltrosPaginado(this.pageRequest)
+    this.eventTypeClient.findAll()
         .then(
             success => {
               this.pageResponse = success

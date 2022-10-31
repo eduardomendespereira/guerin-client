@@ -21,26 +21,15 @@ export class EventTypeClient {
 		}
 	}
 
-  	public async findByFiltrosPaginado(pageRequest : PageRequest): Promise<PageResponse<EventType>> {
+	findAll(): Promise<any> {
 		try {
-			
-			let requestPath = '/event_type'
-			
-			requestPath += `?page=${pageRequest.currentPage}`
-			requestPath += `&size=${pageRequest.pageSize}`
-			requestPath += `&sort=${pageRequest.sortField === undefined 
-				? '' : pageRequest.sortField},${pageRequest.direction}`
-			
-			return (await axiosClient.get<PageResponse<EventType>>(requestPath,
-				{ 
-					params: { filtros: pageRequest.filter } 
-				}
-			)).data
-		} catch (error:any) { 
-			return Promise.reject(error.response) 
+		  let requestPath = "/event_type";
+	
+		  return axiosClient.get(requestPath);
+		} catch (error: any) {
+		  return Promise.reject(error.response);
 		}
-  	}
-
+	}
 	public async cadastrar(event_type: EventType): Promise<void> {
 		try {
 			return (await axiosClient.post('/event_type', event_type))
@@ -51,7 +40,7 @@ export class EventTypeClient {
 
 	public async editar(event_type: EventType): Promise<void> {
 		try {
-			return (await axiosClient.put(`/${event_type.id}`, event_type)).data
+			return (await axiosClient.put(`/event_type/${event_type.id}`, event_type)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}

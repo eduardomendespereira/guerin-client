@@ -31,101 +31,116 @@
         </button>
       </div>
     </div>
-    <div class="table-div">
-      <table class="table">
-        <thead class="header-table">
-          <tr>
-            <th>Dt.</th>
-            <th>Status</th>
-            <th>Registrado em</th>
-            <th>Nome</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in specieList" :key="item.id">
-            <th>
-              <button
-              @click="onClickPageSpecieDetail(item.id)"
-                class="button btn-detail"
+    <div class="columns is-flex">
+      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+        <vue-good-table
+          ref="specitable"
+          :columns="columns"
+          :rows="rows"
+          :search-options="{
+            enabled: true,
+            placeholder: 'Buscar...',
+          }"
+          :pagination-options="{
+            enabled: true,
+            mode: 'records',
+            rowsPerPageLabel: 'Resultados por pagina',
+            nextLabel: 'Proximo',
+            prevLabel: 'Anterior',
+            ofLabel: 'de',
+            allLabel: 'Todos',
+          }"
+          theme="polar-bear"
+        >
+          <template #table-row="props">
+            <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageSpecieDetail(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+            <span v-else-if="props.column.field == 'name'">
+              <span>{{props.row.name}}</span>
+            </span>
+            <span v-else-if="props.column.field == 'inactive'">
+              <span v-if="!props.row.inactive" class="tag is-success"
+                >Ativo</span
               >
-                !
-              </button>
-            </th>
-
-            <th>
-              <span v-if="!item.inactive" class="tag is-success"></span>
-              <span v-if="item.inactive" class="tag is-danger"></span>
-            </th>
-
-            <th>{{ item.registered }}</th>
-
-            <th>{{ item.name }}</th>
-
-            <th>
-              <button
-                @click="onClickPageSpecieEdit(item.id)"
-                class="button btn-edit"
+              <span v-else-if="props.row.inactive" class="tag is-danger"
+                >Inativo</span
               >
-                <img
-                  style="width: 15px"
-                  src="../../assets/editIcon.png"
-                  alt="Guerin"
-                />
-              </button>
-            </th>
-
-            <th>
-              <button
-                @click="openDelete(item.id)"
-                class="button btn-delet"
-              >
-                X
-              </button>
-              <div v-if="deleteModal" class="modal is-active">
-                
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                  
-                  <header class="modal-card-head">
-                    <p class="modal-card-title">Desativar Especie {{specie.id}}</p>
-                    <button class="delete" @click="openDelete" aria-label="close"></button>
-                  </header>
-                  <section class="modal-card-body is-flex is-flex-direction-column is-align-items-center" >
-                    <h1 style="color: red;">Deseja desativar essa especie ?</h1>
-                    <h1 class="pt-2" >Estado : <span v-if="!specie.inactive" style="color: green;">Ativo</span>
-                         <span v-if="specie.inactive" style="color: red;">Inativo</span>
-                    </h1>
-                    <h1 >Nome : {{specie.name}}</h1>
-                  </section>
-                  <footer class="modal-card-foot is-flex is-justify-content-center">
-                    <button class="button btn-back is-danger" @click="disableSpecie()" >
-                      Desativar Especie
-                    </button>
-                    <button class="button btn-cad is-success" @click="openDelete">Voltar</button>
-                  </footer>
-              </div>
-            </div>
-            </th>
-          </tr>
-        </tbody>
-      </table>
+              <span v-else>{{ props.row.role }}</span>
+            </span>
+            <span v-else-if="props.column.field == 'actions'">
+              <p class="buttons">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageSpecieEdit(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-pencil"></i>
+                  </span>
+                </button>
+                <button
+                  v-if="!props.row.inactive"
+                  class="button is-danger is-outlined"
+                  @click="openDelete(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+          </template>
+        </vue-good-table>
+      </div>
     </div>
     <div v-if="showModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
+        <div class="columns" v-if="notification.ativo">
+         
+      </div>        
         <header class="modal-card-head">
           <p class="modal-card-title">Adicionar Especie</p>
           <button class="delete" @click="openModal" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <input class="input in-1" type="text" placeholder="Nome da Especie" />
+          <div class="column is-12">
+            <div :class="notification.classe">
+              <button @click="onClickCloseNotification()" class="delete" ></button>
+              {{ notification.mensagem }}
+            </div>
+          </div>
+          <input v-model="specie.name" class="input in-1" type="text" placeholder="Nome da Especie" />
         </section>
         <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-back" >
+          <button class="button btn-back" @click="insertSpecie" >
             Cadastrar Especie
           </button>
           <button class="button btn-cad" @click="openModal">Voltar</button>
+        </footer>
+      </div>
+    </div>  
+    <div v-if="deleteModal" class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Deseja deletar essa especie ?</p>
+          <button class="delete" @click="openDelete" aria-label="close"></button>
+        </header>
+        <footer class="modal-card-foot is-flex is-justify-content-center">
+          <button class="button btn-back" @click="disableSpecie" >
+            Deletar Especie
+          </button>
+          <button class="button btn-cad" @click="openDelete">Voltar</button>
         </footer>
       </div>
     </div>  
@@ -147,44 +162,50 @@ import DataTable from "@/components/DataTable.vue";
   },
 })
 export default class SpecieView extends Vue {
-  columns = ["id", "inactive", "registered", "updated", "name"];
   showModal = false;
-  public edit = `edit-specie`;
   private specieClient!: SpecieClient;
   public specieList: Specie[] = [];
   public specie: Specie = new Specie()
-  count: any = null;
   deleteModal = false;
-  public url: string = "/species";
+  count = 0;
+  columns = [
+    {
+      label: "Detalhar",
+      field: "detail"
+    },
+    {
+      label: "Nome",
+      field: "name",
+    },
+    {
+      label: "Estado",
+      field : "inactive"
+    },
+    {
+      label: "Ações",
+      field: "actions",
+      html: true,
+    },
+  ];
+  rows = [];
+ 
   private notification: Notification = new Notification();
   private pageRequest: PageRequest = new PageRequest();
   private pageResponse: PageResponse<Specie> = new PageResponse();
   public mounted(): void {
     this.specieClient = new SpecieClient();
-    this.listAllVaccines();
-    this.countSpecie();
+    this.listAll();
   }
-  public listAllVaccines(): void {
-    this.specieClient.findByFiltrosPaginado(this.pageRequest).then(
-      (success: any) => {
-        this.pageResponse = success;
-        this.specieList = this.pageResponse.content;
-        console.log(this.specieList);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-  public countSpecie(): void {
-    this.specieClient.count().then(
-      (sucess) => {
-        return (this.count = Number(sucess));
-      },
-      (error) => {
-        return console.log(error);
-      }
-    );
+  public listAll(): void {
+    this.specieClient.findAll()
+      .then((response: any) => {
+        this.rows = response.data.content;
+        this.count = response.data.content.filter((t) => !t.inactive).length;
+        console.log(response);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
   }
   public openModal() {
     if (this.showModal) {
@@ -200,6 +221,7 @@ export default class SpecieView extends Vue {
     this.$router.push({ name: "specie-edit", params: { id: id } });
   }
   public openDelete(id : any){
+    this.specie.id = id
     if(this.deleteModal){
       this.deleteModal = false;
     }else{
@@ -217,11 +239,28 @@ export default class SpecieView extends Vue {
     this.specieClient.desativar(this.specie).then(
       (sucess:any) => {
         console.log(sucess);
+        this.deleteModal = false
       },
       (error:any) =>{
         console.log(error);
+        this.deleteModal = false
       } 
     )
+  }
+  public insertSpecie(){
+    this.specieClient.cadastrar(this.specie).then(
+      (sucess:any) => {
+        this.notification = this.notification.new(true, 'notification is-success', 'Especie Cadastrada com sucesso ! !!!')
+        console.log(sucess);
+      },
+      (error:any) =>{
+        this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
+        console.log(error);
+      } 
+    )
+  }
+  private onClickCloseNotification(): void {
+        this.notification = new Notification()
   }
 }
 </script>

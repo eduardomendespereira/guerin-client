@@ -90,7 +90,7 @@ export default class cattleInsertForm extends Vue {
     }
 
     private listAllSpecies(): void {
-        this.specieClient.findByFiltrosPaginado(this.pageRequest).then(
+        this.specieClient.findAll().then(
             (success: any) => {
                 this.pageResponse = success;
                 this.specieList = this.pageResponse.content;
