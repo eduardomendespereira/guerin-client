@@ -143,7 +143,7 @@ export default class VaccineApplicationInsertForm extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .insert-background-vaccine-app {
   display: flex;
   align-items: center;

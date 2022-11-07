@@ -76,7 +76,7 @@
         </div>
         <hr class="line" size="100" width="1000" />
         <div class="btns">
-          <router-link to="/eventos/aplicacoes-de-vacinas">
+          <router-link to="/eventos/eventos-gados">
             <button class="button is-danger">Voltar</button>
           </router-link>
           <button @click="onClickSave()" class="button is-link">Salvar</button>
