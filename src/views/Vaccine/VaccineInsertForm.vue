@@ -38,9 +38,9 @@
                 />
               </p>
             </div>
-            <div class="field required" >
+            <div class="field required" style="display: flex; align-items: center; padding: 5px;" >
               <label class="label" style="color: black">
-                <input v-model="vaccine.required" checked type="checkbox">
+                <input v-model="vaccine.required" type="checkbox">
                 Obrigatória
               </label>
             </div>
@@ -133,4 +133,8 @@ export default class VaccineInsertForm extends Vue {
     width: 300px;
   }
 }
+input[type=checkbox] {
+  transform: scale(1.5);
+}
+
 </style>
