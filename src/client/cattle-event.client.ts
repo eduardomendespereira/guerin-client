@@ -5,7 +5,6 @@ import axiosClient from "../plugins/axios";
 
 class CattleEventClient {
 
-
     findById(id: number): Promise<any> {
         try {
             return axiosClient.get<CattleEvent>(`/cattleEvent/${id}`)
