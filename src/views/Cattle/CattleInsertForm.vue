@@ -87,7 +87,6 @@ import { PageResponse } from "@/model/page/page-response";
 import { Specie } from "@/model/specie.model";
 import { FarmClient } from "@/client/farm.client";
 import { Farm } from "@/model/farm.model"
-
 export default class cattleInsertForm extends Vue {
   private cattleClient!: CattleClient;
   private cattle: Cattle = new Cattle();
@@ -98,7 +97,6 @@ export default class cattleInsertForm extends Vue {
   private specieList: Specie[] = [];
   private farmClient!: FarmClient;
   private farmList: Farm[] = [];
-
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.specieClient = new SpecieClient();
@@ -106,29 +104,24 @@ export default class cattleInsertForm extends Vue {
     this.listAllSpecies();
     this.listAllFarms();
   }
-
   private listAllSpecies(): void {
     this.specieClient.findAll().then(
-      (success: any) => {
-        this.pageResponse = success;
-        this.specieList = this.pageResponse.content;
+      (success) => {
+        this.specieList = success.data.content;
       },
-      (error: any) => {
+      (error) => {
         console.log(error);
       }
     );
   }
-
   private listAllFarms(): void {
     this.farmClient.findAll().then(
       (success) => {
-        this.pageResponse = success;
-        this.farmList = this.pageResponse.content;
+        this.farmList = success.data;
       },
       (error) => console.log(error)
     );
   }
-
   private onClickSave(): void {
     this.cattleClient.save(this.cattle).then(
       (success) => {
@@ -149,7 +142,6 @@ export default class cattleInsertForm extends Vue {
       }
     );
   }
-
   private onClickCloseNotification(): void {
     this.notification = new Notification();
   }
@@ -163,7 +155,6 @@ export default class cattleInsertForm extends Vue {
 .cattle {
   width: 100%;
 }
-
 .insert-back {
   display: flex;
   align-items: center;
@@ -175,7 +166,6 @@ export default class cattleInsertForm extends Vue {
   width: 90%;
   margin-top: 20px;
 }
-
 .icon-cattle {
   display: flex;
   justify-content: center;
@@ -186,32 +176,26 @@ export default class cattleInsertForm extends Vue {
   border-radius: 20px;
   margin: 0px 0px 20px 0px;
 }
-
 .form {
   display: flex;
   .in-1 {
     margin: 15px;
   }
-
   .input {
     width: 300px;
   }
-
   .select {
     width: 300px;
   }
 }
-
 .date {
   margin: 15px;
   width: 630px;
 }
-
 .line {
   background-color: #dbdbdb;
   margin: 30px 0px 0px 0px;
 }
-
 .btns {
   display: flex;
   .button {
@@ -220,26 +204,22 @@ export default class cattleInsertForm extends Vue {
     width: 300px;
   }
 }
-
 .btn-cad {
   background-color: #005bd4;
   color: #ffffff;
   padding: 12px;
 }
-
 .btn-cad:hover {
   background-color: #0067ee;
   color: white;
   transition: 0.7s;
   box-shadow: 0px 0px 10px #d1d1d1;
 }
-
 .btn-back {
   background-color: #c20101;
   color: #ffffff;
   padding: 12px;
 }
-
 .btn-back:hover {
   background-color: #da0000;
   color: white;
