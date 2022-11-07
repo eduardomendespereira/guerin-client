@@ -1,118 +1,136 @@
 <template>
-  <div class="form-vaccine">
-    <div class="columns">
-      <div class="column is-12 is-size-3">
-        Cadastro > Vacina
-      </div>
+  <main class="farm is-fullheight">
+    <div class="text-up columns">
+      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Vacina</b></p>
     </div>
+    <section class="is-flex is-justify-content-center">
+      <div class="insert-background-vaccine">
+        <div>
+          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
+        </div>
 
-    <div class="content-form">
-      <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
-      </div>
-
-      <br/>
-
-      <div class="columns" v-if="notification.ativo">
-        <div class="column is-12">
-          <div :class="notification.classe">
-            <button @click="onClickCloseNotification()" class="delete" ></button>
-            {{ notification.mensagem }}
+        <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
+          <div class="column is-12">
+            <div :class="notification.classe">
+              <button
+                  @click="onClickCloseNotification()"
+                  class="delete"
+              ></button>
+              {{ notification.mensagem }}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="container-inputs">
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="vaccine.name" placeholder="Nome da vacina">
+        <p v-if="errors.length" style="margin-top: 5%">
+          <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+        <ul>
+          <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
+        </ul>
+        </p>
+        <div class="field is-horizontal form">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="Nome da Vacina"
+                    v-model="vaccine.name"
+                />
+              </p>
+            </div>
+            <div class="field required" >
+              <label class="label" style="color: black">
+                <input v-model="vaccine.required" checked type="checkbox">
+                Obrigatória
+              </label>
+            </div>
+          </div>
         </div>
-
-        <div class="field-required">
-          <label class="label">
-            <input v-model="vaccine.required" checked type="checkbox">
-            Obrigatória
-          </label>
-        </div>
-      </div>
-      <div class="container-buttons">
-        <div class="container-boptions">
-          <router-link class="link-cad" to="/eventos/vacinas">
-            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+        <hr class="line" size="100" width="1000" />
+        <div class="btns">
+          <router-link to="/eventos/vacinas">
+            <button class="button is-danger">Voltar</button>
           </router-link>
-        </div>
-        <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickSave()">Salvar</button>
+          <button @click="onClickSave()" class="button is-link">Salvar</button>
         </div>
       </div>
-   </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts">
-  import { Vue } from 'vue-class-component';
-  import { Notification } from '@/model/notification'
-  import { Vaccine } from "@/model/vaccine.model";
-  import vaccineClient from "@/client/vaccine.client";
+import { Vue } from "vue-class-component";
+import { Notification } from "@/model/notification";
+import { Vaccine } from "@/model/vaccine.model";
+import vaccineClient from "@/client/vaccine.client";
 
-  export default class VaccineInsertForm extends Vue {
-    private vaccine : Vaccine = new Vaccine()
-    private notification : Notification = new Notification()
+export default class VaccineInsertForm extends Vue {
+  private vaccine: Vaccine = new Vaccine();
+  private notification: Notification = new Notification();
+  private errors: Array<Notification> = new Array<Notification>();
 
-    public mounted(): void {
-    }
+  public mounted(): void {
 
-    private onClickSave(): void {
-      vaccineClient.save(this.vaccine)
-          .then(
-              success => {
-                this.notification = this.notification.new(true, 'notification is-success', 'Vacina cadastrada com sucesso!!!')
-                this.onClickClean()
-              }, error => {
-                this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
-                this.onClickClean()
-              })
-    }
-
-    private onClickCloseNotification(): void {
-      this.notification = new Notification()
-    }
-    private onClickClean(): void {
-      this.vaccine = new Vaccine()
-    }
   }
 
-
+  private onClickSave(): void {
+    this.errors = new Array<Notification>();
+    if (!this.vaccine) {
+      this.errors.push(new Notification().newNot("Vacina é obrigatória"));
+    }
+    if (this.errors.length == 0) {
+      vaccineClient.save(this.vaccine).then(
+          (success) => {
+            this.notification = this.notification.new(
+                true,
+                "notification is-success",
+                "Vacina cadastrada com sucesso!!!"
+            );
+            this.onClickClean();
+          },
+          (error) => {
+            console.log(error);
+            this.notification = this.notification.new(
+                true,
+                "notification is-danger",
+                "Error: " + error.response.data
+            );
+            this.onClickClean();
+          }
+      );
+    }
+  }
+  private onClickCloseNotification(): void {
+    this.notification = new Notification();
+  }
+  private onClickClean(): void {
+    this.vaccine = new Vaccine();
+  }
+}
 </script>
 
-<style lang="scss">
-  .form-vaccine{
-    width: 100%;
-    padding: 0px 30px 0px 30px;
-    background-color: lightgray;
-  }
-  .content-form{
-    background-color: white;
-    width: 100%;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .align-icon-container{
-    display: flex;
-    justify-content: center;
-  }
-  .container-inputs{
-    display: flex;
-    flex-direction: row;
-    margin-top: 200px;
-    justify-content: space-evenly;
-  }
-  .container-buttons{
-    display: flex;
-    margin-top: 200px;
-    justify-content: space-evenly;
-  }
-  .container-boptions{
+<style lang="scss" scoped>
+.insert-background-vaccine {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 90%;
+  margin-top: 20px;
+}
+.form {
+  margin-top: 5%;
+  display: flex;
+}
+.btns {
+  display: flex;
+  .button {
+    font-size: 18px;
+    margin: 30px;
     width: 300px;
   }
-
+}
 </style>
