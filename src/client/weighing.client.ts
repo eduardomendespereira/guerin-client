@@ -61,6 +61,16 @@ export class WeighingClient {
     }
   }
 
+  public async enable(weighing: Weighing): Promise<void> {
+    try {
+      return (
+        await axiosClient.put(`/weighing/enable/${weighing.id}`, weighing)
+      ).data;
+    } catch (error: any) {
+      return Promise.reject(error.response);
+    }
+  }
+
   public async count(): Promise<any> {
     try {
       return (await axiosClient.get<any>("/weighing/count")).data;
