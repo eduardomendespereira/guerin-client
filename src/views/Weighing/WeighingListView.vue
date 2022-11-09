@@ -66,35 +66,28 @@
           </div>
           <input
             class="input in-1"
-            type="datetime-local"
+            type="date"
             placeholder="Data"
             v-model="weighing.date"
           />
           <input
             class="input in-1"
-            type="text"
+            type="number"
             placeholder="Peso"
             v-model="weighing.weight"
           />
 
-          <input
-            class="input in-1"
-            type="text"
-            placeholder="Gado"
-            v-model="weighing.cattle"
-          />
-
-          <!--<div class="select in-1">
+          <div class="select in-1">
             <select
               placeholder="Gado"
               class="input in-1"
-              v-model="weighing.cattle"
+              v-model="cattle"
             >
-              <option v-for="item in weightList" :key="item.id" :value="item">
-                {{ item.id }}
+              <option v-for="item in cattleList" :key="item.id" :value="item.id">
+                {{ item.earring }} = Brinco | ID = {{item.id}}
               </option>
             </select>
-          </div>-->
+          </div>
         </section>
         <footer class="modal-card-foot is-flex is-justify-content-center">
           <button class="button btn-back" @click="openModal">
@@ -245,8 +238,14 @@ import { WeighingClient } from "@/client/weighing.client";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import { Notification } from "@/model/notification";
+import { Cattle } from "@/model/cattle.model";
+import { CattleClient } from "@/client/cattle.client";
+import { date } from "yup/lib/locale";
 
 export default class WeightList extends Vue {
+  public cattle : Cattle = new Cattle();
+  public cattleClient !: CattleClient;
+  public cattleList : Cattle[] = []
   public weighing: Weighing = new Weighing();
   public weightList: Weighing[] = [];
   private weighingClient!: WeighingClient;
@@ -288,8 +287,10 @@ export default class WeightList extends Vue {
 
   public mounted(): void {
     this.weighingClient = new WeighingClient();
+    this.cattleClient = new CattleClient();
     this.countWeight();
     this.listAll();
+    this.listCattle();
   }
 
   public listAll(): void {
@@ -309,6 +310,16 @@ export default class WeightList extends Vue {
         );
       }
     );
+  }
+  public listCattle(){
+      this.cattleClient.findAll().then(
+        (sucess) =>{
+          this.cattleList = sucess.data
+        },
+        (error) =>{
+          console.log(error)
+        }
+      )
   }
 
   public countWeight(): void {
@@ -331,6 +342,10 @@ export default class WeightList extends Vue {
   }
 
   public insertWeight() {
+    
+    console.log(this.cattle)
+    this.weighing.cattle = this.cattle
+    console.log(this.weighing)
     this.weighingClient.save(this.weighing).then(
       (sucess: any) => {
         this.notification = this.notification.new(
