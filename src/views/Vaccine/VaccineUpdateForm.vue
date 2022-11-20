@@ -70,7 +70,7 @@ export default class VaccineInsertForm extends Vue {
     vaccineClient.findById(this.id)
         .then(
             success => {
-              this.vaccine = success
+              this.vaccine = success.data
             },
             error => console.log(error)
         )
