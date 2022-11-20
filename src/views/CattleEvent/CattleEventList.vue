@@ -54,6 +54,18 @@
             theme="polar-bear"
         >
           <template #table-row="props">
+             <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button
+                    class="button is-info is-outlined"
+                    @click="onClickPageDetail(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
             <span v-if="props.column.field == 'cattle'">
               <span>{{ props.row.cattle?.earring }}</span>
             </span>
@@ -138,6 +150,10 @@ import {Cattle} from "@/model/cattle.model";
 export default class CattleEventList extends Vue {
   columns = [
     {
+      label: "Detalhar",
+      field: "detail"
+    },
+    {
       label: "Gado",
       field: "cattle",
     },
@@ -186,6 +202,11 @@ export default class CattleEventList extends Vue {
     console.log(id);
     this.$router.push({ name: "cattle-event-update", params: { id: id } });
   }
+
+  public onClickPageDetail(id: number) {
+    this.$router.push({ name: "cattle-event-detail", params: { id: id } });
+  }
+
   public listAll(): void {
     CattleEventClient.findAll()
         .then((response: any) => {

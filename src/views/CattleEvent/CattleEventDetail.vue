@@ -109,8 +109,8 @@ export default class CattleEventDetail extends Vue{
   private getCattleEvent(): void {
     CattleEventClient.findById(this.id)
         .then(
-            sucess => {
-              this.cattleEvent = sucess
+            success => {
+              this.cattleEvent = success.data
             },
             error => console.log(error)
         )

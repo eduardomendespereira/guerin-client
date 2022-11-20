@@ -54,6 +54,18 @@
             theme="polar-bear"
         >
           <template #table-row="props">
+            <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button
+                    class="button is-info is-outlined"
+                    @click="onClickPageDetail(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
             <span v-if="props.column.field == 'note'">
               <span>{{ props.row.note }}</span>
             </span>
@@ -123,6 +135,10 @@ import {Cattle} from "@/model/cattle.model";
 export default class VaccineApplicationList extends Vue {
   columns = [
     {
+      label: "Detalhar",
+      field: "detail"
+    },
+    {
       label: "Descrição",
       field: "note",
     },
@@ -157,6 +173,10 @@ export default class VaccineApplicationList extends Vue {
   public onClickPageUpdate(id: number) {
     console.log(id);
     this.$router.push({ name: "vaccine-application-update", params: { id: id } });
+  }
+
+  public onClickPageDetail(id: number) {
+    this.$router.push({ name: "vaccine-application-detail", params: { id: id } });
   }
 
   public convertDate(data : any ){

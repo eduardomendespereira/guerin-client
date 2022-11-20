@@ -82,8 +82,8 @@
     private getVaccine(): void {
       vaccineClient.findById(this.id)
           .then(
-              sucess => {
-                this.vaccine = sucess
+              success => {
+                this.vaccine = success.data
               },
               error => console.log(error)
           )

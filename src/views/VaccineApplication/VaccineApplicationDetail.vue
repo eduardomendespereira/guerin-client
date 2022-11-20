@@ -87,8 +87,8 @@ export default class VaccineDetail extends Vue{
   private getVaccineApplication(): void {
     VaccineApplicationClient.findById(this.id)
         .then(
-            sucess => {
-              this.vaccineApplication = sucess
+            success => {
+              this.vaccineApplication = success.data
             },
             error => console.log(error)
         )
