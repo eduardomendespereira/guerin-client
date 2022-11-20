@@ -36,6 +36,7 @@
           ref="specitable"
           :columns="columns"
           :rows="rows"
+          styleClass="vgt-table striped"
           :search-options="{
             enabled: true,
             placeholder: 'Buscar...',
@@ -93,6 +94,15 @@
                 >
                   <span class="icon is-small">
                     <i class="fa fa-trash"></i>
+                  </span>
+                </button>
+                <button
+                v-else-if="props.row.inactive"
+                class="button is-success is-outlined"
+                @click="enable(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-check"></i>
                   </span>
                 </button>
               </p>
@@ -220,6 +230,8 @@ export default class SpecieView extends Vue {
   public disableSpecie(){
     this.specieClient.desativar(this.specie).then(
       (sucess:any) => {
+        this.reniciar += 1 
+        this.listAll()
         console.log(sucess);
         this.deleteModal = false
       },
@@ -229,6 +241,18 @@ export default class SpecieView extends Vue {
       } 
     )
   }
+  public enable(id){
+      this.specieClient.ativar(id).then(
+        (sucess : any) =>{
+          this.reniciar += 1 
+          this.listAll()
+            console.log(sucess)
+        },
+        (error : any) =>{
+          console.log(error)
+        }
+      )
+    }
   public insertSpecie(){
     this.specieClient.cadastrar(this.specie).then(
       (sucess:any) => {

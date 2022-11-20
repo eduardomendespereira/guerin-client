@@ -38,6 +38,7 @@
             ref="cattleEventTable"
             :columns="columns"
             :rows="rows"
+            styleClass="vgt-table striped"
             :search-options="{
             enabled: true,
             placeholder: 'Buscar...',
