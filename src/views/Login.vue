@@ -108,6 +108,7 @@ export default class Login extends Vue {
         localStorage.setItem('user', this.request.username)
         this.$router.push({ path: "/gados" });
       })
+      
       .catch((error) => {
         this.notification = this.notification.new(
           true,

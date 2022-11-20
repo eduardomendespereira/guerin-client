@@ -114,15 +114,15 @@
     <div v-if="deleteModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <header class="modal-card-head">
+        <header class="modal-header">
           <p class="modal-card-title">Deseja deletar essa especie ?</p>
-          <button class="delete" @click="openDelete" aria-label="close"></button>
+         
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-back" @click="disableSpecie" >
+          <button class="button btn-cad" @click="disableSpecie" >
             Deletar Especie
           </button>
-          <button class="button btn-cad" @click="openDelete">Voltar</button>
+          <button class="button btn-back" @click="openDelete">Voltar</button>
         </footer>
       </div>
     </div>  
@@ -279,7 +279,38 @@ export default class SpecieView extends Vue {
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
 }
+.btn-back {
+  background-color: #c20101;
+  color: #ffffff;
+  padding: 12px;
+  width: 200px;
+}
 
+.btn-back:hover {
+  background-color: #da0000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+.btn-cad {
+  background-color: #005bd4;
+  color: #ffffff;
+  padding: 12px;
+  width: 200px;
+  margin-left: 20px;
+}
+
+.btn-cad:hover {
+  background-color: #0067ee;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.modal-header {
+  background-color: #ffffff;
+  padding: 30px;
+}
 .icon-ativos {
   top: -22px;
   left: 5px;
