@@ -64,7 +64,7 @@
               <span>{{props.row.cattle?.earring}}</span>
             </span>
             <span v-else-if="props.column.field == 'date'">
-              <span>{{props.row.date}}</span>
+              <span>{{convertDate(props.row.date)}}</span>
             </span>
             <span v-else-if="props.column.field == 'inactive'">
               <span v-if="!props.row.inactive" class="tag is-success"
@@ -157,6 +157,11 @@ export default class VaccineApplicationList extends Vue {
   public onClickPageUpdate(id: number) {
     console.log(id);
     this.$router.push({ name: "vaccine-application-update", params: { id: id } });
+  }
+
+  public convertDate(data : any ){
+      let obj = new Date(data)
+      return obj.toLocaleString()       
   }
   public listAll(): void {
     VaccineApplicationClient.findByAll()
