@@ -35,8 +35,9 @@ export class WeighingClient {
     }
   }
 
-  public async save(weighing: Weighing): Promise<void> {
+  public async save(weighing: any): Promise<void> {
     try {
+      weighing.date = new Date(weighing.date).toLocaleString();
       return await axiosClient.post("/weighing", weighing);
     } catch (error: any) {
       return Promise.reject(error.response);

@@ -83,7 +83,7 @@
               class="input in-1"
               v-model="cattle"
             >
-              <option v-for="item in cattleList" :key="item.id" :value="item.id">
+              <option v-for="item in cattleList" :key="item.id" :value="item.earring">
                 {{ item.earring }} = Brinco | ID = {{item.id}}
               </option>
             </select>
@@ -345,6 +345,7 @@ export default class WeightList extends Vue {
     
     console.log(this.cattle)
     this.weighing.cattle = this.cattle
+    
     console.log(this.weighing)
     this.weighingClient.save(this.weighing).then(
       (sucess: any) => {
