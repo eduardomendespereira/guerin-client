@@ -43,7 +43,7 @@
             class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
           >
             <b>Registrado Em</b>
-            {{ cattle.registered }}
+            {{ convertDate(cattle.registered) }}
           </h2>
         </div>
 
@@ -109,6 +109,11 @@ export default class CattleDetail extends Vue {
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.detailCattle();
+  }
+
+  public convertDate(data : any ){
+    let obj = new Date(data)
+    return obj.toLocaleString()
   }
 
   public detailCattle(): void {
