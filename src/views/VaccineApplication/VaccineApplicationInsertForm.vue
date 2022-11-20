@@ -191,7 +191,6 @@ export default class VaccineApplicationInsertForm extends Vue {
     width: 300px;
   }
 }
-
 select{
   height: 30px;
   width: 220px;

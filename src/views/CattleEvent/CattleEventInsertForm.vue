@@ -29,24 +29,16 @@
         <div class="field is-horizontal form">
           <div class="field-body">
             <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input
-                    class="input"
-                    type="text"
-                    placeholder="Tipo de evento"
-                    v-model="cattleEvent.eventType"
-                />
-              </p>
+              Tipo de Evento
+              <select v-model="cattleEvent.eventType">
+                <option v-for="e in eventTypeList" :key="e.id" :value="e">{{ e.name }}</option>
+              </select>
             </div>
             <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input
-                    class="input"
-                    type="text"
-                    placeholder="Gado"
-                    v-model="cattleEvent.cattle"
-                />
-              </p>
+              Gado
+              <select v-model="cattleEvent.cattle" style="margin-right: 60px">
+                <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -93,6 +85,8 @@ import { CattleEvent } from "@/model/cattle-event.model";
 import cattleEventClient from "@/client/cattle-event.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
+import {EventType} from "@/model/event-type.model";
+import {EventTypeClient} from "@/client/event-type.client";
 
 export default class CattleEventInsertForm extends Vue {
   private cattleEvent: CattleEvent = new CattleEvent();
@@ -100,10 +94,24 @@ export default class CattleEventInsertForm extends Vue {
   private errors: Array<Notification> = new Array<Notification>();
   private cattleClient!: CattleClient
   private cattleList: Cattle[] = []
+  private eventTypeClient!: EventTypeClient
+  private eventTypeList: EventType[] = []
 
   public mounted(): void {
     this.cattleClient = new CattleClient()
+    this.eventTypeClient = new EventTypeClient()
+    this.listAllEventsTypes()
     this.listAllCattles()
+  }
+
+  private listAllEventsTypes(): void{
+    this.eventTypeClient.findAll()
+        .then(
+            success => {
+              this.eventTypeList = success.data
+            },
+            error => console.log(error)
+        )
   }
 
   private listAllCattles(): void{
@@ -184,5 +192,11 @@ export default class CattleEventInsertForm extends Vue {
     margin: 30px;
     width: 300px;
   }
+}
+select{
+  height: 30px;
+  width: 220px;
+  border-radius: 5px;
+  border-color: grey;
 }
 </style>
