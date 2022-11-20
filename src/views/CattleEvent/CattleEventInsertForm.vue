@@ -91,14 +91,29 @@ import { Vue } from "vue-class-component";
 import { Notification } from "@/model/notification";
 import { CattleEvent } from "@/model/cattle-event.model";
 import cattleEventClient from "@/client/cattle-event.client";
+import {Cattle} from "@/model/cattle.model";
+import {CattleClient} from "@/client/cattle.client";
 
 export default class CattleEventInsertForm extends Vue {
   private cattleEvent: CattleEvent = new CattleEvent();
   private notification: Notification = new Notification();
   private errors: Array<Notification> = new Array<Notification>();
+  private cattleClient!: CattleClient
+  private cattleList: Cattle[] = []
 
   public mounted(): void {
+    this.cattleClient = new CattleClient()
+    this.listAllCattles()
+  }
 
+  private listAllCattles(): void{
+    this.cattleClient.findAll()
+        .then(
+            success => {
+              this.cattleList = success.data
+            },
+            error => console.log(error)
+        )
   }
 
   private onClickSave(): void {

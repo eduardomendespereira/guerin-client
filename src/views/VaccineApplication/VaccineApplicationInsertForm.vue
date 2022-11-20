@@ -34,10 +34,11 @@
                 <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}</option>
               </select>
             </div>
-            <div class="field">
-              <select v-model="vaccineApplication.cattle">
-                <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
-              </select>
+            <div class="field" style="margin-right: 40px">
+              Gado
+                <select v-model="vaccineApplication.cattle">
+                  <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+                </select>
             </div>
           </div>
         </div>
@@ -189,5 +190,12 @@ export default class VaccineApplicationInsertForm extends Vue {
     margin: 30px;
     width: 300px;
   }
+}
+
+select{
+  height: 30px;
+  width: 220px;
+  border-radius: 5px;
+  border-color: grey;
 }
 </style>
