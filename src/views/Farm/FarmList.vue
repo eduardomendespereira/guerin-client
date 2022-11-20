@@ -5,21 +5,33 @@
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
-            <article class="tile is-child box">
-              <div class="icon-activates">
-                <img
-                  style="width: 40px"
-                  src="../../assets/farmIcon.png"
-                  alt="Guerin"
-                />
-              </div>
-              <p class="title">Fazendas Ativas</p>
-              <p class="subtitle" style="float: right">
-                <span style="font-size: 12pt; color:#004aad">{{
-                    count
-                  }}</span>
-              </p>
-            </article>
+            <!-- <article class="tile is-child box"> -->
+              <div class="activates p-2">
+        <div class="icon-activates">
+          <img
+            style="width: 30px"
+            src="../../assets/farmIcon.png"
+            alt="Guerin"
+          />
+        </div>
+        <h1
+          class="text-activates has-text-weight-bold is-size-5"
+          style="color: black"
+        >
+          Fazendas Ativas
+        </h1>
+
+        <div>
+          <h1
+            class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+            style="color: #004aad"
+            span
+          >
+            {{ count }}
+          </h1>
+        </div>
+      </div>
+            <!-- </article> -->
           </div>
         </div>
       </div>
@@ -207,17 +219,30 @@ export default class FarmList extends Vue {
   }
 }
 </script>
-<style lang="scss">
+<style scoped>
+.activates {
+  background-color: white;
+  margin-top: 45px;
+  margin-right: 40px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
 .icon-activates {
-  top: 0.5rem;
-  left: 77rem;
+  top: -22px;
+  left: 5px;
   position: absolute;
   display: flex;
   justify-content: center;
   padding: 8px 8px 8px 8px;
-  width: 65px;
-  height: 55px;
+  width: 55px;
   border-radius: 20px;
-  background-color: rgb(255, 184, 0);
+  background-color: #ffb800;
+}
+.text-activates {
+  margin-left: 60px;
+}
+.tag {
+  border-radius: 50px;
+  padding: 12px;
 }
 </style>

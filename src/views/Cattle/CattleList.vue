@@ -5,21 +5,81 @@
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
-            <article class="tile is-child box">
-              <div class="icon-activates">
-                <img
-                  style="width: 40px"
-                  src="../../assets/cowIcon.png"
-                  alt="Guerin"
-                />
+            <!-- <article class="tile is-child box"> -->
+              <div class="columns is-flex is-justify-content-space-between">
+                <div class="activates">
+                  <div class="icon-activates">
+                    <img
+                      style="width: 40px"
+                      src="../../assets/cowIcon.png"
+                      alt="Guerin"
+                    />
+                  </div>
+                  <h1
+                    class="text-activates has-text-weight-bold is-size-4"
+                    style="color: black"
+                  >
+                    Gados
+                  </h1>
+
+                  <div>
+                    <h1
+                      class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+                      style="color: #004aad"
+                      span
+                    >
+                      {{ count }}
+                    </h1>
+                  </div>
+                </div>
+                <div class="activates p-2">
+                  <div class="icon-activates-female">
+                    <img
+                      style="width: 60px"
+                      src="../../assets/cattleIcon.png"
+                      alt="Guerin"
+                    />
+                  </div>
+                  <h1
+                    class="text-activates has-text-weight-bold is-size-4"
+                    style="color: black"
+                  >
+                    Vacas
+                  </h1>
+
+                  <div>
+                    <h1
+                      class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+                      style="color: #004aad"
+                      span
+                    >
+                      {{ countFemale }}
+                    </h1>
+                  </div>
+                </div>
+                <div class="activates p-2">
+                  <div class="icon-activates-male">
+                    <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
+                  </div>
+                  <h1
+                    class="text-activates has-text-weight-bold is-size-4"
+                    style="color: black"
+                  >
+                    Bois
+                  </h1>
+
+                  <div>
+                    <h1
+                      class="is-size-4 is-flex is-justify-content-flex-end pr-2"
+                      style="color: #004aad"
+                      span
+                    >
+                      {{ countMale }}
+                    </h1>
+                  </div>
+                </div>
               </div>
-              <p class="title">Gados Ativos</p>
-              <p class="subtitle" style="float: right">
-                <span style="font-size: 12pt; color:#004aad">{{
-                    count
-                  }}</span>
-              </p>
-            </article>
+            <!-- </article> -->
           </div>
         </div>
       </div>
@@ -269,9 +329,20 @@ export default class CattleList extends Vue {
 </script>
 
 <style lang="scss">
+.activates {
+  background-color: white;
+  margin-top: 45px;
+  width: 220px;
+  margin-right: 45px;
+  margin-left: 45px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
+}
+
 .icon-activates {
-  top: 0.5rem;
-  left: 77rem;
+  top: -22px;
+  left: 5px;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -279,6 +350,38 @@ export default class CattleList extends Vue {
   width: 65px;
   height: 55px;
   border-radius: 20px;
-  background-color: rgb(171, 3, 3);
+  background-color: #126b00;
+}
+
+.icon-activates-female {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 65px;
+  height: 55px;
+  border-radius: 20px;
+  background-color: #007a9b;
+}
+
+.icon-activates-male {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 65px;
+  height: 55px;
+  border-radius: 20px;
+  background-color: #ab0303;
+}
+
+.text-activates {
+  display: flex;
+  justify-content: end;
+  margin-right: 40px;
 }
 </style>
