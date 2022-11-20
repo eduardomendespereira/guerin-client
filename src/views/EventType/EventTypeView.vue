@@ -4,7 +4,7 @@
         <p class="is-size-4 pt-5 pl-5">>Tipos de Eventos</p>
         <div class="ativos p-2">
           <div class="icon-ativos">
-            <img style="width: 30px" src="@/assets/specieIcon.png" alt="Guerin" />
+            <img style="width: 30px" src="@/assets/eventIcon.png" alt="Guerin" />
           </div>
           <h1
             class="text-ativos has-text-weight-bold is-size-5"
@@ -263,6 +263,7 @@
       this.eventClient.desativar(this.event).then(
         (sucess:any) => {
           console.log(sucess);
+          this.deleteModal = false
         },
         (error:any) =>{
           console.log(error);

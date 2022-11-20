@@ -26,10 +26,8 @@
     </div>
     <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
-        <button class="button btn-insert" @click="openModal">
-          Inserir Especie
-        </button>
-      </div>
+        <ModalInsertSpecie :mini="true"/>
+      </div>  
     </div>
     <div class="columns is-flex">
       <div class="is-size-12 pt-5 pl-5" style="width: 100%">
@@ -102,33 +100,6 @@
         </vue-good-table>
       </div>
     </div>
-    <div v-if="showModal" class="modal is-active">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <div class="columns" v-if="notification.ativo">
-         
-      </div>        
-        <header class="modal-card-head">
-          <p class="modal-card-title">Adicionar Especie</p>
-          <button class="delete" @click="openModal" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="column is-12">
-            <div :class="notification.classe">
-              <button @click="onClickCloseNotification()" class="delete" ></button>
-              {{ notification.mensagem }}
-            </div>
-          </div>
-          <input v-model="specie.name" class="input in-1" type="text" placeholder="Nome da Especie" />
-        </section>
-        <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-back" @click="insertSpecie" >
-            Cadastrar Especie
-          </button>
-          <button class="button btn-cad" @click="openModal">Voltar</button>
-        </footer>
-      </div>
-    </div>  
     <div v-if="deleteModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -155,15 +126,17 @@ import { PageResponse } from "@/model/page/page-response";
 import { Specie } from "@/model/specie.model";
 import { Options, Vue } from "vue-class-component";
 import DataTable from "@/components/DataTable.vue";
+import ModalInsertSpecie from "@/components/ModalInsertSpecie.vue";
 
 @Options({
   components: {
     DataTable,
+    ModalInsertSpecie
   },
 })
 export default class SpecieView extends Vue {
   showModal = false;
-  private specieClient!: SpecieClient;
+  public specieClient!: SpecieClient;
   public specieList: Specie[] = [];
   public specie: Specie = new Specie()
   deleteModal = false;
@@ -189,9 +162,9 @@ export default class SpecieView extends Vue {
   ];
   rows = [];
  
-  private notification: Notification = new Notification();
-  private pageRequest: PageRequest = new PageRequest();
-  private pageResponse: PageResponse<Specie> = new PageResponse();
+  public notification: Notification = new Notification();
+  public pageRequest: PageRequest = new PageRequest();
+  public pageResponse: PageResponse<Specie> = new PageResponse();
   public mounted(): void {
     this.specieClient = new SpecieClient();
     this.listAll();
@@ -213,6 +186,10 @@ export default class SpecieView extends Vue {
     } else {
       this.showModal = true;
     }
+  }
+  setup() {
+      const value = false 
+      return {value}
   }
   public onClickPageSpecieDetail(id : any){
     this.$router.push({ name: "specie-detail", params: { id: id } });
@@ -259,7 +236,7 @@ export default class SpecieView extends Vue {
       } 
     )
   }
-  private onClickCloseNotification(): void {
+  public onClickCloseNotification(): void {
         this.notification = new Notification()
   }
 }

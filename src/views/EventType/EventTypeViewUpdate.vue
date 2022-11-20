@@ -8,7 +8,7 @@
             <div class="icon-cattle">
               <img
                 style="width: 70px"
-                src="@/assets/specieIcon.png"
+                src="@/assets/eventIcon.png"
                 alt="Guerin"
               />
             </div>
