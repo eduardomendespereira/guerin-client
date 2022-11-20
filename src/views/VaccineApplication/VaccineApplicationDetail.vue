@@ -29,7 +29,7 @@
               class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
           >
             <b>Data</b>
-            {{ vaccineApplication.date}}
+            {{ convertDate(vaccineApplication.date)}}
           </h1>
           <h1
               class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
@@ -77,6 +77,11 @@ export default class VaccineDetail extends Vue{
   public mounted(): void {
     this.getVaccineApplication()
     console.log(this.vaccineApplication)
+  }
+
+  public convertDate(data : any ){
+    let obj = new Date(data)
+    return obj.toLocaleString()
   }
 
   private getVaccineApplication(): void {

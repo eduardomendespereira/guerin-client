@@ -61,7 +61,7 @@
               <span>{{props.row.eventType?.name}}</span>
             </span>
             <span v-else-if="props.column.field == 'date'">
-              <span>{{props.row.date}}</span>
+              <span>{{convertDate(props.row.date)}}</span>
             </span>
             <span v-else-if="props.column.field == 'description'">
               <span>{{props.row.description}}</span>
@@ -173,6 +173,11 @@ export default class CattleEventList extends Vue {
   ];
   rows = [];
   count = 0;
+
+  public convertDate(data : any ){
+    let obj = new Date(data)
+    return obj.toLocaleString()
+  }
 
   public mounted(): void {
     this.listAll();

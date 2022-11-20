@@ -23,7 +23,7 @@
               class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
           >
             <b>Data de Cadastramento</b>
-            {{ vaccine.registered}}
+            {{ convertDate(vaccine.registered)}}
           </h1>
         </div>
 
@@ -72,6 +72,11 @@
 
     public mounted(): void {
       this.getVaccine()
+    }
+
+    public convertDate(data : any ){
+      let obj = new Date(data)
+      return obj.toLocaleString()
     }
 
     private getVaccine(): void {
