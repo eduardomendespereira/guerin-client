@@ -6,7 +6,14 @@
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <article class="tile is-child box">
-              <p class="title"><i class="fa"> &#128003; Gados Ativos</i></p>
+              <div class="icon-activates">
+                <img
+                  style="width: 40px"
+                  src="../../assets/cowIcon.png"
+                  alt="Guerin"
+                />
+              </div>
+              <p class="title">Gados Ativos</p>
               <p class="subtitle" style="float: right">
                 <span style="font-size: 12pt; color:#004aad">{{
                     count
@@ -260,3 +267,18 @@ export default class CattleList extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.icon-activates {
+  top: 0.5rem;
+  left: 77rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 65px;
+  height: 55px;
+  border-radius: 20px;
+  background-color: rgb(171, 3, 3);
+}
+</style>
