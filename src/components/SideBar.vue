@@ -3,9 +3,8 @@
     <div class="logo">
       <img style="width: 100%" src="../assets/Logo_White.png" alt="Guerin" />
     </div>
-
     <div class="menu-toggle-wrap">
-      <h4>Olá Eduardo</h4>
+      <h4>Olá {{user}}</h4>
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="icon is-small is-left">
           <i class="material-icons fa fa-angle-double-right"></i>
@@ -48,6 +47,7 @@ export default class SideBar extends Vue {
   private roleMenuClient!: RoleMenuClient;
   public is_expanded: Boolean = true;
   public menus: [] = [];
+  public user : any
 
   public mounted(): void {
     this.roleMenuClient = new RoleMenuClient();
@@ -55,6 +55,7 @@ export default class SideBar extends Vue {
       localStorage.getItem("is_expanded") === "true"
     ).value;
     this.listMenus();
+    this.user = localStorage.getItem('user');
   }
 
   public listMenus(): void {

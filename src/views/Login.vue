@@ -105,6 +105,7 @@ export default class Login extends Vue {
             expires: 4,
           });
         }
+        localStorage.setItem('user', this.request.username)
         this.$router.push({ path: "/gados" });
       })
       .catch((error) => {
