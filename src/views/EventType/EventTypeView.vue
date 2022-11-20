@@ -96,6 +96,15 @@
                       <i class="fa fa-trash"></i>
                     </span>
                   </button>
+                  <button
+                  v-else-if="props.row.inactive"
+                  class="button is-success is-outlined"
+                  @click="enable(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </button>
                 </p>
               </span>
             </template>
@@ -268,6 +277,16 @@
         (error:any) =>{
           console.log(error);
         } 
+      )
+    }
+    public enable(id){
+      this.eventClient.ativar(id).then(
+        (sucess : any) =>{
+            console.log(sucess)
+        },
+        (error : any) =>{
+          console.log(error)
+        }
       )
     }
     private onClickCloseNotification(): void {
