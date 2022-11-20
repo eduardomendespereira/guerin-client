@@ -1,64 +1,75 @@
 <template>
-  <div class="form-cattle-event">
-    <div class="columns">
-      <div class="column is-12 is-size-3">
-        Eventos > Editar
-      </div>
+  <main class="farm is-fullheight">
+    <div class="text-up columns">
+      <p class="is-size-4 pt-5 pl-5">Editar <b>> Evento do Gado</b></p>
     </div>
+    <section class="is-flex is-justify-content-center">
+      <div class="insert-background-cattle-event">
+        <div>
+          <img style="width: 140px; background-color: cornflowerblue; border-radius: 15px"  src="../../assets/eventIcon.png" />
+        </div>
 
-    <div class="content-form">
-      <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/eventIcon.png" />
-      </div>
-
-      <br/>
-
-      <div class="columns" v-if="notification.ativo">
-        <div class="column is-12">
-          <div :class="notification.classe">
-            <button @click="onClickCloseNotification()" class="delete" ></button>
-            {{ notification.mensagem }}
+        <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
+          <div class="column is-12">
+            <div :class="notification.classe">
+              <button
+                  @click="onClickCloseNotification()"
+                  class="delete"
+              ></button>
+              {{ notification.mensagem }}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="container-inputs">
-        <div>
-          Brinco do Gado
-          <select v-model="cattleEvent.cattle">
-            <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
-          </select>
+        <div class="field is-horizontal form">
+          <div class="field-body">
+            <div class="field">
+              Tipo de Evento
+              <select v-model="cattleEvent.eventType">
+                <option v-for="e in eventTypeList" :key="e.id" :value="e">{{ e.name }}</option>
+              </select>
+            </div>
+            <div class="field">
+              Gado
+              <select v-model="cattleEvent.cattle" style="margin-right: 60px">
+                <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+              </select>
+            </div>
+          </div>
         </div>
-
-        <div>
-          Tipo de Evento
-          <select v-model="cattleEvent.eventType">
-            <option type="number" v-for="e in eventTypeList" :key="e.id" :value="e">{{ e.name }}
-            </option>
-          </select>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="datetime-local"
+                    placeholder="Data"
+                    v-model="cattleEvent.date"
+                />
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="Descrição"
+                    v-model="cattleEvent.description"
+                />
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="control">
-          <input class="input" style="width: 300px" type="text" v-model="cattleEvent.description" placeholder="Descrição">
-        </div>
-
-        <div class="control">
-          <input class="input" style="width: 300px" type="datetime-local" v-model="cattleEvent.date" placeholder="Data">
-        </div>
-
-      </div>
-      <div class="container-buttons">
-        <div class="container-boptions">
-          <router-link class="link-cad" to="/eventos/eventos-gados">
-            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+        <hr class="line" size="100" width="1000" />
+        <div class="btns">
+          <router-link to="/eventos/eventos-gados">
+            <button class="button is-danger">Voltar</button>
           </router-link>
-        </div>
-        <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickEdit()">Atualizar</button>
+          <button @click="onClickEdit()" class="button is-link">Atualizar</button>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts">
@@ -70,8 +81,6 @@ import {Prop} from "vue-property-decorator";
 import {EventTypeClient} from "@/client/event-type.client";
 import {CattleClient} from "@/client/cattle.client";
 import {EventType} from "@/model/event-type.model";
-import {PageRequest} from "@/model/page/page-request";
-import {PageResponse} from "@/model/page/page-response";
 import {Cattle} from "@/model/cattle.model";
 
 
@@ -80,11 +89,8 @@ export default class CattleEventUpdateForm extends Vue {
   private notification : Notification = new Notification()
   private eventTypeList: EventType[] = []
   private eventTypeClient!: EventTypeClient
-  private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<EventType> = new PageResponse()
   private cattleList: Cattle[] = []
   private cattleClient!: CattleClient
-  private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
 
   @Prop({type: Number, required: false})
   private readonly id!: number
@@ -101,8 +107,7 @@ export default class CattleEventUpdateForm extends Vue {
     this.eventTypeClient.findAll()
         .then(
             success => {
-              this.pageResponse = success
-              this.eventTypeList = this.pageResponse.content
+              this.eventTypeList = success.data
             },
             error => console.log(error)
         )
@@ -112,8 +117,7 @@ export default class CattleEventUpdateForm extends Vue {
     this.cattleClient.findAll()
         .then(
             success => {
-              this.pageResponseCattle = success
-              this.cattleList = this.pageResponseCattle.content
+              this.cattleList = success.data
             },
             error => console.log(error)
         )
@@ -124,7 +128,7 @@ export default class CattleEventUpdateForm extends Vue {
     CattleEventClient.findById(this.id)
         .then(
             success => {
-              this.cattleEvent = success
+              this.cattleEvent = success.data
             },
             error => console.log(error)
         )
@@ -153,35 +157,35 @@ export default class CattleEventUpdateForm extends Vue {
 
 </script>
 
-<style lang="scss">
-.form-cattle-event{
-  width: 100%;
-  padding: 0px 30px 0px 30px;
-  background-color: lightgray;
-}
-.content-form{
-  background-color: white;
-  width: 100%;
-  border-radius: 10px;
-  padding: 20px;
-}
-.align-icon-container{
-  display: flex;
-  justify-content: center;
-}
-.container-inputs{
-  display: flex;
-  flex-direction: row;
-  margin-top: 200px;
-  justify-content: space-evenly;
-}
-.container-buttons{
-  display: flex;
-  margin-top: 200px;
-  justify-content: space-evenly;
-}
-.container-boptions{
-  width: 300px;
-}
+<style lang="scss" scoped>
 
+.insert-background-cattle-event {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  width: 90%;
+  margin-top: 20px;
+}
+.form {
+  margin-top: 5%;
+  display: flex;
+}
+.btns {
+  display: flex;
+  .button {
+    font-size: 18px;
+    margin: 30px;
+    width: 300px;
+  }
+}
+select{
+  height: 30px;
+  width: 220px;
+  border-radius: 5px;
+  border-color: grey;
+}
 </style>

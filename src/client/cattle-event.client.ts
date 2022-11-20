@@ -66,7 +66,7 @@ class CattleEventClient {
 
     update(cattleEvent: CattleEvent): Promise<any> {
         try {
-            return axiosClient.put(`/cattleEvent/${cattleEvent.id}`, cattleEvent)
+            return axiosClient.put(`/cattleEvent/`, cattleEvent)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
