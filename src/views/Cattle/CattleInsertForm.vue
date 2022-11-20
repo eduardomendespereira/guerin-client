@@ -25,6 +25,7 @@
           />
           <div class="select in-1">
             <select class="select" v-model="cattle.specie">
+              <option value="undefined" disabled hidden>Espécie</option>
               <option v-for="item in specieList" :key="item.id" :value="item">{{item.name}}</option>
             </select>
           </div>
@@ -52,6 +53,7 @@
           />
           <div class="select in-1">
             <select class="select" v-model="cattle.gender">
+              <option value="undefined" disabled hidden>Gênero</option>
               <option value="male">Macho</option>
               <option value="female">Fêmea</option>
             </select>
@@ -59,6 +61,7 @@
         </div>
         <div class="select date">
           <select class="select" style="width: 630px" v-model="cattle.farm">
+            <option value="undefined" disabled hidden>Fazenda</option>
             <option v-for="item in farmList" :key="item.id" :value="item">{{item.name}}</option>
           </select>
         </div>
