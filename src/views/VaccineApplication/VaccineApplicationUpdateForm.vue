@@ -66,8 +66,6 @@ import VaccineApplicationClient from "@/client/vaccine-application.client";
 import {Vaccine} from "@/model/vaccine.model";
 import vaccineClient from "@/client/vaccine.client";
 import {Prop} from "vue-property-decorator";
-import {PageRequest} from "@/model/page/page-request";
-import {PageResponse} from "@/model/page/page-response";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
@@ -75,11 +73,8 @@ export default class VaccineInsertForm extends Vue {
   private vaccineApplication : VaccineApplication = new VaccineApplication()
   private notification : Notification = new Notification()
   private vaccineList: Vaccine[] = []
-  private pageRequest: PageRequest = new PageRequest()
-  private pageResponseVaccine: PageResponse<Vaccine> = new PageResponse()
   private cattleList: Cattle[] = []
   private cattleClient!: CattleClient
-  private pageResponseCattle: PageResponse<Cattle> = new PageResponse()
 
   @Prop({type: Number, required: false})
   private readonly id!: number
@@ -91,23 +86,22 @@ export default class VaccineInsertForm extends Vue {
     this.listAllCattles()
   }
 
-  private listAllVaccines(): void{
-    vaccineClient.findAll()
-        .then(
-            success => {
-              this.pageResponseVaccine = success
-              this.vaccineList = this.pageResponseVaccine.content
-            },
-            error => console.log(error)
-        )
+  private listAllVaccines(): void {
+    vaccineClient.findAll().then(
+        (success) => {
+          this.vaccineList = success.data
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
   }
 
   private listAllCattles(): void{
     this.cattleClient.findAll()
         .then(
             success => {
-              this.pageResponseCattle = success
-              this.cattleList = this.pageResponseCattle.content
+              this.cattleList = success.data
             },
             error => console.log(error)
         )
@@ -117,7 +111,7 @@ export default class VaccineInsertForm extends Vue {
     VaccineApplicationClient.findById(this.id)
         .then(
             success => {
-              this.vaccineApplication = success
+              this.vaccineApplication = success.data
             },
             error => console.log(error)
         )
