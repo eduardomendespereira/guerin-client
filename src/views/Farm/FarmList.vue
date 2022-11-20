@@ -24,7 +24,7 @@
             <article class="tile is-child box">
               <div class="buttons">
                 <router-link to="/fazendas/cadastrar">
-                  <button class="button is-success">Cadastrar</button>
+                  <button class="button is-success">Inserir Fazenda</button>
                 </router-link>
               </div>
             </article>
@@ -54,7 +54,19 @@
             theme="polar-bear"
         >
           <template #table-row="props">
-            <span v-if="props.column.field == 'name'">
+            <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageFarmDetail(props.row.id)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+            <span v-else-if="props.column.field == 'name'">
               <span>{{ props.row.name }}</span>
             </span>
             <span v-else-if="props.column.field == 'address'">
@@ -120,6 +132,10 @@ export default class FarmList extends Vue {
 
   
   columns = [
+    {
+      label: "Detalhar",
+      field: "detail"
+    },
     {
       label: "Nome",
       field: "name",

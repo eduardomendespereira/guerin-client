@@ -24,7 +24,7 @@
             <article class="tile is-child box">
               <div class="buttons">
                 <router-link to="/gados/cadastrar">
-                  <button class="button is-success">Cadastrar</button>
+                  <button class="button is-success">Inserir Animal</button>
                 </router-link>
               </div>
             </article>
