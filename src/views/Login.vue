@@ -105,7 +105,7 @@ export default class Login extends Vue {
             expires: 4,
           });
         }
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/gados" });
       })
       .catch((error) => {
         this.notification = this.notification.new(
