@@ -189,7 +189,7 @@ export default class CattleList extends Vue {
       field: "mother",
     },
     {
-      label: "Ativo",
+      label: "Status",
       field: "inactive",
     },
     {

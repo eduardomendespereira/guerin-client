@@ -152,7 +152,7 @@ export default class FarmList extends Vue {
       field: "address",
     },
     {
-      label: "Ativo",
+      label: "Status",
       field: "inactive",
     },
     {
