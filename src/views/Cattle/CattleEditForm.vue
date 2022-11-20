@@ -92,7 +92,7 @@ export default class cattleInsertForm extends Vue {
     private listAllSpecies(): void {
         this.specieClient.findAll().then(
             (success: any) => {
-                this.specieList = success.data.content
+                this.specieList = success.data
             },
             (error: any) => {
                 console.log(error);

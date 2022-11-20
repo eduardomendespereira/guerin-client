@@ -107,7 +107,7 @@ export default class cattleInsertForm extends Vue {
   private listAllSpecies(): void {
     this.specieClient.findAll().then(
       (success) => {
-        this.specieList = success.data.content;
+        this.specieList = success.data;
       },
       (error) => {
         console.log(error);
@@ -136,7 +136,7 @@ export default class cattleInsertForm extends Vue {
         this.notification = this.notification.new(
           true,
           "notification is-danger",
-          "Error: " + error
+          "Error: " + error.data
         );
         this.onClickClean();
       }
