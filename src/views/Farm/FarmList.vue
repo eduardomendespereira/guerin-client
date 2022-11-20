@@ -8,7 +8,7 @@
             <article class="tile is-child box">
               <p class="title"><i class="fa "> &#128668; Fazendas Ativas</i></p>
               <p class="subtitle" style="float: right">
-                <span style="font-size: 12pt" class="tag is-info">{{
+                <span style="font-size: 12pt; color:#004aad">{{
                     count
                   }}</span>
               </p>
