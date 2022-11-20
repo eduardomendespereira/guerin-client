@@ -201,8 +201,8 @@
     public listAll(): void {
       this.eventClient.findAll()
         .then((response: any) => {
-          this.rows = response.data.content;
-          this.count = response.data.content.filter((t) => !t.inactive).length;
+          this.rows = response.data;
+          this.count = response.data.filter((t) => !t.inactive).length;
           console.log(response);
         })
         .catch((e: Error) => {

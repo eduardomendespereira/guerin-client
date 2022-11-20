@@ -67,6 +67,7 @@ export default  defineComponent ({
             this.specieClient.cadastrar(this.specie).then(
             (sucess:any) => {
                 this.notification = this.notification.new(true, 'notification is-success', 'Especie Cadastrada com sucesso ! !!!')
+                this.$emit('Atualiza', false)
                 console.log(sucess);
             },
             (error:any) =>{

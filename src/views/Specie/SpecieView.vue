@@ -26,12 +26,13 @@
     </div>
     <div class="is-flex is-justify-content-center pt-5">
       <div class="header-btn">
-        <ModalInsertSpecie :mini="true"/>
+        <ModalInsertSpecie @Atualiza="atualizar" :mini="false"/>
       </div>  
     </div>
-    <div class="columns is-flex">
+    <div  class="columns is-flex">
       <div class="is-size-12 pt-5 pl-5" style="width: 100%">
         <vue-good-table
+          :key="reniciar"
           ref="specitable"
           :columns="columns"
           :rows="rows"
@@ -136,6 +137,7 @@ import ModalInsertSpecie from "@/components/ModalInsertSpecie.vue";
 })
 export default class SpecieView extends Vue {
   showModal = false;
+  reniciar = 0;
   public specieClient!: SpecieClient;
   public specieList: Specie[] = [];
   public specie: Specie = new Specie()
@@ -161,7 +163,6 @@ export default class SpecieView extends Vue {
     },
   ];
   rows = [];
- 
   public notification: Notification = new Notification();
   public pageRequest: PageRequest = new PageRequest();
   public pageResponse: PageResponse<Specie> = new PageResponse();
@@ -172,8 +173,8 @@ export default class SpecieView extends Vue {
   public listAll(): void {
     this.specieClient.findAll()
       .then((response: any) => {
-        this.rows = response.data.content;
-        this.count = response.data.content.filter((t) => !t.inactive).length;
+        this.rows = response.data;
+        this.count = response.data.filter((t) => !t.inactive).length;
         console.log(response);
       })
       .catch((e: Error) => {
@@ -211,6 +212,10 @@ export default class SpecieView extends Vue {
             },
             error => console.log(error)
     )
+  }
+  public atualizar(e){
+      this.reniciar += 1 
+      this.listAll()
   }
   public disableSpecie(){
     this.specieClient.desativar(this.specie).then(
