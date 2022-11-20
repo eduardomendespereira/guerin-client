@@ -55,7 +55,7 @@
         >
           <template #table-row="props">
             <span v-if="props.column.field == 'note'">
-              <span>{{ props.row.description }}</span>
+              <span>{{ props.row.note }}</span>
             </span>
             <span v-else-if="props.column.field == 'vaccine'">
               <span>{{props.row.vaccine?.name}}</span>

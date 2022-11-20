@@ -29,24 +29,15 @@
         <div class="field is-horizontal form">
           <div class="field-body">
             <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input
-                    class="input"
-                    type="text"
-                    placeholder="Vacina"
-                    v-model="vaccineApplication.vaccine"
-                />
-              </p>
+              Vacina
+              <select v-model="vaccineApplication.vaccine">
+                <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}</option>
+              </select>
             </div>
             <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input
-                    class="input"
-                    type="text"
-                    placeholder="Gado"
-                    v-model="vaccineApplication.cattle"
-                />
-              </p>
+              <select v-model="vaccineApplication.cattle">
+                <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -86,19 +77,51 @@
   </main>
 </template>
 
-<script lang="ts">
+<script lang="ts" scoped>
 import { Vue } from "vue-class-component";
 import { Notification } from "@/model/notification";
 import { VaccineApplication } from "@/model/vaccine-application.model";
 import vaccineApplicationClient from "@/client/vaccine-application.client";
+import {Vaccine} from "@/model/vaccine.model";
+import vaccineClient from "@/client/vaccine.client";
+import {Cattle} from "@/model/cattle.model";
+import {CattleClient} from "@/client/cattle.client";
+
 
 export default class VaccineApplicationInsertForm extends Vue {
+
   private vaccineApplication: VaccineApplication = new VaccineApplication();
   private notification: Notification = new Notification();
   private errors: Array<Notification> = new Array<Notification>();
+  private cattleList: Cattle[] = []
+  private vaccineList: Vaccine[] = []
+  private cattleClient!: CattleClient
 
   public mounted(): void {
+    this.cattleClient = new CattleClient()
+    this.listAllVaccines()
+    this.listAllCattles()
+  }
 
+  private listAllVaccines(): void {
+    vaccineClient.findAll().then(
+        (success) => {
+          this.vaccineList = success.data
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
+  }
+
+  private listAllCattles(): void{
+    this.cattleClient.findAll()
+        .then(
+            success => {
+              this.cattleList = success.data
+            },
+            error => console.log(error)
+        )
   }
 
   private onClickSave(): void {
