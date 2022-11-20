@@ -54,7 +54,19 @@
             theme="polar-bear"
         >
           <template #table-row="props">
-            <span v-if="props.column.field == 'earring'">
+            <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageCattleDetail(props.row.earring)"
+                >
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
+            <span v-else-if="props.column.field == 'earring'">
               <span>{{ props.row.earring }}</span>
             </span>
             <span v-else-if="props.column.field == 'weight'">
@@ -137,6 +149,10 @@ export default class CattleList extends Vue {
   countMale: any = null;
 
   columns = [
+    {
+      label: "Detalhar",
+      field: "detail"
+    },
     {
       label: "Brinco",
       field: "earring",
