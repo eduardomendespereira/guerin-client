@@ -4,25 +4,14 @@
       <p class="is-size-4 pt-5 pl-5">Eventos <b>> Pesagem</b></p>
       <div class="activates p-2">
         <div class="icon-activates">
-          <img
-            style="width: 30px"
-            src="../../assets/weightIcon.png"
-            alt="Guerin"
-          />
+          <img style="width: 30px" src="../../assets/weightIcon.png" alt="Guerin" />
         </div>
-        <h1
-          class="text-activates has-text-weight-bold is-size-5"
-          style="color: black"
-        >
+        <h1 class="text-activates has-text-weight-bold is-size-5" style="color: black">
           Pesagens Ativas
         </h1>
 
         <div>
-          <h1
-            class="is-size-5 is-flex is-justify-content-flex-end pr-2"
-            style="color: #004aad"
-            span
-          >
+          <h1 class="is-size-5 is-flex is-justify-content-flex-end pr-2" style="color: #004aad" span>
             {{ count }}
           </h1>
         </div>
@@ -43,51 +32,36 @@
         <section class="modal-card-body">
           <div class="modal-header is-flex is-justify-content-center">
             <div class="icon-weight-ins">
-              <img
-                style="width: 70px"
-                src="../../assets/weightIcon.png"
-                alt="Guerin"
-              />
+              <img style="width: 70px" src="../../assets/weightIcon.png" alt="Guerin" />
             </div>
-            <button
-              class="delete"
-              @click="openModal"
-              aria-label="close"
-            ></button>
           </div>
+          <h1 class="text-insert">Cadastrar Pesagem</h1>
           <div class="column is-12">
-            <div :class="notification.classe">
-              <button
-                @click="onClickCloseNotification()"
-                class="delete"
-              ></button>
-              {{ notification.mensagem }}
+            <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
+              <div class="column is-12">
+                <div :class="notification.classe">
+                  <button @click="onClickCloseNotification()" class="delete"></button>
+                  {{ notification.mensagem }}
+                </div>
+              </div>
             </div>
           </div>
-          <input
-            class="input in-1"
-            type="date"
-            placeholder="Data"
-            v-model="weighing.date"
-          />
-          <input
-            class="input in-1"
-            type="number"
-            placeholder="Peso"
-            v-model="weighing.weight"
-          />
+          <input class="input in-1" type="datetime-local" placeholder="Data" v-model="weighing.date" />
+          <h5 class="text-under-inputs">Data da Pesagem</h5>
+
+
+          <input class="input in-1" type="number" placeholder="Peso" v-model="weighing.weight" />
+          <h5 class="text-under-inputs">Peso</h5>
 
           <div class="select in-1">
-            <select
-              placeholder="Gado"
-              class="input in-1"
-              v-model="cattle"
-            >
+            <select placeholder="Gado" class="input in-1" v-model="cattle">
               <option v-for="item in cattleList" :key="item.id" :value="item.earring">
-                {{ item.earring }} = Brinco | ID = {{item.id}}
+                {{ item.earring }}
               </option>
             </select>
           </div>
+          <h5 class="text-under-inputs">Número de Brinco</h5>
+
         </section>
         <footer class="modal-card-foot is-flex is-justify-content-center">
           <button class="button btn-back" @click="openModal">
@@ -101,46 +75,41 @@
     </div>
 
     <div class="columns is-flex">
-      <div
-        class="is-size-12 pt-5 pl-5"
-        style="
+      <div class="is-size-12 pt-5 pl-5" style="
           width: 100%;
           text-align: center;
           padding: 0px !important;
           margin: 20px 30px;
-        "
-      >
-        <vue-good-table
-          ref="weighttable"
-          :columns="columns"
-          :rows="rows"
-          styleClass="vgt-table striped"
-          :search-options="{
+        ">
+        <vue-good-table ref="weighttable" :columns="columns" :rows="rows" styleClass="vgt-table striped"
+                        :search-options="{
             enabled: true,
             placeholder: 'Buscar...',
-          }"
-          :pagination-options="{
-            enabled: true,
-            mode: 'records',
-            rowsPerPageLabel: 'Resultados por pagina',
-            nextLabel: 'Proximo',
-            prevLabel: 'Anterior',
-            ofLabel: 'de',
-            allLabel: 'Todos',
-          }"
-          theme="polar-bear"
-        >
+          }" :pagination-options="{
+  enabled: true,
+  mode: 'records',
+  rowsPerPageLabel: 'Resultados por pagina',
+  nextLabel: 'Proximo',
+  prevLabel: 'Anterior',
+  ofLabel: 'de',
+  allLabel: 'Todos',
+}" theme="polar-bear">
           <template #table-row="props">
+            <span v-if="props.column.field == 'detail'">
+              <p class="buttons">
+                <button class="button is-info is-outlined" @click="onClickPageWeightDetail(props.row.id)">
+                  <span class="icon is-small">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </button>
+              </p>
+            </span>
             <span v-if="props.column.field == 'id'">
               <span>{{ props.row.id }}</span>
             </span>
             <span v-else-if="props.column.field == 'inactive'">
-              <span v-if="!props.row.inactive" class="tag is-success"
-                >Ativo</span
-              >
-              <span v-else-if="props.row.inactive" class="tag is-danger"
-                >Inativo</span
-              >
+              <span v-if="!props.row.inactive" class="tag is-success">Ativo</span>
+              <span v-else-if="props.row.inactive" class="tag is-danger">Inativo</span>
             </span>
             <span v-else-if="props.column.field == 'date'">
               <span>{{ props.row.date }}</span>
@@ -154,28 +123,19 @@
 
             <span v-else-if="props.column.field == 'actions'">
               <p class="buttons">
-                <button
-                  class="button is-info is-outlined"
-                  @click="onClickPageCattleEdit(props.row.id)"
-                >
+                <button class="button is-info is-outlined" @click="">
                   <span class="icon is-small">
                     <i class="fa fa-pencil"></i>
                   </span>
                 </button>
-                <button
-                  v-if="!props.row.inactive"
-                  class="button is-danger is-outlined"
-                  @click="openDisable(props.row.id)"
-                >
+                <button v-if="!props.row.inactive" class="button is-danger is-outlined"
+                        @click="openDisable(props.row.id)">
                   <span class="icon is-small">
                     <i class="fa fa-trash"></i>
                   </span>
                 </button>
-                <button
-                  v-else-if="props.row.inactive"
-                  class="button is-success is-outlined"
-                  @click="openEnable(props.row.id)"
-                >
+                <button v-else-if="props.row.inactive" class="button is-success is-outlined"
+                        @click="openEnable(props.row.id)">
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>
                   </span>
@@ -192,37 +152,28 @@
     <div v-if="actionModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
+
         <header class="modal-card-head">
-          <p class="modal-card-title">Deseja deletar essa especie ?</p>
-          <button
-            class="delete"
-            @click="openDisable"
-            aria-label="close"
-          ></button>
+          <p class="modal-card-title">Deseja Desativar Esta Pesagem??</p>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
           <button class="button btn-back" @click="disableWeight">
-            Deletar Especie
+            Desativar Pesagem
           </button>
           <button class="button btn-cad" @click="openDisable">Voltar</button>
         </footer>
       </div>
     </div>
 
-    <div v-if="actionModal" class="modal is-active">
+    <div v-if="actionEnableModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Deseja ativar essa especie ?</p>
-          <button
-            class="delete"
-            @click="openEnable"
-            aria-label="close"
-          ></button>
+          <p class="modal-card-title">Deseja Ativar Esta Pesagem??</p>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
           <button class="button btn-back" @click="enableWeight">
-            Ativar Especie
+            Ativar Pesagem
           </button>
           <button class="button btn-cad" @click="openEnable">Voltar</button>
         </footer>
@@ -243,20 +194,25 @@ import { CattleClient } from "@/client/cattle.client";
 import { date } from "yup/lib/locale";
 
 export default class WeightList extends Vue {
-  public cattle : Cattle = new Cattle();
+  public cattle: Cattle = new Cattle();
   public cattleClient !: CattleClient;
-  public cattleList : Cattle[] = []
+  public cattleList: Cattle[] = []
   public weighing: Weighing = new Weighing();
   public weightList: Weighing[] = [];
   private weighingClient!: WeighingClient;
   private pageRequest: PageRequest = new PageRequest();
   private pageResponse: PageResponse<Weighing> = new PageResponse();
-  private notification: Notification = new Notification();
+  public notification: Notification = new Notification();
   count: any = null;
   showModal = false;
   actionModal = false;
+  actionEnableModal = false;
 
   columns = [
+    {
+      label: "Dt.",
+      field: "detail",
+    },
     {
       label: "ID",
       field: "id",
@@ -295,41 +251,41 @@ export default class WeightList extends Vue {
 
   public listAll(): void {
     this.weighingClient.findByAll(this.pageRequest).then(
-      (success: any) => {
-        this.pageResponse = success;
-        this.weightList = this.pageResponse.content;
-        this.rows = success.content;
-        console.log(this.weightList);
-      },
-      (error: any) => {
-        console.log(error);
-        this.notification = this.notification.new(
-          true,
-          "notification is-danger",
-          "Error: " + error.response.data
-        );
-      }
+        (success: any) => {
+          this.pageResponse = success;
+          this.weightList = this.pageResponse.content;
+          this.rows = success.content;
+          console.log(this.weightList);
+        },
+        (error: any) => {
+          console.log(error);
+          this.notification = this.notification.new(
+              true,
+              "notification is-danger",
+              "Error: " + error.response.data
+          );
+        }
     );
   }
-  public listCattle(){
-      this.cattleClient.findAll().then(
-        (sucess) =>{
+  public listCattle() {
+    this.cattleClient.findAll().then(
+        (sucess) => {
           this.cattleList = sucess.data
         },
-        (error) =>{
+        (error) => {
           console.log(error)
         }
-      )
+    )
   }
 
   public countWeight(): void {
     this.weighingClient.count().then(
-      (sucess) => {
-        return (this.count = Number(sucess));
-      },
-      (error) => {
-        return console.log(error);
-      }
+        (sucess) => {
+          return (this.count = Number(sucess));
+        },
+        (error) => {
+          return console.log(error);
+        }
     );
   }
 
@@ -342,28 +298,25 @@ export default class WeightList extends Vue {
   }
 
   public insertWeight() {
-    
-    console.log(this.cattle)
     this.weighing.cattle = this.cattle
-    
-    console.log(this.weighing)
     this.weighingClient.save(this.weighing).then(
-      (sucess: any) => {
-        this.notification = this.notification.new(
-          true,
-          "notification is-success",
-          "Pesagem Cadastrada com sucesso !!"
-        );
-        console.log(sucess);
-      },
-      (error: any) => {
-        this.notification = this.notification.new(
-          true,
-          "notification is-danger",
-          "Error: " + error
-        );
-        console.log(error);
-      }
+        (sucess: any) => {
+          this.notification = this.notification.new(
+              true,
+              "notification is-success",
+              "Pesagem Cadastrada com sucesso !!"
+          );
+          window.location.reload()
+          console.log(sucess);
+        },
+        (error: any) => {
+          this.notification = this.notification.new(
+              true,
+              "notification is-danger",
+              "Error: " + error.data
+          );
+          console.log(error);
+        }
     );
   }
 
@@ -375,75 +328,61 @@ export default class WeightList extends Vue {
       this.actionModal = true;
     }
     this.weighingClient.findById(id).then(
-      (sucess) => {
-        this.weighing = sucess;
-      },
-      (error) => console.log(error)
+        (sucess) => {
+          this.weighing = sucess;
+        },
+        (error) => console.log(error)
     );
   }
 
   public openEnable(id: any) {
     this.weighing.id = id;
-    if (this.actionModal) {
-      this.actionModal = false;
+    if (this.actionEnableModal) {
+      this.actionEnableModal = false;
     } else {
-      this.actionModal = true;
+      this.actionEnableModal = true;
     }
     this.weighingClient.findById(id).then(
-      (sucess) => {
-        this.weighing = sucess;
-      },
-      (error) => console.log(error)
+        (sucess) => {
+          this.weighing = sucess;
+        },
+        (error) => console.log(error)
     );
   }
 
   public disableWeight() {
     this.weighingClient.disable(this.weighing).then(
-      (sucess: any) => {
-        console.log(sucess);
-        this.actionModal = false;
-        window.location.reload();
-      },
-      (error: any) => {
-        console.log(error);
-        this.actionModal = false;
-      }
+        (sucess: any) => {
+          console.log(sucess);
+          this.actionModal = false;
+          window.location.reload();
+        },
+        (error: any) => {
+          console.log(error);
+          this.actionModal = false;
+        }
     );
   }
 
   public enableWeight() {
     this.weighingClient.enable(this.weighing).then(
-      (sucess: any) => {
-        console.log(sucess);
-        this.actionModal = false;
-        window.location.reload();
-      },
-      (error: any) => {
-        console.log(error);
-        this.actionModal = false;
-      }
+        (sucess: any) => {
+          console.log(sucess);
+          this.actionEnableModal = false;
+          window.location.reload();
+        },
+        (error: any) => {
+          console.log(error);
+          this.actionEnableModal = false;
+        }
     );
   }
 
-  public onClickPageCattleDetail(id: number) {
-    this.$router.push({ name: "cattle-detail", params: { id: id } });
+  public onClickPageWeightDetail(id: number) {
+    this.$router.push({ name: "weight-detail", params: { id: id } });
   }
 
-  public onClickPageCattleEdit(id: number) {
-    this.$router.push({ name: "cattle-edit", params: { id: id } });
-  }
-
-  private onClickPageCattleInactive(id: number) {
-    this.$router.push({
-      name: "cattle-inactive",
-      params: { id: id },
-    });
-  }
-  private onClickPageCattleActive(id: number) {
-    this.$router.push({ name: "cattle-active", params: { id: id } });
-  }
-
-  private onClickCloseNotification(): void {
+  public onClickCloseNotification(): void {
     this.notification = new Notification();
   }
 }
@@ -491,8 +430,27 @@ export default class WeightList extends Vue {
   right: 2%;
 }
 
+.text-insert {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
 .in-1 {
-  margin: 10px 0px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.text-under-inputs {
+  margin-left: 2px;
+  font-size: 12px;
+  color: #949494;
 }
 
 .weight {
@@ -509,12 +467,8 @@ export default class WeightList extends Vue {
 
 .modal-header {
   background-color: #ffffff;
-  padding: 30px;
-}
-
-.table {
-  box-shadow: 0px 0px 10px #d1d1d1;
-  width: 100%;
+  padding: 20px;
+  padding-bottom: 0px;
 }
 
 .tag {
@@ -522,55 +476,9 @@ export default class WeightList extends Vue {
   padding: 12px;
 }
 
-.btn-detail {
-  font-size: 13px;
-  background-color: #ffffff;
-  border-color: #0093ff;
-  border-width: 3px;
-  border-radius: 150px;
-  color: #0093ff;
-  font-weight: bold;
-  padding: 12px;
-}
-
-.btn-detail:hover {
-  background-color: #ffffff;
-  transform: translate(-1px, -1px);
-  transition: 1s;
-  border-color: #00c1ff;
-  color: #00c1ff;
-  font-weight: bold;
-  box-shadow: 2px 5px 10px #a7a7a7;
-}
-
-.btn-edit {
-  background-color: #ffffff;
-  border-color: #1ba500;
-  border-width: 3px;
-  border-radius: 150px;
-  color: #1ba500;
-  margin-right: 10px;
-}
-
-.btn-edit:hover {
-  transition: 1s;
-  border-color: #1eb401;
-  background-color: #1eb401;
-}
-
-.btn-delet {
-  background-color: #ffffff;
-  border-color: #ab0303;
-  border-width: 3px;
-  border-radius: 150px;
-  color: #ab0303;
-  margin-left: 10px;
-}
-
-.btn-delet:hover {
-  transition: 1s;
-  border-color: #c20101;
-  background-color: #c20101;
+p {
+  display: flex;
+  justify-content: center;
 }
 
 .btn-cad {
@@ -600,17 +508,5 @@ export default class WeightList extends Vue {
   color: white;
   transition: 0.7s;
   box-shadow: 0px 0px 10px #d1d1d1;
-}
-
-.pagination {
-  width: 95%;
-  margin-left: 30px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0px 0px 10px #d1d1d1;
-  margin-bottom: 20px;
-}
-.table {
-  text-align: center;
 }
 </style>
