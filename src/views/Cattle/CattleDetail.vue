@@ -82,6 +82,16 @@
             {{ cattle.farm?.name }}
           </h4>
         </div>
+
+        <div class="form">
+          <h5
+            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
+          >
+            <b>Quantidade de Filhos</b>
+            {{amountChildren}}
+          </h5>
+        </div>
+
         <hr class="line" size="100" width="900" />
         <div class="btns">
           <router-link to="/gados">
@@ -101,6 +111,7 @@ import { Prop } from "vue-property-decorator";
 
 export default class CattleDetail extends Vue {
   public cattle: Cattle = new Cattle();
+  public amountChildren: number = 0;
   private cattleClient!: CattleClient;
 
   @Prop({ type: Number, required: false })
@@ -109,11 +120,21 @@ export default class CattleDetail extends Vue {
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.detailCattle();
+    this.getChildren();
   }
 
   public convertDate(data : any ){
     let obj = new Date(data)
     return obj.toLocaleString()
+  }
+
+  public getChildren(): void {
+      this.cattleClient.findChildren(this.earring).then(
+        (success) => {
+            this.amountChildren = success.children.length;
+        },
+        (error) => console.log(error)
+      )
   }
 
   public detailCattle(): void {

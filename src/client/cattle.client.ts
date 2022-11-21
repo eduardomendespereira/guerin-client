@@ -38,9 +38,9 @@ export class CattleClient {
         }
     }
     
-    public async findChildren(cattle: Cattle): Promise<Cattle> {
+    public async findChildren(earring: number): Promise<any> {
         try {
-            return (await axiosClient.get<Cattle>(`/cattle/children/${cattle.earring}`)).data
+            return (await axiosClient.get<any>(`/cattle/children/${earring}`)).data
         } catch (error:any) {
             return Promise.reject()
         }
