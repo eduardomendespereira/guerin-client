@@ -18,17 +18,20 @@
         </div>
         <div class="form">
           <input
-            class="input in-1"
+            class="input in-1 "
             type="text"
+            style="margin-left: 3%;"
             placeholder="Nº do Brinco"
             v-model="cattle.earring"
           />
           <div class="select in-1">
-            <select class="select" v-model="cattle.specie">
+           
+            <select class="select" v-model="cattle.specie" style="margin-left: 9%;">
               <option value="undefined" disabled hidden>Espécie</option>
               <option v-for="item in specieList" :key="item.id" :value="item">{{item.name}}</option>
             </select>
           </div>
+          <ModalInsertSpecie class="add-specie" :mini="true"></ModalInsertSpecie>
         </div>
         <div class="form">
           <input
@@ -51,7 +54,7 @@
             placeholder="Peso"
             v-model="cattle.weight"
           />
-          <div class="select in-1">
+          <div class="select in-1" >
             <select class="select" v-model="cattle.gender">
               <option value="undefined" disabled hidden>Gênero</option>
               <option value="male">Macho</option>
@@ -80,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { Vue, Options } from "vue-class-component";
 import { Notification } from "@/model/notification";
 import { Cattle } from "@/model/cattle.model";
 import { CattleClient } from "@/client/cattle.client";
@@ -90,6 +93,12 @@ import { PageResponse } from "@/model/page/page-response";
 import { Specie } from "@/model/specie.model";
 import { FarmClient } from "@/client/farm.client";
 import { Farm } from "@/model/farm.model"
+import ModalInsertSpecie from "@/components/ModalInsertSpecie.vue";
+@Options({
+  components: {
+    ModalInsertSpecie
+  },
+})
 export default class cattleInsertForm extends Vue {
   private cattleClient!: CattleClient;
   private cattle: Cattle = new Cattle();
@@ -168,6 +177,10 @@ export default class cattleInsertForm extends Vue {
   box-shadow: 0px 0px 10px #d1d1d1;
   width: 90%;
   margin-top: 20px;
+}
+.add-specie{
+  margin-left: 1%;
+  margin-top: 15px;
 }
 .icon-cattle {
   display: flex;

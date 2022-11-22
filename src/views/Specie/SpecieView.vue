@@ -115,8 +115,12 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-header">
-          <p class="modal-card-title">Deseja deletar essa especie ?</p>
-         
+          <div class="modal-title">
+            <div class="icon-modal">
+                <img style="width: 50px" src="@/assets/specieIcon.png" alt="Guerin" />
+            </div>
+            <p class="modal-card-title">Desativar essa especie ?</p>
+          </div>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
           <button class="button btn-cad" @click="disableSpecie" >
@@ -271,7 +275,7 @@ export default class SpecieView extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .ativos {
   background-color: white;
   margin-top: 45px;
@@ -308,9 +312,30 @@ export default class SpecieView extends Vue {
 }
 
 .modal-header {
+  display:  flex;
+  justify-content: center;
   background-color: #ffffff;
   padding: 30px;
 }
+.modal-title{
+  display:  flex;
+  justify-content: center;
+  flex-direction: column;
+}  
+.modal-card-title{
+  margin-top: 4%;
+  font-size: 24px;
+  
+}
+.icon-modal{
+  margin-left: 28%;
+  width: 100px;
+  height: 80px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  background-color: #c20101;
+}  
 .icon-ativos {
   top: -22px;
   left: 5px;
