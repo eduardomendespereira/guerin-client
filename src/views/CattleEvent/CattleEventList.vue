@@ -116,36 +116,36 @@
               >Inativo</span
               >
             </span>
-            <span v-else-if="props.column.field == 'actions'">
-              <p class="buttons">
-                <button
-                    class="button is-info is-outlined"
-                    @click="onClickPageUpdate(props.row.id)"
-                >
-                  <span class="icon is-small">
-                    <i class="fa fa-pencil"></i>
-                  </span>
-                </button>
-                <button
-                    v-if="!props.row.inactive"
-                    class="button is-danger is-outlined"
-                    @click="disableCattleEvent(props.row.id)"
-                >
-                  <span class="icon is-small">
-                    <i class="fa fa-trash"></i>
-                  </span>
-                </button>
-                <button
-                    v-else-if="props.row.inactive"
-                    class="button is-success is-outlined"
-                    @click="enableCattleEvent(props.row.id)"
-                >
-                  <span class="icon is-small">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </button>
-              </p>
-            </span>
+            <span v-else-if="props.column.field == 'actions' && !props.row.weighing && !props.row.vaccineApplication">
+                <p class="buttons" v-if="!props.row.weighing || !props.row.vaccineApplication">
+                  <button
+                      class="button is-info is-outlined"
+                      @click="onClickPageUpdate(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </button>
+                  <button
+                      v-if="!props.row.inactive"
+                      class="button is-danger is-outlined"
+                      @click="disableCattleEvent(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-trash"></i>
+                    </span>
+                  </button>
+                  <button
+                      v-else-if="props.row.inactive"
+                      class="button is-success is-outlined"
+                      @click="enableCattleEvent(props.row.id)"
+                  >
+                    <span class="icon is-small">
+                      <i class="fa fa-check"></i>
+                    </span>
+                  </button>
+                </p>
+              </span>
             <span v-else>
               {{ props.formattedRow[props.column.field] }}
             </span>
