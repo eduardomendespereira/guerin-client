@@ -7,12 +7,7 @@
             <div class="bodyLogin column is-align-items-center">
               <div class="flex">
                 <div
-                  class="
-                    column
-                    is-one-third-desktop is-three-fifths
-                    bodyParameters
-                    is-flex
-                  "
+                  class="column is-one-third-desktop is-three-fifths bodyParameters is-flex"
                 >
                   <img class="img_logo" src="../assets/Logo_Black.png" />
                   <div
@@ -86,16 +81,13 @@ import axios from "axios";
 import UserClient from "@/client/user.client";
 import { getCookie, setCookie, removeCookie } from "typescript-cookie";
 import { Notification } from "@/model/notification";
-
 export default class Login extends Vue {
   private request = { username: "", password: "" };
   private notification: Notification = new Notification();
-
   public mounted(): void {
     removeCookie("access_token");
     removeCookie("refresh_token");
   }
-
   public login(): void {
     UserClient.login(this.request.username, this.request.password)
       .then((response) => {
@@ -105,10 +97,10 @@ export default class Login extends Vue {
             expires: 4,
           });
         }
-        localStorage.setItem('user', this.request.username)
+        localStorage.setItem("user", this.request.username);
         this.$router.push({ path: "/gados" });
       })
-      
+
       .catch((error) => {
         this.notification = this.notification.new(
           true,
@@ -118,11 +110,9 @@ export default class Login extends Vue {
         this.onClickClean();
       });
   }
-
   private onClickCloseNotification(): void {
     this.notification = new Notification();
   }
-
   public onClickClean(): void {
     this.request.password = "";
   }
@@ -163,11 +153,9 @@ export default class Login extends Vue {
   color: #f2f2f2;
   font-size: 18px;
 }
-
 .img_logo {
   width: 250px;
 }
-
 .bodyParameters {
   padding: 40px;
   position: relative;

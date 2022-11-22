@@ -23,33 +23,35 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/eventos/eventos-gados/cadastrar",
         name: "cattle-event-insert",
-        component: () => import("../views/CattleEvent/CattleEventInsertForm.vue"),
+        component: () =>
+          import("../views/CattleEvent/CattleEventInsertForm.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/eventos-gados/:id",
         name: "cattle-event-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/CattleEvent/CattleEventDetail.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/eventos-gados/atualizar/:id",
         name: "cattle-event-update",
-        props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/CattleEvent/CattleEventUpdateForm.vue"),
+        props: (router) => ({ id: router.params.id }),
+        component: () =>
+          import("../views/CattleEvent/CattleEventUpdateForm.vue"),
         beforeEnter: Guard.auth,
       },
-        {
+      {
         path: "/eventos/vacinas",
         name: "vaccine",
         component: () => import("../views/Vaccine/VaccineList.vue"),
-          beforeEnter: Guard.auth,
+        beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/vacinas/:id",
         name: "vaccine-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Vaccine/VaccineDetail.vue"),
         beforeEnter: Guard.auth,
       },
@@ -62,40 +64,48 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/eventos/vacinas/desativar/:id",
         name: "vaccine-disable",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Vaccine/VaccineDisable.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/vacinas/atualizar/:id",
         name: "vaccine-update",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Vaccine/VaccineUpdateForm.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/aplicacoes-de-vacinas",
         name: "list-vaccine-application",
-        component: () => import("../views/VaccineApplication/VaccineApplicationList.vue"),
+        component: () =>
+          import("../views/VaccineApplication/VaccineApplicationList.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/aplicacoes-de-vacinas/:id",
         name: "vaccine-application-detail",
-        props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/VaccineApplication/VaccineApplicationDetail.vue"),
+        props: (router) => ({ id: router.params.id }),
+        component: () =>
+          import("../views/VaccineApplication/VaccineApplicationDetail.vue"),
       },
       {
         path: "/eventos/aplicacoes-de-vacinas/atualizar/:id",
         name: "vaccine-application-update",
-        props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/VaccineApplication/VaccineApplicationUpdateForm.vue"),
+        props: (router) => ({ id: router.params.id }),
+        component: () =>
+          import(
+            "../views/VaccineApplication/VaccineApplicationUpdateForm.vue"
+          ),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/aplicacoes-de-vacinas/cadastrar",
         name: "insert-vaccine-application",
-        component: () => import("../views/VaccineApplication/VaccineApplicationInsertForm.vue"),
+        component: () =>
+          import(
+            "../views/VaccineApplication/VaccineApplicationInsertForm.vue"
+          ),
         beforeEnter: Guard.auth,
       },
       {
@@ -105,36 +115,36 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
-        path: '/gados/:earring',
-        name: 'cattle-detail',
-        props: (router) => ({ earring: router.params.earring}),
+        path: "/gados/:earring",
+        name: "cattle-detail",
+        props: (router) => ({ earring: router.params.earring }),
         component: () => import("../views/Cattle/CattleDetail.vue"),
         beforeEnter: Guard.auth,
       },
       {
-        path: '/gados/cadastrar',
-        name: 'cattle-insert',
+        path: "/gados/cadastrar",
+        name: "cattle-insert",
         component: () => import("../views/Cattle/CattleInsertForm.vue"),
         beforeEnter: Guard.auth,
       },
       {
-        path: '/gados/editar/:earring',
-        name: 'cattle-edit',
-        props: (router) => ({ earring: router.params.earring}),
+        path: "/gados/editar/:earring",
+        name: "cattle-edit",
+        props: (router) => ({ earring: router.params.earring }),
         component: () => import("../views/Cattle/CattleEditForm.vue"),
         beforeEnter: Guard.auth,
       },
       {
-        path: '/gados/desativar/:earring',
-        name: 'cattle-inactive',
-        props: (router) => ({ earring: router.params.earring}),
+        path: "/gados/desativar/:earring",
+        name: "cattle-inactive",
+        props: (router) => ({ earring: router.params.earring }),
         component: () => import("../views/Cattle/CattleInactive.vue"),
         beforeEnter: Guard.auth,
       },
       {
-        path: '/gados/ativar/:earring',
-        name: 'cattle-active',
-        props: (router) => ({ earring: router.params.earring}),
+        path: "/gados/ativar/:earring",
+        name: "cattle-active",
+        props: (router) => ({ earring: router.params.earring }),
         component: () => import("../views/Cattle/CattleActive.vue"),
         beforeEnter: Guard.auth,
       },
@@ -147,7 +157,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/fazendas/:id",
         name: "farm-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Farm/FarmDetail.vue"),
         beforeEnter: Guard.auth,
       },
@@ -160,7 +170,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/fazendas/editar/:id",
         name: "farm-edit",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Farm/FarmEditForm.vue"),
         beforeEnter: Guard.auth,
       },
@@ -168,13 +178,13 @@ const routes: Array<RouteRecordRaw> = [
         path: "/fazendas/desativar/:id",
         name: "farm-inactive",
         beforeEnter: Guard.auth,
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Farm/FarmInactive.vue"),
       },
       {
         path: "/fazendas/ativar/:id",
         name: "farm-active",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Farm/FarmActive.vue"),
         beforeEnter: Guard.auth,
       },
@@ -187,14 +197,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/tipo-de-evento/:id",
         name: "eventType-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/EventType/EventTypeViewDetail.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/tipo-de-evento/edit/:id",
         name: "eventType-edit",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/EventType/EventTypeViewUpdate.vue"),
         beforeEnter: Guard.auth,
       },
@@ -207,14 +217,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/especie/:id",
         name: "specie-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Specie/SpecieDetail.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/especie/editar/:id",
         name: "specie-edit",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Specie/SpecieUpdateForm.vue"),
         beforeEnter: Guard.auth,
       },
@@ -233,7 +243,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/usuarios/editar/:userId",
         name: "user-edit",
-        props: (router) => ({ userId: router.params.userId}),
+        props: (router) => ({ userId: router.params.userId }),
         component: () => import("../views/User/UserEdit.vue"),
         beforeEnter: Guard.auth,
       },
@@ -252,15 +262,16 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/eventos/pesagem/:id",
         name: "weight-detail",
-        props: (router) => ({ id: router.params.id}),
+        props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Weighing/WeighingDetailView.vue"),
         beforeEnter: Guard.auth,
       },
       {
         path: "/eventos/pesagem/desativar/:id",
         name: "weight-inactivated",
-        props: (router) => ({ id: router.params.id}),
-        component: () => import("../views/Weighing/WeighingInactivatedView.vue"),
+        props: (router) => ({ id: router.params.id }),
+        component: () =>
+          import("../views/Weighing/WeighingInactivatedView.vue"),
         beforeEnter: Guard.auth,
       },
     ],
