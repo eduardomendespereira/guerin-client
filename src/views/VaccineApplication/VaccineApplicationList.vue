@@ -5,14 +5,27 @@
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
-            <article class="tile is-child box">
-              <p class="title"><i class="fa fa-syringe"> Aplicações Ativas</i></p>
-              <p class="subtitle" style="float: right">
-                <span style="font-size: 12pt" class="tag is-info">{{
-                    count
-                  }}</span>
-              </p>
-            </article>
+            <div class="ativos p-2">
+              <div class="icon-ativos">
+                <img style="width: 30px;"  src="@/assets/vaccineAppIcon.png" alt="Guerin" />
+              </div>
+              <h1
+                  class="text-ativos has-text-weight-bold is-size-5"
+                  style="color: black"
+              >
+                Aplicações de Vacinas Ativas
+              </h1>
+
+              <div>
+                <h1
+                    class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+                    style="color: #004aad"
+                    span
+                >
+                  {{ count }}
+                </h1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -223,3 +236,27 @@ export default class VaccineApplicationList extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.ativos {
+  background-color: white;
+  margin-top: 45px;
+  margin-right: 40px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+.text-ativos {
+  margin-left: 60px;
+}
+.icon-ativos {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 55px;
+  border-radius: 20px;
+  background-color: green;
+}
+</style>
