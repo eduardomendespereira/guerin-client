@@ -1,7 +1,7 @@
 <template>
   <aside class="weight is-fullheight">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Eventos <b> > Pesagem</b></p>
+      <p class="is-size-4 pt-5 pl-5">Eventos <b>&nbsp;> Pesagem</b></p>
       <div class="activates p-2">
         <div class="icon-activates">
           <img
@@ -174,7 +174,10 @@
 
             <span v-else-if="props.column.field == 'actions'">
               <p class="buttons">
-                <button class="button is-info is-outlined" @click="">
+                <button
+                  class="button is-info is-outlined"
+                  @click="onClickPageWeightUpdate(props.row.id)"
+                >
                   <span class="icon is-small">
                     <i class="fa fa-pencil"></i>
                   </span>
@@ -206,6 +209,7 @@
         </vue-good-table>
       </div>
     </div>
+
     <div v-if="actionModal" class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -220,10 +224,10 @@
           <p class="modal-card-title">Deseja Desativar Esta Pesagem??</p>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
+          <button class="button btn-cad" @click="openDisable">Voltar</button>
           <button class="button btn-back" @click="disableWeight">
             Desativar Pesagem
           </button>
-          <button class="button btn-cad" @click="openDisable">Voltar</button>
         </footer>
       </div>
     </div>
@@ -242,10 +246,10 @@
           <p class="modal-card-title">Deseja Ativar Esta Pesagem??</p>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
+          <button class="button btn-cad" @click="openEnable">Voltar</button>
           <button class="button btn-back" @click="enableWeight">
             Ativar Pesagem
           </button>
-          <button class="button btn-cad" @click="openEnable">Voltar</button>
         </footer>
       </div>
     </div>
@@ -379,7 +383,7 @@ export default class WeightList extends Vue {
         window.location.reload();
         console.log(sucess);
       },
-      (error: any) => {
+      (error) => {
         this.notification = this.notification.new(
           true,
           "notification is-danger",
@@ -450,6 +454,10 @@ export default class WeightList extends Vue {
 
   public onClickPageWeightDetail(id: number) {
     this.$router.push({ name: "weight-detail", params: { id: id } });
+  }
+
+  public onClickPageWeightUpdate(id: number) {
+    this.$router.push({ name: "weight-update", params: { id: id } });
   }
 
   public onClickCloseNotification(): void {
