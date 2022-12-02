@@ -51,9 +51,9 @@ export class SpecieClient {
 			return Promise.reject(error.response)
 		}
 	}
-	public async ativar(id : any): Promise<void> {
+	public async ativar(specie : Specie): Promise<void> {
 		try {
-			return (await axiosClient.put(`/species/enable/${id}`)).data
+			return (await axiosClient.put(`/species/enable/${specie.id}`)).data
 		} catch (error:any) {
 			return Promise.reject(error.response)
 		}

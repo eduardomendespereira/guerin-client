@@ -26,12 +26,12 @@
           />
           <div class="select in-1">
            
-            <select class="select" v-model="cattle.specie" style="margin-left: 9%;">
+            <select class="select"  :key="reniciar" v-model="cattle.specie" style="margin-left: 9%;">
               <option value="undefined" disabled hidden>Espécie</option>
               <option v-for="item in specieList" :key="item.id" :value="item">{{item.name}}</option>
             </select>
           </div>
-          <ModalInsertSpecie class="add-specie" :mini="true"></ModalInsertSpecie>
+          <ModalInsertSpecie @Atualiza="renicia" class="add-specie" :mini="true"></ModalInsertSpecie>
         </div>
         <div class="form">
           <input
@@ -107,6 +107,7 @@ export default class cattleInsertForm extends Vue {
   private pageResponse: PageResponse<any> = new PageResponse();
   private specieClient!: SpecieClient;
   private specieList: Specie[] = [];
+  public reniciar !: 0
   private farmClient!: FarmClient;
   private farmList: Farm[] = [];
   public mounted(): void {
@@ -125,6 +126,10 @@ export default class cattleInsertForm extends Vue {
         console.log(error);
       }
     );
+  }
+  public renicia(){
+      this.listAllSpecies();
+      this.reniciar += 1
   }
   private listAllFarms(): void {
     this.farmClient.findAll().then(

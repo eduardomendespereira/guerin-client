@@ -99,7 +99,7 @@
                 <button
                 v-else-if="props.row.inactive"
                 class="button is-success is-outlined"
-                @click="enable(props.row.id)"
+                @click="activeEnable(props.row.id)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>
@@ -130,6 +130,25 @@
         </footer>
       </div>
     </div>  
+    <div v-if="activeModal" class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-header">
+          <div class="modal-title">
+            <div class="icon-modal">
+                <img style="width: 50px" src="@/assets/specieIcon.png" alt="Guerin" />
+            </div>
+            <p class="modal-card-title">Ativar essa especie ?</p>
+          </div>
+        </header>
+        <footer class="modal-card-foot is-flex is-justify-content-center">
+          <button class="button btn-cad" @click="enable" >
+            Ativar Especie
+          </button>
+          <button class="button btn-back" @click="(activeModal = false)">Voltar</button>
+        </footer>
+      </div>
+    </div>  
   </aside>
 </template>
 
@@ -156,6 +175,7 @@ export default class SpecieView extends Vue {
   public specieList: Specie[] = [];
   public specie: Specie = new Specie()
   deleteModal = false;
+  activeModal = false;
   count = 0;
   columns = [
     {
@@ -202,6 +222,10 @@ export default class SpecieView extends Vue {
       this.showModal = true;
     }
   }
+  public activeEnable(id){
+    this.specie.id = id
+    this.activeModal = true
+  }
   setup() {
       const value = false 
       return {value}
@@ -245,14 +269,17 @@ export default class SpecieView extends Vue {
       } 
     )
   }
-  public enable(id){
-      this.specieClient.ativar(id).then(
+  public enable(){
+      
+      this.specieClient.ativar(this.specie).then(
         (sucess : any) =>{
           this.reniciar += 1 
           this.listAll()
+            this.notification = this.notification.new(true, 'notification is-success', 'Especie Ativada com sucesso !!!')
             console.log(sucess)
         },
         (error : any) =>{
+          this.notification = this.notification.new(true, 'notification is-success', 'Erro ao ativar especie')
           console.log(error)
         }
       )
@@ -260,7 +287,7 @@ export default class SpecieView extends Vue {
   public insertSpecie(){
     this.specieClient.cadastrar(this.specie).then(
       (sucess:any) => {
-        this.notification = this.notification.new(true, 'notification is-success', 'Especie Cadastrada com sucesso ! !!!')
+        this.notification = this.notification.new(true, 'notification is-success', 'Especie Cadastrada com sucesso !!!')
         console.log(sucess);
       },
       (error:any) =>{
