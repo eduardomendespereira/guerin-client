@@ -56,6 +56,15 @@ class CattleEventClient {
         }
     }
 
+    findAllAgrouped(): Promise<any> {
+        try {
+            let requestPath = '/cattleEvent/agrouped'
+            return axiosClient.get(requestPath)
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     save(cattleEvent: CattleEvent): Promise<any> {
         try {
             return axiosClient.post('/cattleEvent/', cattleEvent)

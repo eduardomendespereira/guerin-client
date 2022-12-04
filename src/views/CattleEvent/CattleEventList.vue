@@ -7,7 +7,7 @@
           <div class="tile is-parent">
             <div class="ativos p-2">
               <div class="icon-ativos">
-                <img style="width: 30px;"  src="@/assets/eventIcon.png" alt="Guerin" />
+                <img style="width: 30px;" src="@/assets/eventIcon.png" alt="Guerin"/>
               </div>
               <h1
                   class="text-ativos has-text-weight-bold is-size-5"
@@ -27,9 +27,9 @@
               </div>
             </div>
           </div>
-          </div>
         </div>
       </div>
+    </div>
     <div class="columns is-flex">
       <div class="is-size-12 pt-5 pl-5" style="width: 100%">
         <div class="tile is-ancestor">
@@ -56,11 +56,16 @@
             enabled: true,
             placeholder: 'Buscar...',
           }"
+            :group-options="{
+            enabled: true,
+            collapsable: true,
+            }"
             :pagination-options="{
             enabled: true,
             mode: 'records',
             rowsPerPageLabel: 'Resultados por pagina',
             nextLabel: 'Proximo',
+            perPage: 100,
             prevLabel: 'Anterior',
             ofLabel: 'de',
             allLabel: 'Todos',
@@ -84,13 +89,13 @@
               <span>{{ props.row.cattle?.earring }}</span>
             </span>
             <span v-else-if="props.column.field == 'event-type'">
-              <span>{{props.row.eventType?.name}}</span>
+              <span>{{ props.row.eventType?.name }}</span>
             </span>
             <span v-else-if="props.column.field == 'date'">
-              <span>{{convertDate(props.row.date)}}</span>
+              <span>{{ convertDate(props.row.date) }}</span>
             </span>
             <span v-else-if="props.column.field == 'description'">
-              <span>{{props.row.description}}</span>
+              <span>{{ props.row.description }}</span>
             </span>
             <span v-else-if="props.column.field == 'vaccine-app'">
               <span v-if="!props.row.vaccineApplication" class="tag is-danger"
@@ -158,7 +163,7 @@
 
 <script lang="ts">
 import CattleEventClient from "@/client/cattle-event.client";
-import { Options, Vue } from "vue-class-component";
+import {Options, Vue} from "vue-class-component";
 import {Cattle} from "@/model/cattle.model";
 
 export default class CattleEventList extends Vue {
@@ -204,7 +209,7 @@ export default class CattleEventList extends Vue {
   rows = [];
   count = 0;
 
-  public convertDate(data : any ){
+  public convertDate(data: any) {
     let obj = new Date(data)
     return obj.toLocaleString()
   }
@@ -212,17 +217,18 @@ export default class CattleEventList extends Vue {
   public mounted(): void {
     this.listAll();
   }
+
   public onClickPageUpdate(id: number) {
     console.log(id);
-    this.$router.push({ name: "cattle-event-update", params: { id: id } });
+    this.$router.push({name: "cattle-event-update", params: {id: id}});
   }
 
   public onClickPageDetail(id: number) {
-    this.$router.push({ name: "cattle-event-detail", params: { id: id } });
+    this.$router.push({name: "cattle-event-detail", params: {id: id}});
   }
 
   public listAll(): void {
-    CattleEventClient.findAll()
+    CattleEventClient.findAllAgrouped()
         .then((response: any) => {
           this.rows = response.data;
           this.count = response.data.filter((t) => !t.inactive).length;
@@ -232,6 +238,7 @@ export default class CattleEventList extends Vue {
           console.log(e);
         });
   }
+
   public disableCattleEvent(id: number): void {
     if (confirm("Deseja mesmo desabilitar este evento?")) {
       CattleEventClient.disable(id)
@@ -245,6 +252,7 @@ export default class CattleEventList extends Vue {
           });
     }
   }
+
   public enableCattleEvent(id: number): void {
     if (confirm("Deseja mesmo habilitar este evento?")) {
       CattleEventClient.enable(id)
@@ -269,9 +277,11 @@ export default class CattleEventList extends Vue {
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
 }
+
 .text-ativos {
   margin-left: 60px;
 }
+
 .icon-ativos {
   top: -22px;
   left: 5px;
