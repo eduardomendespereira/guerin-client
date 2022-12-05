@@ -14,17 +14,19 @@
             />
           </div>
           <h1
-            class="text-activates has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3 pt-5"
             style="color: black"
           >
             Vacinas
           </h1>
 
-          <hr class="line" size="10" />
+          <div class="access">
+            <hr class="line" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/vacinas"
-            >Acessar</router-link
-          >
+            <router-link class="link is-size-5" to="/eventos/vacinas"
+              >Acessar</router-link
+            >
+          </div>
         </div>
       </div>
       <div class="is-flex is-justify-content-center">
@@ -43,13 +45,15 @@
             Aplicação de Vacinas
           </h1>
 
-          <hr class="line" size="10" />
+          <div class="access">
+            <hr class="line" size="10" />
 
-          <router-link
-            class="link is-size-5"
-            to="/eventos/aplicacoes-de-vacinas"
-            >Acessar</router-link
-          >
+            <router-link
+              class="link is-size-5"
+              to="/eventos/aplicacoes-de-vacinas"
+              >Acessar</router-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -70,14 +74,16 @@
             Eventos Ocorridos
           </h1>
 
-          <hr class="line" size="10" />
+          <div class="access">
+            <hr class="line" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/eventos-gados"
-            >Acessar</router-link
-          >
+            <router-link class="link is-size-5" to="/eventos/eventos-gados"
+              >Acessar</router-link
+            >
+          </div>
         </div>
       </div>
-      <div class="is-flex is-justify-content-center">
+      <div class="is-flex is-justify-content-center pb-6">
         <div class="activates">
           <div class="icon-activates">
             <img
@@ -87,17 +93,19 @@
             />
           </div>
           <h1
-            class="text-activates has-text-weight-bold is-size-3"
+            class="text-activates has-text-weight-bold is-size-3 pt-5"
             style="color: black"
           >
             Pesagem
           </h1>
 
-          <hr class="line" size="10" />
+          <div class="access">
+            <hr class="line" size="10" />
 
-          <router-link class="link is-size-5" to="/eventos/pesagem"
-            >Acessar</router-link
-          >
+            <router-link class="link is-size-5" to="/eventos/pesagem"
+              >Acessar</router-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -149,6 +157,10 @@ export default class EventView extends Vue {}
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
   padding: 30px 40px 8px 40px;
+}
+
+.line {
+  margin-top: 30px;
 }
 
 .icon-activates-vaccine {
@@ -222,6 +234,12 @@ export default class EventView extends Vue {}
 .link {
   display: flex;
   justify-content: center;
-  text-align: center;
+}
+
+.access {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  width: 68%;
 }
 </style>
