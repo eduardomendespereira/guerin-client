@@ -267,7 +267,7 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
-        path: "/eventos/pesagem/desativar/:id",
+        path: "/eventos/pesagem/editar/:id",
         name: "weight-update",
         props: (router) => ({ id: router.params.id }),
         component: () => import("../views/Weighing/WeighingUpdateView.vue"),

@@ -47,7 +47,7 @@
             <option
               v-for="item in cattleList"
               :key="item.id"
-              :value="item.earring"
+              :value="item"
             >
               {{ item.earring }}
             </option>
@@ -60,7 +60,7 @@
           <router-link to="/eventos/pesagem">
             <button class="button btn-back">Cancelar</button>
           </router-link>
-          <button class="button btn-inactiv" @onClick="updateWeighing">
+          <button class="button btn-inactiv" @click="updateWeighing">
             Editar Pesagem
           </button>
         </div>
@@ -79,29 +79,27 @@ import { Notification } from "@/model/notification";
 import { Cattle } from "@/model/cattle.model";
 import { CattleClient } from "@/client/cattle.client";
 
-export default class WeightList extends Vue {
-  public cattle: Cattle = new Cattle();
+export default class WeightUpdate extends Vue {
   public cattleClient!: CattleClient;
   public cattleList: Cattle[] = [];
   public weighing: Weighing = new Weighing();
-  public weightList: Weighing[] = [];
   private weighingClient!: WeighingClient;
   public notification: Notification = new Notification();
 
-  @Prop({ type: Number, required: false })
-  private readonly id!: number;
+  @Prop({type: Number, required: false})
+  private readonly id!: number
 
   public mounted(): void {
     this.weighingClient = new WeighingClient();
     this.cattleClient = new CattleClient();
-    this.listCattle();
     this.getWeighing();
+    this.listCattle();
   }
 
   public listCattle() {
     this.cattleClient.findAll().then(
-      (sucess) => {
-        this.cattleList = sucess.data;
+      success => {
+        this.cattleList = success.data;
       },
       (error) => {
         console.log(error);
@@ -111,7 +109,7 @@ export default class WeightList extends Vue {
 
   public getWeighing(): void {
     this.weighingClient.findById(this.id).then(
-      (success) => {
+      success => {
         this.weighing = success;
       },
       (error) => console.log(error)
@@ -119,6 +117,7 @@ export default class WeightList extends Vue {
   }
 
   public updateWeighing() {
+    console.dir(this.weighing)
     this.weighingClient.update(this.weighing).then(
       (sucess: any) => {
         this.notification = this.notification.new(
@@ -126,14 +125,13 @@ export default class WeightList extends Vue {
           "notification is-success",
           "Pesagem Editada com sucesso !!"
         );
-        window.location.reload();
         console.log(sucess);
       },
       (error) => {
         this.notification = this.notification.new(
           true,
           "notification is-danger",
-          "Error: " + error.data
+        error.data
         );
         console.log(error);
       }

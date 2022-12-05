@@ -281,6 +281,7 @@ export default class WeightList extends Vue {
   showModal = false;
   actionModal = false;
   actionEnableModal = false;
+  date = null;
 
   columns = [
     {
@@ -457,6 +458,7 @@ export default class WeightList extends Vue {
   }
 
   public onClickPageWeightUpdate(id: number) {
+    Number(this.weighing.id)
     this.$router.push({ name: "weight-update", params: { id: id } });
   }
 

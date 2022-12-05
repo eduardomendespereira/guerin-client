@@ -44,9 +44,10 @@ export class WeighingClient {
     }
   }
 
-  public async update(weighing: Weighing): Promise<void> {
+  public async update(weighing: any): Promise<void> {
     try {
-      return (await axiosClient.put(`/${weighing.id}`, weighing)).data;
+      weighing.date = new Date(weighing.date).toLocaleString();
+      return (await axiosClient.put(`/weighing/${weighing.id}`, weighing)).data;
     } catch (error: any) {
       return Promise.reject(error.response);
     }
