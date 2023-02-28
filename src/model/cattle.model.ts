@@ -11,6 +11,8 @@ export class Cattle extends AbstractEntity {
   gender!: Gender;
   father!: number;
   mother!: number;
+  bornAt!: Date;
+  breastFeeding!: Boolean;
 
   constructor() {
     super();

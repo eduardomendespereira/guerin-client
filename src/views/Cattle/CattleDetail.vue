@@ -84,12 +84,29 @@
         </div>
 
         <div class="form">
-          <h5
+          <h4
+            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
+          >
+            <b>Data Nascimento</b>
+            {{ convertDate(cattle.bornAt) }}
+          </h4>
+          <h4
+            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
+          >
+            <b>Em Amamentação</b>
+            <span v-if="!cattle.breastFeeding" style="color: #df0000">
+              <b>Nao</b>
+            </span>
+            <span v-if="cattle.breastFeeding" style="color: #20bd00">
+              <b>Sim</b>
+            </span>
+          </h4>
+          <h4
             class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
           >
             <b>Quantidade de Filhos</b>
             {{amountChildren}}
-          </h5>
+          </h4>
         </div>
 
         <hr class="line" size="100" width="900" />
