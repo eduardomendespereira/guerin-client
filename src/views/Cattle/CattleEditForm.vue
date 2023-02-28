@@ -17,7 +17,7 @@
                     <div class="select in-1">
                         <select class="select" v-model="cattle.specie">
                             <option value="undefined" disabled hidden>Espécie</option>
-                            <option v-for="item in specieList" :key="item.id" :value="item">{{item.name}}</option>
+                            <option v-for="item in specieList" :key="item.id" :value="item">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -35,10 +35,20 @@
                         </select>
                     </div>
                 </div>
+                <div class="form">
+                    <input class="input in-1" type="date" placeholder="Data Nascimento" v-model="cattle.bornAt" />
+                    <div class="select in-1">
+                        <select class="select" v-model="cattle.breastFeeding">
+                            <option value="undefined" disabled hidden>Em Período de Amamentação?</option>
+                            <option value=true>Sim</option>
+                            <option value=false>Não</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="select date">
                     <select class="select" style="width: 630px" v-model="cattle.farm">
                         <option value="undefined" disabled hidden>Fazenda</option>
-                        <option v-for="item in farmList" :key="item.id" :value="item">{{item.name}}</option>
+                        <option v-for="item in farmList" :key="item.id" :value="item">{{ item.name }}</option>
                     </select>
                 </div>
                 <hr class="line" size="100" width="1000" />
