@@ -82,13 +82,11 @@
             {{ cattle.farm?.name }}
           </h4>
         </div>
-
+        
         <div class="form">
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Data Nascimento</b>
-            {{ convertDate(cattle.bornAt) }}
+          <h4 class="is-size-6 is-flex is-flex-direction-column is-align-items-center">
+            <b>Fase</b>
+            {{ cattle.status }}
           </h4>
           <h4
             class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
@@ -101,6 +99,16 @@
               <b>Sim</b>
             </span>
           </h4>
+        </div>
+
+        <div class="form">
+          <h4
+            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
+          >
+            <b>Data Nascimento</b>
+            {{ convertDate(cattle.bornAt) }}
+          </h4>
+          
           <h4
             class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
           >
