@@ -109,6 +109,13 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
+        path: "/eventos/inseminacoes",
+        name: "list-insemination",
+        component: () =>
+            import("../views/Insemination/InseminationList.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/gados",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
