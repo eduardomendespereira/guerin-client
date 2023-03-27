@@ -7,7 +7,7 @@
           <div class="tile is-parent">
             <div class="ativos p-2">
               <div class="icon-ativos">
-                <img style="width: 30px;"  src="@/assets/vaccineAppIcon.png" alt="Guerin" />
+                <img style="width: 30px;"  alt="Guerin" />
               </div>
               <h1
                   class="text-ativos has-text-weight-bold is-size-5"
@@ -35,7 +35,7 @@
           <div class="tile is-parent">
             <article class="tile is-child box">
               <div class="buttons">
-                <router-link to="/eventos/insemincoes/cadastrar">
+                <router-link to="/eventos/inseminacoes/cadastrar">
                   <button class="button is-success">Cadastrar</button>
                 </router-link>
               </div>
