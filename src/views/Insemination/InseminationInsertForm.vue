@@ -6,7 +6,7 @@
     <section class="is-flex is-justify-content-center">
       <div class="insert-background-insemination">
         <div>
-          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="" />
+          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/inseminationIcon.png" />
         </div>
 
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">

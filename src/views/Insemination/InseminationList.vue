@@ -7,7 +7,7 @@
           <div class="tile is-parent">
             <div class="ativos p-2">
               <div class="icon-ativos">
-                <img style="width: 30px;"  alt="Guerin" />
+                <img style="" src="@/assets/inseminationIcon.png"  alt="Guerin" />
               </div>
               <h1
                   class="text-ativos has-text-weight-bold is-size-5"

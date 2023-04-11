@@ -8,7 +8,7 @@
 
     <div class="content-form">
       <div class="align-icon-container">
-        <img style="width: 100px; background-color: green; border-radius: 15px"  src="" />
+        <img style="width: 100px; background-color: green; border-radius: 15px;"  src="../../assets/inseminationIcon.png" />
       </div>
 
       <br/>
@@ -27,7 +27,7 @@
           <input class="input" style="width: 300px; margin: 15px" type="datetime-local" v-model="insemination.date" placeholder="Data">
 
           <div class="select" style="margin: 15px">
-            <select class="select" style="width: 290px;" v-model="insemination.cattle">
+            <select class="select" style="width: 300px;" v-model="insemination.cattle">
               <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
             </select>
           </div>
@@ -146,7 +146,6 @@ export default class VaccineInsertForm extends Vue {
 .container-inputs{
   display: flex;
   flex-direction: row;
-  margin-top: 130px;
   align-items: center;
   justify-content: center;
 }
