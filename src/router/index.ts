@@ -125,6 +125,16 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
+        path: "/eventos/inseminacoes/atualizar/:id",
+        name: "insemination-update",
+        props: (router) => ({ id: router.params.id }),
+        component: () =>
+            import(
+                "../views/Insemination/InseminationUpdateForm.vue"
+                ),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/gados",
         name: "cattle",
         component: () => import("../views/Cattle/CattleList.vue"),
