@@ -75,7 +75,7 @@
             <div class="access">
               <hr class="line" size="10" />
 
-              <router-link class="link is-size-5" to="/eventos/inseminations"
+              <router-link class="link is-size-5" to="/eventos/inseminacoes"
               >Acessar</router-link
               >
             </div>
