@@ -56,6 +56,32 @@
           </div>
         </div>
       </div>
+      <div class="is-flex is-justify-content-space-around">
+        <div class="is-flex is-justify-content-center">
+          <div class="activates-insemination">
+            <div class="icon-insemination">
+              <img
+                  style="width: 50px"
+                  src="../../assets/inseminationIcon.png"
+                  alt="Guerin"
+              />
+            </div>
+            <h1
+                class="text-activates has-text-weight-bold is-size-3 pt-5"
+                style="color: black"
+            >
+              Inseminações
+            </h1>
+            <div class="access">
+              <hr class="line" size="10" />
+
+              <router-link class="link is-size-5" to="/eventos/inseminations"
+              >Acessar</router-link
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="is-flex is-justify-content-space-around">
       <div class="is-flex is-justify-content-center">
@@ -98,7 +124,6 @@
           >
             Pesagem
           </h1>
-
           <div class="access">
             <hr class="line" size="10" />
 
@@ -124,6 +149,28 @@ export default class EventView extends Vue {}
   width: 250px;
   height: 250px;
   margin-top: 45px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  padding: 30px 40px 8px 40px;
+}
+
+.icon-insemination{
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 80px;
+  border-radius: 27px;
+  background-color: #4a9490;
+}
+
+.activates-insemination {
+  background-color: white;
+  margin-top: 45px;
+  width: 250px;
+  height: 250px;
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
   padding: 30px 40px 8px 40px;
