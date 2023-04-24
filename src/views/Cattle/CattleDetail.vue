@@ -115,8 +115,21 @@
             <b>Quantidade de Filhos</b>
             {{amountChildren}}
           </h4>
-        </div>
 
+          <h4
+            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
+          >
+            <b>Pode amamentar?</b>
+            <span v-if="cattleCanBreed" style="color: #20bd00" >
+              <b>Sim</b>
+            </span>
+            <span v-else style="color: #df0000">
+              <b>Não</b>
+            </span>
+          </h4>
+        </div>
+        
+        
         <hr class="line" size="100" width="900" />
         <div class="btns">
           <router-link to="/gados">
@@ -137,6 +150,7 @@ import { Prop } from "vue-property-decorator";
 export default class CattleDetail extends Vue {
   public cattle: Cattle = new Cattle();
   public amountChildren: number = 0;
+  public cattleCanBreed: boolean = false;
   private cattleClient!: CattleClient;
 
   @Prop({ type: Number, required: false })
@@ -146,6 +160,7 @@ export default class CattleDetail extends Vue {
     this.cattleClient = new CattleClient();
     this.detailCattle();
     this.getChildren();
+    this.canBreed();
   }
 
   public convertDate(data : any ){
@@ -166,6 +181,15 @@ export default class CattleDetail extends Vue {
     this.cattleClient.findByEarring(this.earring).then(
       (success) => {
         this.cattle = success;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  public canBreed(): any {
+    this.cattleClient.canBreed(this.earring).then(
+      (success) => {
+        this.cattleCanBreed = success
       },
       (error) => console.log(error)
     );

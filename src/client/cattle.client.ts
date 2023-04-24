@@ -119,4 +119,12 @@ export class CattleClient {
 			return Promise.reject();
 		}
 	}
+
+    public async canBreed(earring: number) : Promise<any>{
+        try{
+            return (await axiosClient.get<any>(`/cattle/can-breed/${earring}`)).data
+        }catch{
+            return Promise.reject();
+        }
+    }
 }
