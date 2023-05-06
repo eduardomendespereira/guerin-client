@@ -61,7 +61,7 @@
           <div class="activates-insemination">
             <div class="icon-insemination">
               <img
-                  style="width: 50px"
+                  style="width: 100%"
                   src="../../assets/inseminationIcon.png"
                   alt="Guerin"
               />
@@ -144,7 +144,6 @@ export default class EventView extends Vue {}
 </script>
 
 <style scoped>
-
 .activates {
   background-color: white;
   width: 250px;
