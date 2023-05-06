@@ -90,7 +90,7 @@ export default class EventTypeDetail extends Vue{
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .cattle {
         width: 100%;
       }

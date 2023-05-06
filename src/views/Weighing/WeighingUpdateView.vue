@@ -144,7 +144,7 @@ export default class WeightUpdate extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .weight {
   width: 100%;
 }

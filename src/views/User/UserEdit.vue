@@ -208,7 +208,7 @@ export default class UserEdit extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .insert-background {
   display: flex;
   align-items: center;

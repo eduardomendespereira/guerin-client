@@ -144,6 +144,7 @@ export default class EventView extends Vue {}
 </script>
 
 <style scoped>
+
 .activates {
   background-color: white;
   width: 250px;

@@ -329,7 +329,7 @@ export default class CattleList extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .activates {
   background-color: white;
   margin-top: 45px;

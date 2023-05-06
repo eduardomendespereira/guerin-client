@@ -99,7 +99,7 @@ export default class VaccineInsertForm extends Vue {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .form-vaccine{
   width: 100%;
   padding: 0px 30px 0px 30px;

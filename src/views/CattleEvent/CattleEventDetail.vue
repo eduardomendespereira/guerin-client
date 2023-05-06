@@ -117,7 +117,7 @@ export default class CattleEventDetail extends Vue{
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 
 .insert-back {
   display: flex;

@@ -296,7 +296,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .ativos {
     background-color: white;
     margin-top: 45px;

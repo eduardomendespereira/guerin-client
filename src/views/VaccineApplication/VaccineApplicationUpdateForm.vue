@@ -140,7 +140,7 @@ export default class VaccineInsertForm extends Vue {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .form-vaccine-application{
   width: 100%;
