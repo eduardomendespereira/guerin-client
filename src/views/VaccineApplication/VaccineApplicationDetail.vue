@@ -105,9 +105,10 @@ export default class VaccineDetail extends Vue{
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
-  width: 90%;
+  width: 100%;
   margin-top: 20px;
   margin-bottom: 30px;
+  margin-left: 140px;
 }
 
 .icon-vaccine-application {

@@ -91,10 +91,6 @@ export default class InseminationDetail extends Vue{
   width: 100%;
 }
 
-.div-fields{
-
-}
-
 .insert-back {
   display: flex;
   align-items: center;
