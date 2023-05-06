@@ -198,12 +198,11 @@ export default class InseminationList extends Vue {
       InseminationClient.disable(id)
           .then((response: any) => {
             window.alert("Inseminação desabilitada com sucesso!");
-            this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);
           });
+      location.reload();
     }
   }
   public enableInsemination(id: number): void {
@@ -211,13 +210,13 @@ export default class InseminationList extends Vue {
       InseminationClient.enable(id)
           .then((response: any) => {
             window.alert("Inseminação habilitada com sucesso!");
-            this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);
           });
+      location.reload();
     }
+
   }
 }
 </script>
