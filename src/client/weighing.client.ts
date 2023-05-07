@@ -3,6 +3,7 @@ import { PageResponse } from "@/model/page/page-response";
 import axiosClient from "../plugins/axios";
 import { User } from "@/model/user.model";
 import { Weighing } from "@/model/weighing.model";
+import { ca } from "element-plus/es/locale";
 
 export class WeighingClient {
   public async findById(id: number): Promise<any> {
@@ -42,6 +43,14 @@ export class WeighingClient {
     } catch (error: any) {
       return Promise.reject(error.response);
     }
+  }
+
+  public async mediaWeight(id : any): Promise<any>{
+      try{
+        return (await axiosClient.get<Weighing>(`/weighing/media/${id}`)).data;
+      } catch(error:any){
+        return Promise.reject(error.response);
+      }
   }
 
   public async update(weighing: any): Promise<void> {
