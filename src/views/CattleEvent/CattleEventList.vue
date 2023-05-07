@@ -113,6 +113,14 @@
               >Sim
               </span>
             </span>
+            <span v-else-if="props.column.field == 'insemination'">
+              <span v-if="!props.row.insemination" class="tag is-danger"
+              >Não</span
+              >
+              <span v-else-if="props.row.insemination" class="tag is-success"
+              >Sim
+              </span>
+            </span>
             <span v-else-if="props.column.field == 'inactive'">
               <span v-if="!props.row.inactive" class="tag is-success"
               >Ativo</span
@@ -195,6 +203,10 @@ export default class CattleEventList extends Vue {
     {
       label: "Pesagem",
       field: "weighing",
+    },
+    {
+      label: "Inseminação",
+      field: "insemination",
     },
     {
       label: "Ativo",
