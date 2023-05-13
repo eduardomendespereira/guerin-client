@@ -64,6 +64,16 @@ export class CattleClient {
         }
     }
 
+    public async findAllFemale(): Promise<any> {
+        try {
+            let requestPath = '/cattle/gender/female'
+
+            return axiosClient.get(requestPath)
+        } catch (error:any) {
+            return Promise.reject(error.response)
+        }
+    }
+
 	public async save(cattle: Cattle): Promise<void> {
 		try {
 			return (await axiosClient.post('/cattle', cattle))

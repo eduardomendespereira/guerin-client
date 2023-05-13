@@ -31,7 +31,7 @@
             <div class="field" style="margin-right: 40px">
               Gado
               <select v-model="insemination.cattle">
-                <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
+                <option type="number" v-for="c in cattleListFemale" :key="c.id" :value="c">{{ c.earring }}</option>
               </select>
             </div>
             <div class="field">
@@ -67,12 +67,12 @@ import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
 
-export default class VaccineApplicationInsertForm extends Vue {
+export default class InseminationInsertForm extends Vue {
 
   private insemination: Insemination = new Insemination();
   private notification: Notification = new Notification();
   private errors: Array<Notification> = new Array<Notification>();
-  private cattleList: Cattle[] = []
+  private cattleListFemale: Cattle[] = []
   private cattleClient!: CattleClient
 
   public mounted(): void {
@@ -81,10 +81,10 @@ export default class VaccineApplicationInsertForm extends Vue {
   }
 
   private listAllCattles(): void{
-    this.cattleClient.findAll()
+    this.cattleClient.findAllFemale()
         .then(
             success => {
-              this.cattleList = success.data
+              this.cattleListFemale = success.data
             },
             error => console.log(error)
         )
