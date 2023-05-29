@@ -54,6 +54,7 @@
         >
           <template #table-row="props">
             <span v-if="props.column.field == 'detail'">
+             
               <p class="buttons">
                 <button
                   class="button is-info is-outlined"
@@ -223,8 +224,19 @@ export default class SpecieView extends Vue {
     }
   }
   public activeEnable(id){
-    this.specie.id = id
-    this.activeModal = true
+    if(this.activeModal){
+      this.activeModal = false;
+    }else{
+      this.activeModal = true;
+    }
+    console.log(id)
+    this.specieClient.findById(id)
+        .then(
+            sucess => {
+              this.specie = sucess
+            },
+            error => console.log(error)
+    )
   }
   setup() {
       const value = false 
@@ -258,9 +270,11 @@ export default class SpecieView extends Vue {
   public disableSpecie(){
     this.specieClient.desativar(this.specie).then(
       (sucess:any) => {
-        this.reniciar += 1 
+        this.notification = this.notification.new(true, 'notification is-success', 'Especie Ativada com sucesso !!!')
+        console.log(sucess)
         this.listAll()
         console.log(sucess);
+         this.reniciar += 1 
         this.deleteModal = false
       },
       (error:any) =>{
@@ -273,10 +287,12 @@ export default class SpecieView extends Vue {
       
       this.specieClient.ativar(this.specie).then(
         (sucess : any) =>{
+          console.log(sucess)
+         
+        
+          this.listAll() 
+          this.activeModal = false
           this.reniciar += 1 
-          this.listAll()
-            this.notification = this.notification.new(true, 'notification is-success', 'Especie Ativada com sucesso !!!')
-            console.log(sucess)
         },
         (error : any) =>{
           this.notification = this.notification.new(true, 'notification is-success', 'Erro ao ativar especie')
@@ -287,7 +303,6 @@ export default class SpecieView extends Vue {
   public insertSpecie(){
     this.specieClient.cadastrar(this.specie).then(
       (sucess:any) => {
-        this.notification = this.notification.new(true, 'notification is-success', 'Especie Cadastrada com sucesso !!!')
         console.log(sucess);
       },
       (error:any) =>{
