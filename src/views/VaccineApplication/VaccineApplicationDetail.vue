@@ -1,5 +1,5 @@
 <template>
-  <aside class="cattle is-fullheight">
+  <aside class="cattle is-fullheight" style="width: 100%">
     <div class="text-up columns">
       <p class="is-size-4 pt-5 pl-5">Eventos > Aplicações de Vacinas <b>> Detalhar</b></p>
     </div>
@@ -12,45 +12,29 @@
               alt="Guerin"
           />
         </div>
-        <div class="form">
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Descrição</b>
-            {{ vaccineApplication.note }}
-          </h1>
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Vacina Aplicada</b>
-            {{ vaccineApplication.vaccine?.name }}
-          </h1>
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Data</b>
-            {{ convertDate(vaccineApplication.date)}}
-          </h1>
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Brinco do Gado</b>
-            {{ vaccineApplication.cattle?.earring}}
-          </h1>
-        </div>
-
-        <div class="form">
-          <h4 class="is-size-6 is-flex is-flex-direction-column is-align-items-center">
-            <b>Status</b>
-            <span v-if="!vaccineApplication.inactive" style="color: #20bd00">
-              <b>Ativo</b>
-            </span>
-            <span v-if="vaccineApplication.inactive" style="color: #df0000">
-              <b>Desativado</b>
-            </span>
-          </h4>
-
-        </div>
+        <table class="table">
+          <tr>
+            <th><b>Descrição</b></th>
+            <td> {{ vaccineApplication.note }}</td>
+          </tr>
+          <tr>
+            <th><b>Vacina Aplicada</b></th>
+            <td>{{ vaccineApplication.vaccine?.name }}</td>
+          </tr>
+          <tr>
+            <th><b>Data</b></th>
+            <td>{{ convertDate(vaccineApplication.date)}}</td>
+          </tr>
+          <tr>
+            <th><b>Brinco do Gado</b></th>
+            <td>{{ vaccineApplication.cattle?.earring}}</td>
+          </tr>
+          <tr>
+            <th><b>Status</b></th>
+            <td v-if="!vaccineApplication.inactive" style="color: #20bd00"><b>Ativa</b></td>
+            <td v-if="vaccineApplication.inactive" style="color: #df0000"><b>Desativada</b></td>
+          </tr>
+        </table>
         <hr class="linha" size="100" width="900" />
         <div class="btns">
           <router-link to="/eventos/aplicacoes-de-vacinas">
@@ -105,10 +89,7 @@ export default class VaccineDetail extends Vue{
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
-  width: 100%;
   margin-top: 20px;
-  margin-bottom: 30px;
-  margin-left: 140px;
 }
 
 .icon-vaccine-application {
@@ -157,5 +138,29 @@ export default class VaccineDetail extends Vue{
   color: white;
   transition: 0.7s;
   box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table b {
+  font-weight: bold;
+}
+
+.no-data {
+  color: #df0000;
 }
 </style>

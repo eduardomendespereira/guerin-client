@@ -1,5 +1,5 @@
 <template>
-  <aside class="cattle is-fullheight">
+  <aside class="cattle is-fullheight" style="width: 100%">
     <div class="text-up columns">
       <p class="is-size-4 pt-5 pl-5">Eventos > Vacinas <b>> Detalhar</b></p>
     </div>
@@ -12,41 +12,27 @@
               alt="Guerin"
           />
         </div>
-        <div class="form">
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Nome da Vacina</b>
-            {{ vaccine.name }}
-          </h1>
-          <h1
-              class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Data de Cadastramento</b>
-            {{ convertDate(vaccine.registered)}}
-          </h1>
-        </div>
 
-        <div class="form">
-          <h4 class="is-size-6 is-flex is-flex-direction-column is-align-items-center">
-            <b>Status</b>
-            <span v-if="!vaccine.inactive" style="color: #20bd00">
-              <b>Ativo</b>
-            </span>
-            <span v-if="vaccine.inactive" style="color: #df0000">
-              <b>Desativado</b>
-            </span>
-          </h4>
-          <h4 class="is-size-6 is-flex is-flex-direction-column is-align-items-center">
-            <b>Obrigatória</b>
-            <span v-if="vaccine.required" style="color: #20bd00">
-              <b>Sim</b>
-            </span>
-            <span v-if="!vaccine.required" style="color: #df0000">
-              <b>Não</b>
-            </span>
-          </h4>
-        </div>
+        <table class="table">
+          <tr>
+            <th><b>Nome da Vacina</b></th>
+            <td> {{ vaccine.name }}</td>
+          </tr>
+          <tr>
+            <th><b>Data de Cadastramento</b></th>
+            <td> {{ convertDate(vaccine.registered)}}</td>
+          </tr>
+          <tr>
+            <th><b>Status</b></th>
+            <td v-if="!vaccine.inactive" style="color: #20bd00"><b>Ativa</b></td>
+            <td v-if="vaccine.inactive" style="color: #df0000"><b>Desativada</b></td>
+          </tr>
+          <tr>
+            <th><b>Obrigatória</b></th>
+            <td v-if="!vaccine.required" style="color: #20bd00"><b>Sim</b></td>
+            <td v-if="vaccine.required" style="color: #df0000"><b>Não</b></td>
+          </tr>
+        </table>
         <hr class="linha" size="100" width="900" />
         <div class="btns">
           <router-link to="/eventos/vacinas">
@@ -103,9 +89,7 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 0px 10px #d1d1d1;
-    width: 90%;
     margin-top: 20px;
-    margin-bottom: 30px;
   }
 
   .icon-vaccine {
@@ -154,5 +138,29 @@
     color: white;
     transition: 0.7s;
     box-shadow: 0px 0px 10px #d1d1d1;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+  }
+
+  .table b {
+    font-weight: bold;
+  }
+
+  .no-data {
+    color: #df0000;
   }
 </style>

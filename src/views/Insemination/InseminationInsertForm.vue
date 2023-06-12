@@ -66,7 +66,6 @@ import inseminationClient from "@/client/insemination.client";
 import {Cattle} from "@/model/cattle.model";
 import {CattleClient} from "@/client/cattle.client";
 
-
 export default class InseminationInsertForm extends Vue {
 
   private insemination: Insemination = new Insemination();
