@@ -1,5 +1,5 @@
 <template>
-  <aside class="cattle is-fullheight">
+  <aside class="cattle is-fullheight" style="width: 100%">
     <div class="text-up columns">
       <p class="is-size-4 pt-5 pl-5">Detalhar <b>> Gado</b></p>
     </div>
@@ -12,123 +12,71 @@
             alt="Guerin"
           />
         </div>
-        <h1 class="is-size-5">
-          <b>Brinco Nº {{ cattle.earring }}</b>
-        </h1>
-        <div class="form">
-          <h1
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Brinco do Pai</b>
-            <span v-if="!cattle.father"> --- </span>
-            <span v-if="cattle.father"> {{ cattle.father }} </span>
-          </h1>
-          <h1
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Brinco da Mãe</b>
-            <span v-if="!cattle.mother"> --- </span>
-            <span v-if="cattle.mother"> {{ cattle.mother }} </span>
-          </h1>
-        </div>
 
-        <div class="form">
-          <h2
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Peso</b>
-            {{ cattle.weight }} Kg
-          </h2>
-          <h2
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Registrado Em</b>
-            {{ convertDate(cattle.registered) }}
-          </h2>
-        </div>
-
-        <div class="form">
-          <h3
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Sexo</b>
-            <span v-if="cattle.gender == 'male'"> Macho </span>
-            <span v-if="cattle.gender == 'female'"> Fêmea </span>
-          </h3>
-          <h3
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Espécie</b>
-            {{ cattle.specie?.name }}
-          </h3>
-        </div>
-
-        <div class="form">
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Status</b>
-            <span v-if="!cattle.inactive" style="color: #20bd00">
-              <b>Ativo</b>
-            </span>
-            <span v-if="cattle.inactive" style="color: #df0000">
-              <b>Desativado</b>
-            </span>
-          </h4>
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Fazenda</b>
-            {{ cattle.farm?.name }}
-          </h4>
-        </div>
-        
-        <div class="form">
-          <h4 class="is-size-6 is-flex is-flex-direction-column is-align-items-center">
-            <b>Fase</b>
-            {{ cattle.status }}
-          </h4>
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Em Amamentação</b>
-            <span v-if="!cattle.breastFeeding" style="color: #df0000">
-              <b>Nao</b>
-            </span>
-            <span v-if="cattle.breastFeeding" style="color: #20bd00">
-              <b>Sim</b>
-            </span>
-          </h4>
-        </div>
-
-        <div class="form">
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Data Nascimento</b>
-            {{ convertDate(cattle.bornAt) }}
-          </h4>
-          
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Quantidade de Filhos</b>
-            {{amountChildren}}
-          </h4>
-
-          <h4
-            class="is-size-6 is-flex is-flex-direction-column is-align-items-center"
-          >
-            <b>Pode amamentar?</b>
-            <span v-if="cattleCanBreed" style="color: #20bd00" >
-              <b>Sim</b>
-            </span>
-            <span v-else style="color: #df0000">
-              <b>Não</b>
-            </span>
-          </h4>
-        </div>
-        
+        <table class="table">
+          <tr>
+            <th><b>Brinco Nº</b></th>
+            <td> {{ cattle.earring }}</td>
+          </tr>
+          <tr>
+            <th><b>Brinco do Pai</b></th>
+            <td v-if="!cattle.father"><b> --- </b></td>
+            <td v-if="cattle.father">{{ cattle.father }}</td>
+          </tr>
+          <tr>
+            <th><b>Brinco da Mãe</b></th>
+            <td v-if="!cattle.mother"><b> --- </b></td>
+            <td v-if="cattle.mother">{{ cattle.mother }}</td>
+          </tr>
+          <tr>
+            <th><b>Peso</b></th>
+            <td>{{ cattle.weight }} Kg</td>
+          </tr>
+          <tr>
+            <th><b>Registrado Em</b></th>
+            <td>{{ convertDate(cattle.registered) }}</td>
+          </tr>
+          <tr>
+            <th><b>Sexo</b></th>
+            <td v-if="cattle.gender == 'male'"><b>Macho</b></td>
+            <td v-if="cattle.gender == 'female'"><b>Fêmea</b></td>
+          </tr>
+          <tr>
+            <th><b>Espécie</b></th>
+            <td>{{ cattle.specie?.name }}</td>
+          </tr>
+          <tr>
+            <th><b>Fazenda</b></th>
+            <td>{{ cattle.farm?.name }}</td>
+          </tr>
+          <tr>
+            <th><b>Fase</b></th>
+            <td>{{ cattle.status }}</td>
+          </tr>
+          <tr>
+            <th><b>Em Amamentação</b></th>
+            <td v-if="!cattle.breastFeeding" style="color: #df0000"><b>Nao</b></td>
+            <td v-if="cattle.breastFeeding" style="color: #20bd00"><b>Sim</b></td>
+          </tr>
+          <tr>
+            <th><b>Data Nascimento</b></th>
+            <td>{{ convertDate(cattle.bornAt) }}</td>
+          </tr>
+          <tr>
+            <th><b>Quantidade de Filhos</b></th>
+            <td> {{amountChildren}}</td>
+          </tr>
+          <tr>
+            <th><b>Pode amamentar?</b></th>
+            <td v-if="cattleCanBreed"  style="color: #20bd00"><b>Sim</b></td>
+            <td v-else style="color: #df0000"><b>Não</b></td>
+          </tr>
+          <tr>
+            <th><b>Status</b></th>
+            <td v-if="!cattle.inactive" style="color: #20bd00"><b>Ativo</b></td>
+            <td v-if="cattle.inactive" style="color: #df0000"><b>Desativado</b></td>
+          </tr>
+        </table>
         
         <hr class="line" size="100" width="900" />
         <div class="btns">
@@ -267,5 +215,29 @@ export default class CattleDetail extends Vue {
   color: white;
   transition: 0.7s;
   box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table b {
+  font-weight: bold;
+}
+
+.no-data {
+  color: #df0000;
 }
 </style>
