@@ -309,6 +309,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/Weighing/WeighingUpdateView.vue"),
         beforeEnter: Guard.auth,
       },
+      {
+        path: "/lactacoes",
+        name: "list-lactating",
+        component: () =>
+            import("../views/Lactating/LactatingList.vue"),
+        beforeEnter: Guard.auth,
+      },
     ],
   },
 ];

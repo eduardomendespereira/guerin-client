@@ -137,4 +137,12 @@ export class CattleClient {
             return Promise.reject();
         }
     }
+
+    public async findLactatingCattles() : Promise<any>{
+        try{
+            return (await axiosClient.get<any>(`/cattle/lactating-cattles`)).data
+        }catch{
+            return Promise.reject();
+        }
+    }
 }
