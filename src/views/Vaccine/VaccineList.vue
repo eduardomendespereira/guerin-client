@@ -46,17 +46,16 @@
       </div>
     </div>
     <div class="columns is-flex">
-      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+      <div class="is-size-12 pt-5 pl-5" style="width: 100%" >
         <vue-good-table
             ref="vaccinetable"
-            :key="reniciar"
             :columns="columns"
+            :key="reniciar"
             :rows="rows"
             styleClass="vgt-table striped"
             :search-options="{
             enabled: true,
             placeholder: 'Buscar...',
-
           }"
             :pagination-options="{
             enabled: true,
@@ -190,10 +189,9 @@ export default class VaccineList extends Vue {
         .then((response: any) => {
           this.rows = response.data;
           this.count = response.data.filter((t) => !t.inactive).length;
-          console.log(response);
         })
         .catch((e: Error) => {
-          console.log(e);
+          window.alert(e.message);
         });
   }
   public disableVaccine(id: number): void {
@@ -203,10 +201,8 @@ export default class VaccineList extends Vue {
             window.alert("Vacina desabilitada com sucesso!");
             this.reniciar += 1
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
-            console.log(e);
           });
     }
   }
@@ -216,10 +212,8 @@ export default class VaccineList extends Vue {
           .then((response: any) => {
             window.alert("Vacina habilitada com sucesso!");
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
-            console.log(e);
           });
     }
   }

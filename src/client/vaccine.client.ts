@@ -48,7 +48,7 @@ class VaccineClient {
 
     public async disable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/vaccines/disable/" + id)
+            return axiosClient.put("/vaccines/disable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -56,7 +56,7 @@ class VaccineClient {
 
     public async enable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/vaccines/enable/" + id)
+            return axiosClient.put("/vaccines/enable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
