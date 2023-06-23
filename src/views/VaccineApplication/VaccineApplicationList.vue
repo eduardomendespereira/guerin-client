@@ -202,7 +202,6 @@ export default class VaccineApplicationList extends Vue {
         .then((response: any) => {
           this.rows = response.data;
           this.count = response.data.filter((t) => !t.inactive).length;
-          console.log(response);
         })
         .catch((e: Error) => {
           console.log(e);
@@ -214,7 +213,6 @@ export default class VaccineApplicationList extends Vue {
           .then((response: any) => {
             window.alert("Aplicação de Vacina desabilitada com sucesso!");
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);
@@ -227,7 +225,6 @@ export default class VaccineApplicationList extends Vue {
           .then((response: any) => {
             window.alert("Aplicação de Vacina habilitada com sucesso!");
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);

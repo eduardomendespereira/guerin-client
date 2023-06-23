@@ -158,7 +158,6 @@ export default class UserList extends Vue {
     this.listAll();
   }
   public onClickPageUpdate(id: number) {
-    console.log(id);
     this.$router.push({ name: "user-edit", params: { userId: id } });
   }
   public listAll(): void {
@@ -166,7 +165,6 @@ export default class UserList extends Vue {
       .then((response: any) => {
         this.rows = response.data;
         this.count = response.data.filter((t) => !t.inactive).length;
-        console.log(response);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -178,7 +176,6 @@ export default class UserList extends Vue {
         .then((response: any) => {
           window.alert("Usuario inativado com sucesso!");
           this.listAll();
-          console.log(response);
         })
         .catch((e: Error) => {
           console.log(e);
@@ -191,7 +188,6 @@ export default class UserList extends Vue {
         .then((response: any) => {
           window.alert("Usuario reabilitado com sucesso!");
           this.listAll();
-          console.log(response);
         })
         .catch((e: Error) => {
           console.log(e);

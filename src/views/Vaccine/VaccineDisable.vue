@@ -56,9 +56,9 @@
       vaccineClient.disable(this.vaccine.id)
           .then(
               sucess => {
-                console.log("deu bão")
+                window.alert("Vacina desabilitada com sucesso");
               },
-              error => console.log("Olha aqui o erro corno" + error)
+              error => console.log(error.message)
           )
       this.$router.push({name: 'vaccine'})
     }

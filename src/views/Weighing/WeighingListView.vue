@@ -434,7 +434,6 @@ export default class WeightList extends Vue {
   public disableWeight() {
     this.weighingClient.disable(this.weighing).then(
       (sucess: any) => {
-        console.log(sucess);
         this.actionModal = false;
         window.location.reload();
       },
@@ -448,7 +447,6 @@ export default class WeightList extends Vue {
   public enableWeight() {
     this.weighingClient.enable(this.weighing).then(
       (sucess: any) => {
-        console.log(sucess);
         this.actionEnableModal = false;
         window.location.reload();
       },
