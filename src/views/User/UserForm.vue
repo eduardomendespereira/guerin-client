@@ -129,16 +129,11 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
-import { Notification } from "@/model/notification";
-import { PageRequest } from "@/model/page/page-request";
-import { PageResponse } from "@/model/page/page-response";
-import UserClient from "@/client/user.client";
-import { User } from "@/model/user.model";
-import { Role } from "@/model/role.enum";
+import {Vue} from "vue-class-component";
+import {Notification} from "@/model/notification";
 import userClient from "@/client/user.client";
-import { isNavigationFailure } from "vue-router";
-import { array } from "yup/lib/locale";
+import {User} from "@/model/user.model";
+import {Role} from "@/model/role.enum";
 
 export default class UserForm extends Vue {
   private user: User = new User();
@@ -150,43 +145,25 @@ export default class UserForm extends Vue {
   }
 
   private onClickSave(): void {
-    this.errors = new Array<Notification>();
-    if (!this.user.firstName || !this.user.lastName) {
-      this.errors.push(new Notification().newNot("Nome é obrigatorio."));
-    }
-    if (!this.user.password) {
-      this.errors.push(new Notification().newNot("Senha é obrigatoria."));
-    }
-    if (!this.user.username) {
-      this.errors.push(new Notification().newNot("Usuario é obrigatorio."));
-    }
-    if (!this.user.role) {
-      this.errors.push(new Notification().newNot("Role é obrigatoria."));
-    }
-    if (!this.user.email) {
-      this.errors.push(new Notification().newNot("Email é obrigatorio."));
-    }
-    if (this.errors.length == 0) {
-      userClient.save(this.user).then(
+    userClient.save(this.user).then(
         (success) => {
           this.notification = this.notification.new(
-            true,
-            "notification is-success",
-            "Usuario cadastrado com sucesso!!!"
+              true,
+              "notification is-success",
+              "Usuario cadastrado com sucesso!!!"
           );
           this.onClickClean();
         },
         (error) => {
           console.log(error);
           this.notification = this.notification.new(
-            true,
-            "notification is-danger",
-            "Error: " + error.response.data
+              true,
+              "notification is-danger",
+              "Error: " + error.response.data
           );
           this.onClickClean();
         }
-      );
-    }
+    );
   }
   private onClickCloseNotification(): void {
     this.notification = new Notification();

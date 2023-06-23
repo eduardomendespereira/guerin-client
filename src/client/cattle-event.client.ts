@@ -83,7 +83,7 @@ class CattleEventClient {
 
     disable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/cattleEvent/disable/" + id)
+            return axiosClient.put("/cattleEvent/disable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -91,7 +91,7 @@ class CattleEventClient {
 
     enable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/cattleEvent/enable/" + id)
+            return axiosClient.put("/cattleEvent/enable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }

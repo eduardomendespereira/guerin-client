@@ -73,7 +73,7 @@ export default class VaccineInsertForm extends Vue {
   }
 
   private listAllCattles(): void{
-    this.cattleClient.findAll()
+    this.cattleClient.findAllFemale()
         .then(
             success => {
               this.cattleList = success.data
