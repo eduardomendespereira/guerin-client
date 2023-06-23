@@ -92,7 +92,6 @@ export default class InseminationInsertForm extends Vue {
   }
 
   private onClickSave(): void {
-    console.log(this.insemination)
     this.errors = new Array<Notification>();
     if (!this.insemination.date) {
       this.errors.push(new Notification().newNot("Data é obrigatória"));

@@ -170,7 +170,6 @@ export default class InseminationList extends Vue {
     this.listAll();
   }
   public onClickPageUpdate(id: number) {
-    console.log(id);
     this.$router.push({ name: "insemination-update", params: { id: id } });
   }
 
@@ -187,7 +186,6 @@ export default class InseminationList extends Vue {
         .then((response: any) => {
           this.rows = response.data;
           this.count = response.data.filter((t) => !t.inactive).length;
-          console.log(response);
         })
         .catch((e: Error) => {
           console.log(e);

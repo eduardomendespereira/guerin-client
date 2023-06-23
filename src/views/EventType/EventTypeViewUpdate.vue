@@ -51,7 +51,6 @@ export default class SpecieDetail extends Vue{
   public mounted(): void {
     this.eventClient = new EventTypeClient();
     this.getEvent();
-    console.log(this.event);
   }
   private onClickCloseNotification(): void {
     this.notification = new Notification()
@@ -69,7 +68,6 @@ export default class SpecieDetail extends Vue{
   public update() : void {
   this.eventClient.editar(this.event).then(
           sucess => {
-            console.log(sucess)
             this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento editado com sucesso !!!')
           },
           error => {

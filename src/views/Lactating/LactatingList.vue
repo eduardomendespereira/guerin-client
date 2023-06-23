@@ -103,7 +103,6 @@
           .then((response: any) => {            
             this.rows = response;
             this.count = response.length;
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);

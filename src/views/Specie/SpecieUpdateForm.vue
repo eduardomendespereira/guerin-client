@@ -50,7 +50,6 @@ private readonly id!: number
 public mounted(): void {
   this.specieClient = new SpecieClient()
   this.getSpecie();
-  console.log(this.specie);
 }
 private getSpecie(): void {
   this.specieClient.findById(this.id)

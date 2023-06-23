@@ -74,7 +74,6 @@ export default class SpecieDetail extends Vue{
   public mounted(): void {
     this.specieClient = new SpecieClient()
     this.getSpecie();
-    console.log(this.specie);
   }
 
   private getSpecie(): void {

@@ -82,7 +82,6 @@ export default class CattleEventDetail extends Vue {
 
   public mounted(): void {
     this.getCattleEvent()
-    console.log(this.cattleEvent)
   }
 
   public convertDate(data: any) {

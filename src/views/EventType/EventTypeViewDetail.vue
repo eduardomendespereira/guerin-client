@@ -75,7 +75,6 @@ export default class EventTypeDetail extends Vue{
   public mounted(): void {
     this.eventClient = new EventTypeClient()
     this.getSpecie();
-    console.log(this.event);
   }
 
   private getSpecie(): void {

@@ -89,7 +89,6 @@ export default class VaccineInsertForm extends Vue {
             this.onClickClean();
           },
           (error) => {
-            console.log(error);
             this.notification = this.notification.new(
                 true,
                 "notification is-danger",

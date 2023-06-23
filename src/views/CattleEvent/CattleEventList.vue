@@ -231,7 +231,6 @@ export default class CattleEventList extends Vue {
   }
 
   public onClickPageUpdate(id: number) {
-    console.log(id);
     this.$router.push({name: "cattle-event-update", params: {id: id}});
   }
 
@@ -244,7 +243,6 @@ export default class CattleEventList extends Vue {
         .then((response: any) => {
           this.rows = response.data;
           this.count = response.data.filter((t) => !t.inactive).length;
-          console.log(response);
         })
         .catch((e: Error) => {
           console.log(e);
@@ -257,7 +255,6 @@ export default class CattleEventList extends Vue {
           .then((response: any) => {
             window.alert("Evento desabilitado com sucesso!");
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);
@@ -271,7 +268,6 @@ export default class CattleEventList extends Vue {
           .then((response: any) => {
             window.alert("Evento habilitado com sucesso!");
             this.listAll();
-            console.log(response);
           })
           .catch((e: Error) => {
             console.log(e);

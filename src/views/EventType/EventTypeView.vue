@@ -321,8 +321,6 @@
             this.reni += 1
             this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Cadastrado com sucesso !!!')
             this.listAll()
-           
-            console.log(sucess);
           },
           (error:any) =>{
             this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
@@ -349,7 +347,6 @@
         (sucess : any) =>{
           this.reni += 1
           this.listAll()
-          
           this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Ativado com sucesso !!!')
         },
         (error : any) =>{
