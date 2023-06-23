@@ -31,7 +31,7 @@
                   </div>
                 </div>
                 <input v-if="!mini" v-model="specie.name" class="input in-spe" type="text" placeholder="Nome da Especie" />
-                <input v-if="mini" v-model="specie.name" class=" input input-mini in-spe" type="text" placeholder="Nome da Especie" />
+                <input v-if="mini" v-model="specie.name" class=" input " type="text" placeholder="Nome da Especie" />
               </section>
               <footer class="modal-card-foot is-flex is-justify-content-center">
                 <button class="button btn-cad" @click="insertSpecie" >

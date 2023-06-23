@@ -31,12 +31,13 @@
           </button>
         </div>
       </div>
-      <div class="columns is-flex">
+      <div class="columns is-flex" >
         <div class="is-size-12 pt-5 pl-5" style="width: 100%">
           <vue-good-table
             ref="specitable"
             :columns="columns"
             :rows="rows"
+            :key="reni"
             styleClass="vgt-table striped"
             :search-options="{
               enabled: true,
@@ -115,19 +116,21 @@
       <div v-if="showModal" class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-card">
-            <div class="columns" v-if="notification.ativo">
-                <div class="column is-12">
-                  <div :class="notification.classe">
-                    <button @click="onClickCloseNotification()" class="delete" ></button>
-                    {{ notification.mensagem }}
-                  </div>
-                </div>
-            </div>        
+           
           <header class="modal-card-head">
+               
             <p class="modal-card-title">Adicionar Tipo de Evento</p>
             <button class="delete" @click="openModal" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
+            <div class="columns" v-if="notification.ativo">
+              <div class="column is-12">
+                <div :class="notification.classe">
+                  <button @click="onClickCloseNotification()" class="delete" ></button>
+                  {{ notification.mensagem }}
+                </div>
+              </div>
+            </div>     
             <input v-model="nome" class="input in-1" type="text" placeholder="Nome do Tipo de Evento" />
           </section>
           <footer class="modal-card-foot is-flex is-justify-content-center">
@@ -195,6 +198,7 @@
     showModal = false;
     public edit = `edit-specie`;
     public nome : string = '';
+    public reni : number = 1;
     private eventClient!: EventTypeClient;
     public eventList: EventType[] = [];
     public event: EventType = new EventType()
@@ -260,7 +264,10 @@
         
         this.eventClient.cadastrar(item).then(
           (sucess:any) => {
+            this.reni += 1
             this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Cadastrado com sucesso !!!')
+            this.listAll()
+           
             console.log(sucess);
           },
           (error:any) =>{

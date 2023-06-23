@@ -31,7 +31,9 @@
             <div class="field" style="margin-right: 40px">
               Gado
               <select v-model="insemination.cattle">
-                <option type="number" v-for="c in cattleListFemale" :key="c.id" :value="c">{{ c.earring }}</option>
+                <option type="number" v-for="c in cattleListFemale" 
+                :key="c.id" 
+                :value="c">{{ c.earring }}</option>
               </select>
             </div>
             <div class="field">
@@ -90,6 +92,7 @@ export default class InseminationInsertForm extends Vue {
   }
 
   private onClickSave(): void {
+    console.log(this.insemination)
     this.errors = new Array<Notification>();
     if (!this.insemination.date) {
       this.errors.push(new Notification().newNot("Data é obrigatória"));
@@ -98,6 +101,7 @@ export default class InseminationInsertForm extends Vue {
       this.errors.push(new Notification().newNot("Gado é obrigatorio."));
     }
     if (this.errors.length == 0) {
+      
       inseminationClient.save(this.insemination).then(
           (success) => {
             this.notification = this.notification.new(
