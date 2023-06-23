@@ -49,6 +49,7 @@
       <div class="is-size-12 pt-5 pl-5" style="width: 100%">
         <vue-good-table
             ref="vaccinetable"
+            :key="reniciar"
             :columns="columns"
             :rows="rows"
             styleClass="vgt-table striped"
@@ -146,6 +147,7 @@ import VaccineClient from "@/client/vaccine.client";
 import { Options, Vue } from "vue-class-component";
 
 export default class VaccineList extends Vue {
+  public reniciar: number = 1
   columns = [
     {
       label: "Detalhar",
@@ -199,6 +201,7 @@ export default class VaccineList extends Vue {
       VaccineClient.disable(id)
           .then((response: any) => {
             window.alert("Vacina desabilitada com sucesso!");
+            this.reniciar += 1
             this.listAll();
             console.log(response);
           })
