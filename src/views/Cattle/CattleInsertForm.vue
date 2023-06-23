@@ -83,6 +83,12 @@
             <option v-for="item in farmList" :key="item.id" :value="item">{{item.name}}</option>
           </select>
         </div>
+        <div class="select date">
+          <select class="select" style="width: 630px" v-model="cattle.status">
+            <option value="undefined" disabled hidden>Fase</option>
+            <option v-for="item in cattleStatusList"  :value="item">{{item}}</option>
+          </select>
+        </div>
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/gados">
@@ -125,6 +131,8 @@ export default class cattleInsertForm extends Vue {
   public reniciar !: 0
   private farmClient!: FarmClient;
   private farmList: Farm[] = [];
+  private cattleStatusList: String[] = ['cria', 'recria', 'engorda']
+
   public mounted(): void {
     this.cattleClient = new CattleClient();
     this.specieClient = new SpecieClient();
