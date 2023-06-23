@@ -12,6 +12,14 @@
               alt="Guerin"
             />
           </div>
+          <div class="columns" v-if="notification.ativo">
+            <div class="column is-12">
+              <div :class="notification.classe">
+                <button @click="onClickCloseNotification()" class="delete" ></button>
+                {{ notification.mensagem }}
+              </div>
+            </div>
+          </div>
           <div class="form">
             <input v-model="specie.name" class="input is-primary is-flex is-flex-direction-column is-align-items-center" placeholder="Nome"/>
           </div>
@@ -32,10 +40,11 @@ import { Vue } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator'
 import {Specie} from "@/model/specie.model";
 import {SpecieClient} from "@/client/specie.client";
-
+import { Notification } from "@/model/notification";
 export default class SpecieDetail extends Vue{
 public specie: Specie = new Specie()
 private specieClient!: SpecieClient
+private notification: Notification = new Notification();
 @Prop({type: Number, required: false})
 private readonly id!: number
 public mounted(): void {
@@ -56,12 +65,12 @@ public update() : void {
   this.specieClient.editar(this.specie).then(
           sucess => {
             console.log(sucess)
-            alert('Especie editada com sucesso !')
+            this.notification = this.notification.new(true, 'notification is-success', 'Especie alterada com sucesso !!!')
           },
           
           error => {
             console.log(error)
-            console.log(this.specie)
+            this.notification = this.notification.new(true, 'notification is-success', 'Erro ao alterar especie :' + error.message)
           }
       )
 }

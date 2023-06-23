@@ -101,7 +101,7 @@
                   <button
                   v-else-if="props.row.inactive"
                   class="button is-success is-outlined"
-                  @click="enable(props.row.id)"
+                  @click="openActive(props.row.id)"
                   >
                     <span class="icon is-small">
                       <i class="fa fa-check"></i>
@@ -148,6 +148,16 @@
             <p class="modal-card-title">Deseja deletar esse evento ?</p>
             <button class="delete" @click="openDelete" aria-label="close"></button>
           </header>
+          <section  class="modal-card-body">
+            <div class="columns" v-if="notification.ativo">
+              <div class="column is-12">
+                <div :class="notification.classe">
+                  <button @click="onClickCloseNotification()" class="delete" ></button>
+                  {{ notification.mensagem }}
+                </div>
+              </div>
+            </div>     
+          </section>
           <footer class="modal-card-foot is-flex is-justify-content-center">
             <button class="button btn-back" @click="disableEvent" >
               Deletar Especie
@@ -155,7 +165,33 @@
             <button class="button btn-cad" @click="openDelete">Voltar</button>
           </footer>
         </div>
-      </div>    
+      </div> 
+      <div v-if="activeModal" class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Deseja ativar esse evento ?</p>
+            <button class="delete" @click="openActive" aria-label="close"></button>
+          </header>
+          <section  class="modal-card-body">
+            <div class="columns" v-if="notification.ativo">
+              <div class="column is-12">
+                <div :class="notification.classe">
+                  <button @click="onClickCloseNotification()" class="delete" ></button>
+                  {{ notification.mensagem }}
+                </div>
+              </div>
+            </div>     
+          </section>
+          <footer class="modal-card-foot is-flex is-justify-content-center">
+            <button class="button btn-back" @click="enable" >
+              Ativar
+            </button>
+            <button class="button btn-cad" @click="openActive">Voltar</button>
+          </footer>
+        </div>
+      </div>       
+     
     </aside>
   </template>
   
@@ -203,6 +239,7 @@
     public eventList: EventType[] = [];
     public event: EventType = new EventType()
     deleteModal = false;
+    activeModal = false;
     public url: string = "/species";
     private notification: Notification = new Notification();
     private pageRequest: PageRequest = new PageRequest();
@@ -247,10 +284,27 @@
       this.$router.push({ name: "eventType-edit", params: { id: id } });
     }
     public openDelete(id : any){
+      this.onClickCloseNotification()
       if(this.deleteModal){
         this.deleteModal = false;
       }else{
         this.deleteModal = true;
+      }
+      this.eventClient.findById(id)
+          .then(
+              sucess => {
+
+                this.event = sucess
+              },
+              error => console.log(error)
+      )
+    }
+    public openActive(id : any){
+      this.onClickCloseNotification()
+      if(this.activeModal){
+        this.activeModal = false;
+      }else{
+        this.activeModal = true;
       }
       this.eventClient.findById(id)
           .then(
@@ -279,18 +333,24 @@
     public disableEvent(){
       this.eventClient.desativar(this.event).then(
         (sucess:any) => {
-          console.log(sucess);
-          this.deleteModal = false
+          this.reni += 1
+          this.onClickCloseNotification()
+          this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Desativado com sucesso !!!')
+          this.listAll()
         },
         (error:any) =>{
           console.log(error);
         } 
       )
     }
-    public enable(id){
-      this.eventClient.ativar(id).then(
+    public enable(){
+
+      this.eventClient.ativar(this.event.id).then(
         (sucess : any) =>{
-            console.log(sucess)
+          this.reni += 1
+          this.listAll()
+          
+          this.notification = this.notification.new(true, 'notification is-success', 'Tipo de Evento Ativado com sucesso !!!')
         },
         (error : any) =>{
           console.log(error)
