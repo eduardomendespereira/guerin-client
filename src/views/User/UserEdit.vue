@@ -12,30 +12,22 @@
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
           <div class="column is-12">
             <div :class="notification.classe">
-              <button
-                @click="onClickCloseNotification()"
-                class="delete"
-              ></button>
-              {{ notification.mensagem }}
+              <button @click="onClickCloseNotification()" class="delete"></button>
+              <span v-html="notification.mensagem"></span>
             </div>
           </div>
         </div>
         <p v-if="errors.length" style="margin-top: 5%">
-         <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-          <ul>
-             <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
-          </ul>
-        </p>  
+          <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+        <ul>
+          <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
+        </ul>
+        </p>
         <div class="field is-horizontal form">
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Nome"
-                  v-model="user.firstName"
-                />
+                <input class="input" type="text" placeholder="Nome" v-model="user.firstName" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -43,12 +35,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Sobrenome"
-                  v-model="user.lastName"
-                />
+                <input class="input" type="text" placeholder="Sobrenome" v-model="user.lastName" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -60,12 +47,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Usuario"
-                  v-model="user.username"
-                />
+                <input class="input" type="text" placeholder="Usuario" v-model="user.username" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -73,12 +55,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="password"
-                  placeholder="Senha"
-                  v-model="user.password"
-                />
+                <input class="input" type="password" placeholder="Senha" v-model="user.password" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-key"></i>
                 </span>
@@ -103,12 +80,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="email"
-                  placeholder="Email"
-                  v-model="user.email"
-                />
+                <input class="input" type="email" placeholder="Email" v-model="user.email" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -153,7 +125,7 @@ export default class UserEdit extends Vue {
     this.getUser();
   }
 
-  private getUser(): void {    
+  private getUser(): void {
     UserClient.findById(this.userId).then(
       (success) => {
         console.log(success);
@@ -166,41 +138,35 @@ export default class UserEdit extends Vue {
   }
 
   private onClickSave(): void {
-    this.errors = new Array<Notification>();
-    if (!this.user.firstName || !this.user.lastName) {
-      this.errors.push(new Notification().newNot("Nome é obrigatorio."));
-    }
-    if (!this.user.password) {
-      this.errors.push(new Notification().newNot("Senha é obrigatoria."));
-    }
-    if (!this.user.username) {
-      this.errors.push(new Notification().newNot("Usuario é obrigatorio."));
-    }
-    if (!this.user.role) {
-      this.errors.push(new Notification().newNot("Role é obrigatoria."));
-    }
-    if (!this.user.email) {
-      this.errors.push(new Notification().newNot("Email é obrigatorio."));
-    }
-    if (this.errors.length == 0) {
-      userClient.save(this.user).then(
-        (success) => {
+    userClient.save(this.user).then(
+      (success) => {
+        this.notification = this.notification.new(
+          true,
+          "notification is-success",
+          "Usuario atualizado com sucesso!!!"
+        );
+      },
+      (error) => {
+        console.log(error);
+        if (error.response.status == 500) {
+          const notifications = error.response.data.map((item) => {
+            return item.message;
+          });
           this.notification = this.notification.new(
             true,
-            "notification is-success",
-            "Usuario atualizado com sucesso!!!"
+            "notification is-danger",
+            notifications.join('\r\n<br/>')
           );
-        },
-        (error) => {
-          console.log(error);
+        }
+        else {         
           this.notification = this.notification.new(
             true,
             "notification is-danger",
             "Error: " + error.response.data
           );
         }
-      );
-    }
+      }
+    );
   }
   private onClickCloseNotification(): void {
     this.notification = new Notification();
@@ -220,12 +186,15 @@ export default class UserEdit extends Vue {
   width: 90%;
   margin-top: 20px;
 }
+
 .form {
   margin-top: 5%;
   display: flex;
 }
+
 .btns {
   display: flex;
+
   .button {
     font-size: 18px;
     margin: 30px;

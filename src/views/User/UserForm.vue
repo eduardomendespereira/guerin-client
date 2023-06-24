@@ -12,30 +12,22 @@
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
           <div class="column is-12">
             <div :class="notification.classe">
-              <button
-                @click="onClickCloseNotification()"
-                class="delete"
-              ></button>
-              {{ notification.mensagem }}
+              <button @click="onClickCloseNotification()" class="delete"></button>
+              <span v-html="notification.mensagem"></span>
             </div>
           </div>
         </div>
         <p v-if="errors.length" style="margin-top: 5%">
-         <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-          <ul>
-             <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
-          </ul>
-        </p>  
+          <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+        <ul>
+          <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
+        </ul>
+        </p>
         <div class="field is-horizontal form">
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Nome"
-                  v-model="user.firstName"
-                />
+                <input class="input" type="text" placeholder="Nome" v-model="user.firstName" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -43,12 +35,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Sobrenome"
-                  v-model="user.lastName"
-                />
+                <input class="input" type="text" placeholder="Sobrenome" v-model="user.lastName" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -60,12 +47,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Usuario"
-                  v-model="user.username"
-                />
+                <input class="input" type="text" placeholder="Usuario" v-model="user.username" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -73,12 +55,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="password"
-                  placeholder="Senha"
-                  v-model="user.password"
-                />
+                <input class="input" type="password" placeholder="Senha" v-model="user.password" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-key"></i>
                 </span>
@@ -103,12 +80,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input
-                  class="input"
-                  type="email"
-                  placeholder="Email"
-                  v-model="user.email"
-                />
+                <input class="input" type="email" placeholder="Email" v-model="user.email" />
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -129,11 +101,11 @@
 </template>
 
 <script lang="ts">
-import {Vue} from "vue-class-component";
-import {Notification} from "@/model/notification";
+import { Vue } from "vue-class-component";
+import { Notification } from "@/model/notification";
 import userClient from "@/client/user.client";
-import {User} from "@/model/user.model";
-import {Role} from "@/model/role.enum";
+import { User } from "@/model/user.model";
+import { Role } from "@/model/role.enum";
 
 export default class UserForm extends Vue {
   private user: User = new User();
@@ -146,23 +118,35 @@ export default class UserForm extends Vue {
 
   private onClickSave(): void {
     userClient.save(this.user).then(
-        (success) => {
+      (success) => {
+        this.notification = this.notification.new(
+          true,
+          "notification is-success",
+          "Usuario cadastrado com sucesso!!!"
+        );
+        this.onClickClean();
+      },
+      (error) => {
+        console.log(error);
+        if (error.response.status == 500) {
+          const notifications = error.response.data.map((item) => {
+            return item.message;
+          });
           this.notification = this.notification.new(
-              true,
-              "notification is-success",
-              "Usuario cadastrado com sucesso!!!"
+            true,
+            "notification is-danger",
+            notifications.join('\r\n<br/>')
           );
-          this.onClickClean();
-        },
-        (error) => {
-          console.log(error);
-          this.notification = this.notification.new(
-              true,
-              "notification is-danger",
-              "Error: " + error.response.data
-          );
-          this.onClickClean();
         }
+        else {         
+          this.notification = this.notification.new(
+            true,
+            "notification is-danger",
+            "Error: " + error.response.data
+          );
+        }
+        this.onClickClean();
+      }
     );
   }
   private onClickCloseNotification(): void {
@@ -187,12 +171,15 @@ export default class UserForm extends Vue {
   width: 90%;
   margin-top: 20px;
 }
+
 .form {
   margin-top: 5%;
   display: flex;
 }
+
 .btns {
   display: flex;
+
   .button {
     font-size: 18px;
     margin: 30px;
