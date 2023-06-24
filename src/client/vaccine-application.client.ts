@@ -47,7 +47,7 @@ class VaccineApplicationClient {
 
     disable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/vaccineApplications/disable/" + id)
+            return axiosClient.put("/vaccineApplications/disable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
@@ -55,7 +55,7 @@ class VaccineApplicationClient {
 
     enable(id: number): Promise<any> {
         try {
-            return axiosClient.get("/vaccineApplications/enable/" + id)
+            return axiosClient.put("/vaccineApplications/enable/" + id)
         } catch (error:any) {
             return Promise.reject(error.response)
         }
