@@ -9,7 +9,7 @@
           <img
               alt="Guerin"
               src="../../assets/eventIcon.png"
-              style="width: 70px"
+              style="width: 70px; padding: 5px;"
           />
         </div>
         <table class="table">
@@ -119,7 +119,7 @@ export default class CattleEventDetail extends Vue {
   align-items: center;
   width: 90px;
   height: 90px;
-  background-color: green;
+  background-color: #007a9b;
   border-radius: 20px;
   margin: 0px 0px 20px 0px;
 }

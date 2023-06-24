@@ -1,7 +1,7 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Eventos > Inseminações</p>
+      <p class="is-size-4 pt-5 pl-5">Eventos <b>> Inseminações</b></p>
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
@@ -10,14 +10,14 @@
                 <img style="" src="@/assets/inseminationIcon.png"  alt="Guerin" />
               </div>
               <h1
-                  class="text-ativos has-text-weight-bold is-size-5"
+                  class="text-ativos has-text-weight-bold is-size-4"
                   style="color: black"
               >
                 Inseminações Ativas
               </h1>
               <div>
                 <h1
-                    class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+                    class="is-size-4 is-flex is-justify-content-flex-end pr-2"
                     style="color: #004aad"
                     span
                 >
@@ -223,12 +223,14 @@ export default class InseminationList extends Vue {
 .ativos {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  margin-right: 0px;
   position: relative;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
+  width: 350px;
 }
 .text-ativos {
-  margin-left: 60px;
+  margin-left: 65px;
 }
 .icon-ativos {
   top: -22px;

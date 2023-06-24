@@ -1,7 +1,7 @@
 <template>
     <aside class="cattle is-fullheight">
         <div class="text-up columns">
-          <p class="is-size-4 pt-5 pl-5">Especies<b> > Detalhar</b></p>
+          <p class="is-size-4 pt-5 pl-5">Detalhar<b> > Espécie</b></p>
         </div>
         <section class="is-flex is-justify-content-center">
           <div class="insert-back">

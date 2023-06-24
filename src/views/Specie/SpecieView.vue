@@ -1,7 +1,7 @@
 <template>
   <aside class="weight is-fullheight">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">>Especies</p>
+      <p class="is-size-4 pt-5 pl-5"><b>Espécies</b></p>
       <div class="ativos p-2">
         <div class="icon-ativos">
           <img style="width: 30px" src="@/assets/specieIcon.png" alt="Guerin" />
@@ -24,13 +24,18 @@
         </div>
       </div>
     </div>
-    <div class="is-flex is-justify-content-center pt-5">
+    <div class="is-flex is-justify-content-center">
       <div class="header-btn">
         <ModalInsertSpecie @Atualiza="atualizar" :mini="false"/>
       </div>  
     </div>
     <div  class="columns is-flex">
-      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+      <div class="is-size-12 pt-5 pl-5" style="
+          width: 100%;
+          text-align: center;
+          padding: 0px !important;
+          margin: 20px 30px;
+        ">
         <vue-good-table
           :key="reniciar"
           ref="specitable"
@@ -120,14 +125,14 @@
             <div class="icon-modal">
                 <img style="width: 50px" src="@/assets/specieIcon.png" alt="Guerin" />
             </div>
-            <p class="modal-card-title">Desativar essa especie ?</p>
+            <p class="modal-card-title">Desativar essa Espécie?</p>
           </div>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-cad" @click="disableSpecie" >
-            Deletar Especie
-          </button>
           <button class="button btn-back" @click="openDelete">Voltar</button>
+          <button class="button btn-cad" @click="disableSpecie" >
+            Deletar Espécie
+          </button>
         </footer>
       </div>
     </div>  
@@ -139,14 +144,14 @@
             <div class="icon-modal">
                 <img style="width: 50px" src="@/assets/specieIcon.png" alt="Guerin" />
             </div>
-            <p class="modal-card-title">Ativar essa especie ?</p>
+            <p class="modal-card-title">Ativar essa Espécie?</p>
           </div>
         </header>
         <footer class="modal-card-foot is-flex is-justify-content-center">
-          <button class="button btn-cad" @click="enable" >
-            Ativar Especie
-          </button>
           <button class="button btn-back" @click="(activeModal = false)">Voltar</button>
+          <button class="button btn-cad" @click="enable" >
+            Ativar Espécie
+          </button>
         </footer>
       </div>
     </div>  
@@ -320,9 +325,11 @@ export default class SpecieView extends Vue {
 .ativos {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  margin-right: 30px;
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
+  width: 260px;
 }
 .btn-back {
   background-color: #c20101;
@@ -390,7 +397,7 @@ export default class SpecieView extends Vue {
 }
 
 .text-ativos {
-  margin-left: 60px;
+  margin-left: 65px;
 }
 
 .weight {
@@ -398,10 +405,12 @@ export default class SpecieView extends Vue {
 }
 
 .header-btn {
-  background-color: white;
-  width: 95%;
+  background-color: #ffffff;
+  width: 100%;
+  margin: 10px 20px;
   padding: 30px;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
 }
 
 .table-div {

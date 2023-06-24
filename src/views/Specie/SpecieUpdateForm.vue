@@ -1,7 +1,7 @@
 <template>
   <aside class="cattle is-fullheight">
       <div class="text-up columns">
-        <p class="is-size-4 pt-5 pl-5">Especies<b> > Editar</b></p>
+        <p class="is-size-4 pt-5 pl-5">Editar<b> > Espécie</b></p>
       </div>
       <section class="is-flex is-justify-content-center">
         <div class="insert-back">
@@ -21,13 +21,14 @@
             </div>
           </div>
           <div class="form">
-            <input v-model="specie.name" class="input is-primary is-flex is-flex-direction-column is-align-items-center" placeholder="Nome"/>
+            <input v-model="specie.name" style="width: 400px;" class="input is-flex is-flex-direction-column is-align-items-center" placeholder="Nome"/>
           </div>
+          <hr class="line" size="100" width="900" />
           <div class="btns">
-            <button class="button is-primary is-small" @click="update">Salvar</button>
             <router-link to="/especie">
-              <button class="button btn-voltar">Voltar</button>
+              <button class="button btn-back">Voltar</button>
             </router-link>
+            <button class="button btn-cad" @click="update">Editar Espécie</button>
           </div>
         </div>
       </section>
@@ -80,6 +81,11 @@ public update() : void {
   .cattle {
       width: 100%;
     }
+
+    .line {
+  background-color: #dbdbdb;
+  margin: 30px 0px 0px 0px;
+}
     .insert-back {
       display: flex;
       align-items: center;
@@ -120,6 +126,7 @@ public update() : void {
     
     .form {
       display: flex;
+      margin: 20px 0px;
       h1 {
         margin: 15px 70px 15px 117px;
       }
@@ -128,16 +135,30 @@ public update() : void {
       }
     }
     
-    .btn-voltar {
-      background-color: #005bd4;
-      color: #ffffff;
-      padding: 12px;
-    }
-    
-    .btn-voltar:hover {
-      background-color: #0067ee;
-      color: white;
-      transition: 0.7s;
-      box-shadow: 0px 0px 10px #d1d1d1;
-    }
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
 </style>

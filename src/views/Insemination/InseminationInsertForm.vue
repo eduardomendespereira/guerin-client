@@ -1,12 +1,12 @@
 <template>
   <main class="farm is-fullheight">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Inseminações</b></p>
+      <p class="is-size-4">Cadastro <b>> Inseminações</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-background-insemination">
         <div>
-          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/inseminationIcon.png" />
+          <img style="width: 100px; padding: 10px; background-color: darkgreen; border-radius: 15px"  src="../../assets/inseminationIcon.png" />
         </div>
 
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
@@ -28,14 +28,17 @@
         </p>
         <div class="field is-horizontal form">
           <div class="field-body">
-            <div class="field" style="margin-right: 40px">
-              Gado
+            <div class="select-1">
+              <div class="field" style="margin-right: 40px">
               <select v-model="insemination.cattle">
                 <option type="number" v-for="c in cattleListFemale" 
                 :key="c.id" 
                 :value="c">{{ c.earring }}</option>
               </select>
             </div>
+            <p class="text-select">Gado</p>
+            </div>
+            
             <div class="field">
               <p class="control is-expanded has-icons-left">
                 <input
@@ -51,9 +54,9 @@
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/eventos/inseminacoes">
-            <button class="button is-danger">Voltar</button>
+            <button class="button btn-back">Voltar</button>
           </router-link>
-          <button @click="onClickSave()" class="button is-link">Salvar</button>
+          <button @click="onClickSave()" class="button btn-cad">Cadastrar Inseminação</button>
         </div>
       </div>
     </section>
@@ -140,7 +143,7 @@ export default class InseminationInsertForm extends Vue {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
-  width: 90%;
+  width: 95%;
   margin-top: 20px;
 }
 .form {
@@ -151,14 +154,46 @@ export default class InseminationInsertForm extends Vue {
   display: flex;
   .button {
     font-size: 18px;
-    margin: 30px;
+    margin: 10px 30px 30px 30px;
     width: 300px;
   }
 }
 select{
-  height: 30px;
-  width: 220px;
+  height: 40px;
+  width: 235px;
   border-radius: 5px;
-  border-color: grey;
+  border-color: rgb(218, 218, 218);
 }
+
+.text-select{
+  font-size: 13px;
+  margin-left: 15px;
+  color: rgb(151, 151, 151);
+}
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
 </style>

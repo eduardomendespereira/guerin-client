@@ -1,12 +1,12 @@
 <template>
-  <main class="farm is-fullheight">
+  <main class="cattleevent is-fullheight">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Editar <b>> Evento do Gado</b></p>
+      <p class="is-size-4">Editar <b>> Evento do Gado</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-background-cattle-event">
         <div>
-          <img style="width: 140px; background-color: cornflowerblue; border-radius: 15px"  src="../../assets/eventIcon.png" />
+          <img style="width: 100px; padding: 10px; background-color: #007a9b; border-radius: 15px"  src="../../assets/eventIcon.png" />
         </div>
 
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
@@ -20,19 +20,23 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal form">
+        <div class="line-1">
           <div class="field-body">
-            <div class="field">
-              Tipo de Evento
+            <div class="select-1">
+              <div class="field">
               <select v-model="cattleEvent.eventType">
                 <option v-for="e in eventTypeList" :key="e.id" :value="e">{{ e.name }}</option>
               </select>
+              <p class="text-select">Tipo de Evento</p>
             </div>
-            <div class="field">
-              Gado
-              <select v-model="cattleEvent.cattle" style="margin-right: 60px">
+            </div>
+            <div class="select-2">
+              <div class="field">
+              <select v-model="cattleEvent.cattle">
                 <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
               </select>
+              <p class="text-select">Gado</p>
+            </div>
             </div>
           </div>
         </div>
@@ -63,9 +67,9 @@
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/eventos/eventos-gados">
-            <button class="button is-danger">Voltar</button>
+            <button class="button btn-back">Voltar</button>
           </router-link>
-          <button @click="onClickEdit()" class="button is-link">Atualizar</button>
+          <button @click="onClickEdit()" class="button btn-cad">Editar Evento do Gado</button>
         </div>
       </div>
     </section>
@@ -183,9 +187,45 @@ export default class CattleEventUpdateForm extends Vue {
   }
 }
 select{
-  height: 30px;
-  width: 220px;
+  margin: 6px;
+  height: 36px;
+  width: 235px;
   border-radius: 5px;
-  border-color: grey;
+  border-color: rgb(218, 218, 218);
+}
+
+.text-select{
+  font-size: 13px;
+  margin-left: 15px;
+  color: rgb(151, 151, 151);
+}
+
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.line-1{
+  margin: 40px 0px;
+}
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
 }
 </style>

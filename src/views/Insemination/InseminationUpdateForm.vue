@@ -1,14 +1,14 @@
 <template>
   <div class="form-vaccine-application">
     <div class="columns">
-      <div class="column is-12 is-size-3">
-        Inseminações > Editar
+      <div class="is-size-4 pt-4">
+        Editar <b>> Inseminações</b>
       </div>
     </div>
 
     <div class="content-form">
       <div class="align-icon-container">
-        <img style="width: 100px; background-color: green; border-radius: 15px;"  src="../../assets/inseminationIcon.png" />
+        <img style="width: 100px; padding: 10px; background-color: green; border-radius: 15px;"  src="../../assets/inseminationIcon.png" />
       </div>
 
       <br/>
@@ -25,23 +25,26 @@
       <div class="container-inputs">
         <div class="division-inputs">
           <input class="input" style="width: 300px; margin: 15px" type="datetime-local" v-model="insemination.date" placeholder="Data">
-
-          <div class="select" style="margin: 15px">
+          <div class="select-1">
+            <div class="select" style="margin: 15px">
             <select class="select" style="width: 300px;" v-model="insemination.cattle">
               <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
             </select>
+            <p class="text-select">Gado</p>
           </div>
+          </div>
+          
         </div>
       </div>
       <hr class="line" size="100" width="1000" />
       <div class="container-buttons">
         <div class="container-boptions">
           <router-link class="link-cad" to="/eventos/inseminacoes">
-            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+            <button class="button is-danger btn-back is-fullwidth">Voltar</button>
           </router-link>
         </div>
         <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickEdit()">Atualizar</button>
+          <button class="button is-fullwidth btn-cad" @click="onClickEdit()">Editar Inseminação</button>
         </div>
       </div>
     </div>
@@ -119,18 +122,16 @@ export default class VaccineInsertForm extends Vue {
 
 .form-vaccine-application{
   width: 100%;
-  padding: 0px 30px 0px 30px;
-  background-color: lightgray;
+  padding: 12px 30px 0px 24px;
+  background-color: #f1f5f9;
 }
 .content-form{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
   background-color: white;
-  width: 100%;
+  width: 94%;
   border-radius: 10px;
-  padding: 20px;
+  padding: 40px;
+  margin: 38px 40px 40px 40px;
+  box-shadow: 0px 0px 10px #d1d1d1;
 }
 
 .division-inputs{
@@ -151,11 +152,43 @@ export default class VaccineInsertForm extends Vue {
 }
 .container-buttons{
   display: flex;
-  margin-top: 100px;
+  margin-top: 0px;
   justify-content: space-evenly;
 }
 .container-boptions{
   width: 300px;
-  margin: 30px;
+  margin: 10px;
+}
+
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.text-select{
+  font-size: 13px;
+  margin-left: 15px;
+  color: rgb(151, 151, 151);
 }
 </style>

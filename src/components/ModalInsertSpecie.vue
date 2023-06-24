@@ -34,10 +34,10 @@
                 <input v-if="mini" v-model="specie.name" class=" input " type="text" placeholder="Nome da Especie" />
               </section>
               <footer class="modal-card-foot is-flex is-justify-content-center">
+                <button class="button btn-back" @click="openModal">Voltar</button>                
                 <button class="button btn-cad" @click="insertSpecie" >
                   Cadastrar Especie
                 </button>
-                <button class="button btn-back" @click="openModal">Voltar</button>
               </footer>
             </div>
         </div> 

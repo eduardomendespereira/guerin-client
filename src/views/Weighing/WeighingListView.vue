@@ -479,6 +479,8 @@ export default class WeightList extends Vue {
   margin-right: 30px;
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
+  width: 280px;
 }
 
 .icon-activates {
@@ -494,7 +496,7 @@ export default class WeightList extends Vue {
 }
 
 .text-activates {
-  margin-left: 60px;
+  margin-left: 65px;
 }
 
 .icon-weight-ins {
@@ -547,6 +549,7 @@ export default class WeightList extends Vue {
   margin: 0px 20px;
   padding: 30px;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
 }
 
 .modal-header {

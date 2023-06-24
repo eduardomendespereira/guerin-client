@@ -1,7 +1,7 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Eventos > Eventos do Gado</p>
+      <p class="is-size-4 pt-5 pl-5">Eventos <b>> Eventos do Gado</b></p>
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
@@ -10,7 +10,7 @@
                 <img style="width: 30px;" src="@/assets/eventIcon.png" alt="Guerin"/>
               </div>
               <h1
-                  class="text-ativos has-text-weight-bold is-size-5"
+                  class="text-ativos has-text-weight-bold is-size-4"
                   style="color: black"
               >
                 Eventos Ativos
@@ -18,7 +18,7 @@
 
               <div>
                 <h1
-                    class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+                    class="is-size-4 is-flex is-justify-content-flex-end pr-2"
                     style="color: #004aad"
                     span
                 >
@@ -281,13 +281,15 @@ export default class CattleEventList extends Vue {
 .ativos {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  margin-right: 0px;
   position: relative;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
+  width: 300px;
 }
 
 .text-ativos {
-  margin-left: 60px;
+  margin-left: 65px;
 }
 
 .icon-ativos {
@@ -299,6 +301,6 @@ export default class CattleEventList extends Vue {
   padding: 8px 8px 8px 8px;
   width: 55px;
   border-radius: 20px;
-  background-color: green;
+  background-color: #007a9b;
 }
 </style>
