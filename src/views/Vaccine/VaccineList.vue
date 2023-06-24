@@ -114,7 +114,7 @@
                 <button
                     v-if="!props.row.inactive"
                     class="button is-danger is-outlined"
-                    @click="onClickPageDisable(props.row.id)"
+                    @click="disableVaccine(props.row.id)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-trash"></i>
@@ -123,7 +123,7 @@
                 <button
                     v-else-if="props.row.inactive"
                     class="button is-success is-outlined"
-                    @click="onClickPageEnable(props.row.id)"
+                    @click="enableVaccine(props.row.id)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>

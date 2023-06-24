@@ -1,12 +1,12 @@
 <template>
-  <main class="farm is-fullheight">
+  <main class="vaccineapp is-fullheight">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Aplicação de Vacina</b></p>
+      <p class="is-size-4">Cadastro <b>> Aplicação de Vacina</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-background-vaccine-app">
         <div class="icon-user">
-          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
+          <img style="width: 100px; padding: 10px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vaccineAppIcon.png" />
         </div>
 
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
@@ -26,23 +26,30 @@
             <li v-for="error in errors" :key="error.mensagem">{{ error.mensagem }}</li>
           </ul>
         </p>
-        <div class="field is-horizontal form">
+        <div class="line-1">
           <div class="field-body">
-            <div class="field">
-              Vacina
+            <div class="select-1">
+              <div class="field">
               <select v-model="vaccineApplication.vaccine">
                 <option type="number" v-for="v in vaccineList" :key="v.id" :value="v">{{ v.name }}</option>
               </select>
+              </div>
+              <p class="text-select">Vacina</p>
             </div>
-            <div class="field" style="margin-right: 40px">
-              Gado
+            <div class="select-2">
+            <div class="field">
                 <select v-model="vaccineApplication.cattle">
                   <option type="number" v-for="c in cattleList" :key="c.id" :value="c">{{ c.earring }}</option>
                 </select>
+                
+            </div>
+            <p class="text-select">Gado</p>
             </div>
           </div>
         </div>
+
         <div class="field is-horizontal">
+          
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
@@ -54,6 +61,7 @@
                 />
               </p>
             </div>
+
             <div class="field">
               <p class="control is-expanded has-icons-left">
                 <input
@@ -69,9 +77,9 @@
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/eventos/aplicacoes-de-vacinas">
-            <button class="button is-danger">Voltar</button>
+            <button class="button btn-back">Voltar</button>
           </router-link>
-          <button @click="onClickSave()" class="button is-link">Salvar</button>
+          <button @click="onClickSave()" class="button btn-cad">Cadastrar Aplicação de Vacina</button>
         </div>
       </div>
     </section>
@@ -192,9 +200,46 @@ export default class VaccineApplicationInsertForm extends Vue {
   }
 }
 select{
-  height: 30px;
-  width: 220px;
+  margin: 6px;
+  height: 36px;
+  width: 235px;
   border-radius: 5px;
-  border-color: grey;
+  border-color: rgb(218, 218, 218);
 }
+.text-select{
+  font-size: 13px;
+  margin-left: 15px;
+  color: rgb(151, 151, 151);
+}
+
+.line-1{
+  margin: 40px 0px;
+}
+
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
 </style>
