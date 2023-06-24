@@ -10,10 +10,10 @@
                 </div>
                 <div :class="notification.classe">
                     <button @click="onClickCloseNotification()" class="delete"></button>
-                    {{ notification.mensagem }}
+                    <span v-html="notification.mensagem"></span>
                 </div>
                 <div class="form">
-                    <input class="input in-1" type="text" placeholder="Nº do Brinco" v-model="cattle.earring" />
+                    <input class="input in-1" type="number" placeholder="Nº do Brinco" v-model="cattle.earring" />
                     <div class="select in-1">
                         <select class="select" v-model="cattle.specie">
                             <option value="undefined" disabled hidden>Espécie</option>
@@ -22,11 +22,11 @@
                     </div>
                 </div>
                 <div class="form">
-                    <input class="input in-1" type="text" placeholder="Nº do Brinco do Pai" v-model="cattle.father" />
-                    <input class="input in-1" type="text" placeholder="Nº do Brinco da Mãe" v-model="cattle.mother" />
+                    <input class="input in-1" type="number" placeholder="Nº do Brinco do Pai" v-model="cattle.father" />
+                    <input class="input in-1" type="number" placeholder="Nº do Brinco da Mãe" v-model="cattle.mother" />
                 </div>
                 <div class="form">
-                    <input class="input in-1" type="text" placeholder="Peso" v-model="cattle.weight" />
+                    <input class="input in-1" type="number" placeholder="Peso" v-model="cattle.weight" />
                     <div class="select in-1">
                         <select class="select" v-model="cattle.gender">
                             <option value="undefined" disabled hidden>Gênero</option>
@@ -149,11 +149,24 @@ export default class cattleInsertForm extends Vue {
                 this.onClickClean();
             },
             (error) => {
-                this.notification = this.notification.new(
-                    true,
-                    "notification is-danger",
-                    "Erro: " + error.data
-                );
+                console.log(error);
+                if (error.response.status == 500) {
+                    const notifications = error.response.data.map((item) => {
+                        return item.message;
+                    });
+                    this.notification = this.notification.new(
+                        true,
+                        "notification is-danger",
+                        notifications.join('\r\n<br/>')
+                    );
+                }
+                else {
+                    this.notification = this.notification.new(
+                        true,
+                        "notification is-danger",
+                        "Error: " + error.response.data
+                    );
+                }
                 this.onClickClean();
             }
         );
