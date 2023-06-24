@@ -160,7 +160,7 @@
           </section>
           <footer class="modal-card-foot is-flex is-justify-content-center">
             <button class="button btn-back" @click="disableEvent" >
-              Deletar Especie
+              Deletar
             </button>
             <button class="button btn-cad" @click="openDelete">Voltar</button>
           </footer>
