@@ -1,16 +1,16 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Eventos > Vacinas</p>
+      <p class="is-size-4 pt-5 pl-5">Eventos <b>> Vacinas</b></p>
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <div class="ativos p-2">
               <div class="icon-ativos">
-                <img style="width: 30px;"  src="@/assets/vacineIcon.png" alt="Guerin" />
+                <img style="width: 35px;"  src="@/assets/vacineIcon.png" alt="Guerin" />
               </div>
               <h1
-                  class="text-ativos has-text-weight-bold is-size-5"
+                  class="text-ativos has-text-weight-bold is-size-4"
                   style="color: black"
               >
                 Vacinas Ativas
@@ -18,7 +18,7 @@
 
               <div>
                 <h1
-                    class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+                    class="is-size-4 is-flex is-justify-content-flex-end pr-2"
                     style="color: #004aad"
                     span
                 >
@@ -114,7 +114,7 @@
                 <button
                     v-if="!props.row.inactive"
                     class="button is-danger is-outlined"
-                    @click="disableVaccine(props.row.id)"
+                    @click="onClickPageDisable(props.row.id)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-trash"></i>
@@ -123,7 +123,7 @@
                 <button
                     v-else-if="props.row.inactive"
                     class="button is-success is-outlined"
-                    @click="enableVaccine(props.row.id)"
+                    @click="onClickPageEnable(props.row.id)"
                 >
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>
@@ -184,6 +184,13 @@ export default class VaccineList extends Vue {
     this.$router.push({ name: "vaccine-detail", params: { id: id } });
   }
 
+  public onClickPageDisable(id: number) {
+    this.$router.push({ name: "vaccine-disable", params: { id: id } });
+  }
+
+  public onClickPageEnable(id: number) {
+    this.$router.push({ name: "vaccine-enable", params: { id: id } });
+  }
   public listAll(): void {
     VaccineClient.findAll()
         .then((response: any) => {
@@ -224,12 +231,14 @@ export default class VaccineList extends Vue {
 .ativos {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  margin-right: 0px;
+  width: 270px;
   position: relative;
   box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
 }
 .text-ativos {
-  margin-left: 60px;
+  margin-left: 70px;
 }
 .icon-ativos {
   top: -22px;
@@ -238,7 +247,7 @@ export default class VaccineList extends Vue {
   display: flex;
   justify-content: center;
   padding: 8px 8px 8px 8px;
-  width: 55px;
+  width: 60px;
   border-radius: 20px;
   background-color: green;
 }

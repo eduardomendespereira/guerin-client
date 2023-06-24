@@ -1,7 +1,7 @@
 <template>
     <aside class="cattle is-fullheight">
         <div class="text-up columns">
-            <p class="is-size-4 pt-5 pl-5">Ativar <b>> Gado</b></p>
+            <p class="is-size-4 pt-5 pl-5">Gado <b>> Ativar</b></p>
         </div>
         <section class="is-flex is-justify-content-center">
             <div class="insert-back">
@@ -18,12 +18,12 @@
                 </div>
                 <hr class="line" size="100" width="900" />
                 <div class="btns">
-                    <button @click="onClickActive()" class="button btn-cad">
-                        Ativar
-                    </button>
                     <router-link to="/gados">
                         <button class="button btn-back">Cancelar</button>
                     </router-link>
+                    <button @click="onClickActive()" class="button btn-cad">
+                        Ativar
+                    </button>
                 </div>
             </div>
         </section>
@@ -144,13 +144,13 @@ export default class cattleDetail extends Vue {
 }
 
 .btn-cad {
-    background-color: #126b00;
+    background-color: #005bd4;
     color: #ffffff;
     padding: 12px;
 }
 
 .btn-cad:hover {
-    background-color: #126b00;
+    background-color: #0067ee;
     color: white;
     transition: 0.7s;
     box-shadow: 0px 0px 10px #d1d1d1;

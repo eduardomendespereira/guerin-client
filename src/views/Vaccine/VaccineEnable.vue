@@ -1,14 +1,10 @@
 <template>
   <aside class="weight is-fullheight">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Eventos > Vacinas <b>> Desativar</b></p>
+      <p class="is-size-4 pt-5 pl-5">Eventos > Vacinas <b>> Ativar</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-back">
-        <div :class="notification.classe">
-                    <button @click="onClickCloseNotification()" class="delete"></button>
-                    {{ notification.mensagem }}
-                </div>
         <div class="icon-weight">
           <img
               style="width: 70px"
@@ -20,7 +16,7 @@
           <h1
               class="is-size-4 is-flex is-flex-direction-column is-align-items-center"
           >
-            Você tem certeza que deseja desativar esta vacina ?
+            Você tem certeza que deseja ativar esta vacina ?
           </h1>
         </div>
 
@@ -29,7 +25,7 @@
           <router-link to="/eventos/vacinas">
             <button class="button btn-back">Cancelar</button>
           </router-link>
-          <button class="button btn-inactiv" @click="onClickDisable()">Desativar</button>
+          <button class="button btn-inactiv" @click="onClickEnable()">Ativar</button>
         </div>
       </div>
     </section>
@@ -39,44 +35,32 @@
 <script lang="ts">
   import { Vue } from 'vue-class-component';
   import { Vaccine } from "@/model/vaccine.model";
-  import VaccineClient from "@/client/vaccine.client";
+  import vaccineClient from "@/client/vaccine.client";
   import { Prop } from 'vue-property-decorator';
-  import { Notification } from "@/model/notification";
 
-  export default class vaccineDisable extends Vue {
+  export default class VaccineDisable extends Vue {
     private vaccine : Vaccine = new Vaccine()
-    public notification: Notification = new Notification();
 
     @Prop({type: Number, required: false})
     private readonly id!: number
 
     private getVaccine(): any {
-      return VaccineClient.findById(this.id).then(
-        (success) => {
-                this.vaccine = success;
-            },
-            (error) => console.log(error)
-      );
+      return vaccineClient.findById(this.id);
     }
 
     public mounted(): void{
-      this.getVaccine();
     }
 
-    public onClickDisable(): void {
-      VaccineClient.disable(this.vaccine.id)
+    private onClickDisable(){
+      this.vaccine = this.getVaccine()
+      vaccineClient.disable(this.vaccine.id)
           .then(
-              success => {
-                this.notification = this.notification.new(true, "notification is-success", "Vacina desativada com sucesso!");
+              sucess => {
+                window.alert("Vacina desabilitada com sucesso");
               },
-              error => {
-                console.log(error.message)
-                this.notification = this.notification.new(true, "notification is-danger", "Erro: " + error.data);
-              }
+              error => console.log(error.message)
           )
-    }
-    public onClickCloseNotification(): void {
-        this.notification = new Notification();
+      this.$router.push({name: 'vaccine'})
     }
   }
 

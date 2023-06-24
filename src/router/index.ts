@@ -69,6 +69,13 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: Guard.auth,
       },
       {
+        path: "/eventos/vacinas/ativar/:id",
+        name: "vaccine-enable",
+        props: (router) => ({ id: router.params.id }),
+        component: () => import("../views/Vaccine/VaccineEnable.vue"),
+        beforeEnter: Guard.auth,
+      },
+      {
         path: "/eventos/vacinas/atualizar/:id",
         name: "vaccine-update",
         props: (router) => ({ id: router.params.id }),

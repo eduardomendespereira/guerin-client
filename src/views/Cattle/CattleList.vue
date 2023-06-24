@@ -1,13 +1,13 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Gados</p>
+      <p class="is-size-4 pt-5 pl-5"><b>Gados</b></p>
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <!-- <article class="tile is-child box"> -->
-              <div class="columns is-flex is-justify-content-space-between">
-                <div class="activates">
+              <div class="columns is-flex is-justify-content-space-between" style="margin-bottom: 0px;">
+                <div class="activates p-2">
                   <div class="icon-activates">
                     <img
                       style="width: 40px"
@@ -57,7 +57,7 @@
                     </h1>
                   </div>
                 </div>
-                <div class="activates p-2">
+                <div class="activates p-2" style="margin-right: 12px;">
                   <div class="icon-activates-male">
                     <img style="width: 60px" src="../../assets/oxIcon.png" alt="Guerin" />
                   </div>

@@ -1,14 +1,14 @@
 <template>
   <div class="form-vaccine">
     <div class="columns">
-      <div class="column is-12 is-size-3">
-        Vacinas > Editar
+      <div class="text-up columns">
+            <p class="is-size-4 pt-5 pl-5">Editar <b>> Vacinas</b></p>
       </div>
     </div>
 
     <div class="content-form">
       <div class="align-icon-container">
-        <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
+        <img style="width: 100px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
       </div>
 
       <br/>
@@ -23,25 +23,25 @@
       </div>
 
       <div class="container-inputs">
-        <div class="control">
+        <div class="control is-flex is-flex-direction-column ">
           <input class="input" style="width: 300px" type="text" v-model="vaccine.name" placeholder="Nome da vacina">
-        </div>
-
-        <div class="field-required">
-          <label class="label">
+          <div class="is-flex is-justify-content-center mt-2">
+            <label class="label">
             <input v-model="vaccine.required" checked type="checkbox">
             Obrigatória
           </label>
+          </div>
         </div>
       </div>
+      <hr class="line" size="100" width="1000" />
       <div class="container-buttons">
         <div class="container-boptions">
           <router-link class="link-cad" to="/eventos/vacinas">
-            <button class="button is-danger btn-voltar is-fullwidth">Voltar</button>
+            <button class="button btn-back is-fullwidth">Voltar ao Menu</button>
           </router-link>
         </div>
         <div class="container-boptions">
-          <button class="button is-fullwidth is-link" @click="onClickEdit()">Atualizar</button>
+          <button class="button is-fullwidth btn-cad" @click="onClickEdit()">Editar Vacina</button>
         </div>
       </div>
     </div>
@@ -102,14 +102,16 @@ export default class VaccineInsertForm extends Vue {
 <style lang="scss" scoped>
 .form-vaccine{
   width: 100%;
-  padding: 0px 30px 0px 30px;
-  background-color: lightgray;
+  padding: 12px 30px 0px 24px;
+  background-color: #f1f5f9;
 }
 .content-form{
   background-color: white;
-  width: 100%;
+  width: 94%;
   border-radius: 10px;
-  padding: 20px;
+  padding: 50px;
+  margin: 40px;
+  box-shadow: 0px 0px 10px #d1d1d1;
 }
 .align-icon-container{
   display: flex;
@@ -118,16 +120,45 @@ export default class VaccineInsertForm extends Vue {
 .container-inputs{
   display: flex;
   flex-direction: row;
-  margin-top: 200px;
+  margin-top: 80px;
   justify-content: space-evenly;
 }
 .container-buttons{
   display: flex;
-  margin-top: 200px;
+  margin-top: 20px;
   justify-content: space-evenly;
 }
 .container-boptions{
   width: 300px;
 }
 
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-back {
+    background-color: #c20101;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-back:hover {
+    background-color: #da0000;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.line{
+  margin-top: 50px;
+}
 </style>

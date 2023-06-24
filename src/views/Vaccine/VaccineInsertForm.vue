@@ -1,12 +1,12 @@
 <template>
-  <main class="farm is-fullheight">
+  <main class="vaccine is-fullheight" style="padding: 0px;">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Vacina</b></p>
+      <p class="is-size-4 pt-5 pl-5" >Cadastro <b>> Vacina</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-background-vaccine">
         <div>
-          <img style="width: 140px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
+          <img style="width: 100px; background-color: darkgreen; border-radius: 15px"  src="../../assets/vacineIcon.png" />
         </div>
 
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
@@ -37,21 +37,22 @@
                     v-model="vaccine.name"
                 />
               </p>
-            </div>
-            <div class="field required" style="display: flex; align-items: center; padding: 5px;" >
+              <div class="field required is-flex is-justify-content-center mt-2" style="display: flex; align-items: center; padding: 5px;" >
               <label class="label" style="color: black">
                 <input v-model="vaccine.required" type="checkbox">
                 Obrigatória
               </label>
             </div>
+            </div>
+            
           </div>
         </div>
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/eventos/vacinas">
-            <button class="button is-danger">Voltar</button>
+            <button class="button btn-back">Voltar</button>
           </router-link>
-          <button @click="onClickSave()" class="button is-link">Salvar</button>
+          <button @click="onClickSave()" class="button btn-cad">Cadastrar Vacina</button>
         </div>
       </div>
     </section>
@@ -134,6 +135,32 @@ export default class VaccineInsertForm extends Vue {
 }
 input[type=checkbox] {
   transform: scale(1.5);
+}
+
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
 }
 
 </style>
