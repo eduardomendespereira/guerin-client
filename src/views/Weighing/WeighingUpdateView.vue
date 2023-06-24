@@ -117,7 +117,14 @@ export default class WeightUpdate extends Vue {
   }
 
   public updateWeighing() {
-    console.dir(this.weighing)
+    let formattedDate = new Date(this.weighing.date).toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    }).replace(/[/.,]/g, '-');
     this.weighingClient.update(this.weighing).then(
       (sucess: any) => {
         this.notification = this.notification.new(
