@@ -1,7 +1,7 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Fazendas</p>
+      <p class="is-size-4 pt-5 pl-5"><b>Fazendas</b></p>
       <div class="is-size-4 pt-5 pl-5">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
@@ -224,9 +224,11 @@ export default class FarmList extends Vue {
 .activates {
   background-color: white;
   margin-top: 45px;
-  margin-right: 40px;
+  margin-right: 0px;
   position: relative;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px #d1d1d1;
+  width: 280px;
 }
 .icon-activates {
   top: -22px;
@@ -240,7 +242,7 @@ export default class FarmList extends Vue {
   background-color: #ffb800;
 }
 .text-activates {
-  margin-left: 60px;
+  margin-left: 65px;
 }
 .tag {
   border-radius: 50px;

@@ -1,7 +1,7 @@
 <template>
     <main class="is-fullheight" style="width: 100%; overflow: auto">
       <div class="columns is-flex is-justify-content-space-between">
-        <p class="is-size-4 pt-5 pl-5">Controle de Lactação</p>
+        <p class="is-size-4 pt-5"><b>Controle de Lactação</b></p>
         <div class="is-size-4 pt-5 pl-5">
           <div class="tile is-ancestor">
             <div class="tile is-parent">
@@ -30,7 +30,12 @@
         </div>
       </div>     
       <div class="columns is-flex">
-        <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+        <div class="is-size-12 pt-5 pl-5" style="
+          width: 100%;
+          text-align: center;
+          padding: 0px !important;
+          margin: 20px 0px;
+        ">
           <vue-good-table
               ref="lactationTable"
               :columns="columns"
@@ -115,12 +120,14 @@
   .ativos {
     background-color: white;
     margin-top: 45px;
-    margin-right: 40px;
+    margin-right: 0px;
     position: relative;
     box-shadow: 0px 0px 10px #d1d1d1;
+    border-radius: 10px;
+    width: 280px;
   }
   .text-ativos {
-    margin-left: 60px;
+    margin-left: 65px;
   }
   .icon-ativos {
     top: -22px;
@@ -129,7 +136,7 @@
     display: flex;
     justify-content: center;
     padding: 8px 8px 8px 8px;
-    width: 55px;
+    width: 60px;
     border-radius: 20px;
     background-color: green;
   }

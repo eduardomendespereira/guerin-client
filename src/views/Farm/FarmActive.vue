@@ -14,16 +14,16 @@
                 </div>
 
                 <div class="form">
-                    <p style="font-size: 1.2rem;">Você tem certeza que deseja ativar esta Fazenda ?</p>
+                    <p style="font-size: 1.2rem;">Você tem certeza que deseja ativar esta Fazenda?</p>
                 </div>
                 <hr class="line" size="100" width="900" />
                 <div class="btns">
-                    <button @click="onClickActive()" class="button btn-cad">
-                        Ativar
-                    </button>
                     <router-link to="/fazendas">
                         <button class="button btn-back">Cancelar</button>
                     </router-link>
+                    <button @click="onClickActive()" class="button btn-cad">
+                        Ativar
+                    </button>
                 </div>
             </div>
         </section>
@@ -143,13 +143,13 @@ export default class farmDetail extends Vue {
 }
 
 .btn-cad {
-    background-color: #126b00;
+    background-color: #005bd4;
     color: #ffffff;
     padding: 12px;
 }
 
 .btn-cad:hover {
-    background-color: #126b00;
+    background-color: #0067ee;
     color: white;
     transition: 0.7s;
     box-shadow: 0px 0px 10px #d1d1d1;
