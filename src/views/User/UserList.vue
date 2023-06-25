@@ -1,24 +1,35 @@
 <template>
   <main class="is-fullheight" style="width: 100%; overflow: auto">
     <div class="columns is-flex is-justify-content-space-between">
-      <p class="is-size-4 pt-5 pl-5">Usuarios</p>
-      <div class="is-size-4 pt-5 pl-5">
-        <div class="tile is-ancestor">
-          <div class="tile is-parent">
-            <article class="tile is-child box">
-              <p class="title"><i class="fa fa-users"> Usuarios Ativos</i></p>
-              <p class="subtitle" style="float: right">
-                <span style="font-size: 12pt" class="tag is-info">{{
-                  count
-                }}</span>
-              </p>
-            </article>
-          </div>
+      <p class="is-size-4 pt-5"><b>Usuários</b></p>
+      <div class="activates p-2">
+        <div class="icon-activates">
+          <img
+            style="width: 40px"
+            src="../../assets/userIcon.png"
+            alt="Guerin"
+          />
+        </div>
+        <h1
+          class="text-activates has-text-weight-bold is-size-5"
+          style="color: black"
+        >
+          Usuários Ativos
+        </h1>
+
+        <div>
+          <h1
+            class="is-size-5 is-flex is-justify-content-flex-end pr-2"
+            style="color: #004aad"
+            span
+          >
+            {{ count }}
+          </h1>
         </div>
       </div>
     </div>
     <div class="columns is-flex">
-      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+      <div class="is-size-12 pt-5" style="width: 100%">
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <article class="tile is-child box">
@@ -33,11 +44,17 @@
       </div>
     </div>
     <div class="columns is-flex">
-      <div class="is-size-12 pt-5 pl-5" style="width: 100%">
+      <div class="is-size-12 pt-5 pl-5" style="
+          width: 100%;
+          text-align: center;
+          padding: 0px !important;
+          margin: 20px 0px;
+        ">
         <vue-good-table
           ref="usertable"
           :columns="columns"
           :rows="rows"
+          styleClass="vgt-table striped"
           :search-options="{
             enabled: true,
             placeholder: 'Buscar...',
@@ -196,3 +213,31 @@ export default class UserList extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.activates {
+  background-color: white;
+  margin-top: 45px;
+  margin-right: 0px;
+  position: relative;
+  box-shadow: 0px 0px 10px #d1d1d1;
+  border-radius: 10px;
+  width: 280px;
+}
+
+.icon-activates {
+  top: -22px;
+  left: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 8px 8px 8px 8px;
+  width: 60px;
+  border-radius: 20px;
+  background-color: #3c00ff;
+}
+
+.text-activates {
+  margin-left: 70px;
+}
+</style>

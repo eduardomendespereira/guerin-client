@@ -1,14 +1,13 @@
 <template>
   <main class="farm is-fullheight">
     <div class="text-up columns">
-      <p class="is-size-4 pt-5 pl-5">Cadastro <b>> Usuario</b></p>
+      <p class="is-size-4">Cadastro <b>> Usuario</b></p>
     </div>
     <section class="is-flex is-justify-content-center">
       <div class="insert-background">
         <div class="icon-user">
-          <i class="fa fa-users fa-5x"></i>
+          <img style="width: 100px; padding: 10px; background-color: #3c00ff; border-radius: 15px"  src="../../assets/userIcon.png" />
         </div>
-
         <div class="columns" v-if="notification.ativo" style="margin-top: 5%">
           <div class="column is-12">
             <div :class="notification.classe">
@@ -91,9 +90,9 @@
         <hr class="line" size="100" width="1000" />
         <div class="btns">
           <router-link to="/usuarios">
-            <button class="button is-danger">Voltar</button>
+            <button class="button btn-back">Voltar</button>
           </router-link>
-          <button @click="onClickSave()" class="button is-link">Salvar</button>
+          <button @click="onClickSave()" class="button btn-cad">Editar Usuário</button>
         </div>
       </div>
     </section>
@@ -200,5 +199,31 @@ export default class UserEdit extends Vue {
     margin: 30px;
     width: 300px;
   }
+}
+
+.btn-back {
+  background-color: #ab0303;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-back:hover {
+  background-color: #d10000;
+  color: white;
+  transition: 0.7s;
+  box-shadow: 0px 0px 10px #d1d1d1;
+}
+
+.btn-cad {
+    background-color: #005bd4;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.btn-cad:hover {
+    background-color: #0067ee;
+    color: white;
+    transition: 0.7s;
+    box-shadow: 0px 0px 10px #d1d1d1;
 }
 </style>
