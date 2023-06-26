@@ -262,14 +262,23 @@ export default class CattleList extends Vue {
   rows = [];
 
   public mounted(): void {
+   
     this.cattleClient = new CattleClient();
     this.listAllCattles();
     this.countCattle();
     this.countCattleFemale();
     this.countCattleMale();
+    const reloaded = localStorage.getItem('reloaded');
+    if (reloaded !== 'true') {
+       localStorage.setItem('reloaded', 'true');
+       window.location.reload()
+    }  
+   
+   
   }
 
   public listAllCattles(): void {
+   
     this.cattleClient.findAll().then(
       (success: any) => {
         this.rows = success.data;

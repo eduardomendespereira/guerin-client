@@ -41,7 +41,7 @@ export default {
       setCookie("access_token", newToken.access_token, { expires: 1 });
       setCookie("refresh_token", newToken.refresh_token, { expires: 4 });
     }
-
+    
     next();
   },
 };

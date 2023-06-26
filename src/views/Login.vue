@@ -85,6 +85,7 @@ export default class Login extends Vue {
   private request = { username: "", password: "" };
   private notification: Notification = new Notification();
   public mounted(): void {
+    localStorage.setItem('reloaded', 'false');
     removeCookie("access_token");
     removeCookie("refresh_token");
   }
@@ -99,6 +100,7 @@ export default class Login extends Vue {
         }
         localStorage.setItem("user", this.request.username);
         this.$router.push({ path: "/gados" });
+        
       })
 
       .catch((error) => {
